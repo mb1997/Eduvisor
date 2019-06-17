@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-<%@ taglib name="forms" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form" %> 
 <!-- ALL ELEMENTS WILL BE PLACED IN THE HEADER.JSP FILE
 SO ONLY THING YOU NEED TO DO IS TO CREATE SECTION WITH CLASS CONTAINER AND MAIN-CONTENT
 
@@ -26,23 +26,23 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 					<div class="page-content">
 						<h2>Login</h2>
 						<div class="form-style form-style-3">
-							<forms:form>
+							<forms:form commandName="login">
 								<div class="form-inputs clearfix">
 									<p class="login-text">
-										<forms:input type="text" value="Username" />
+										<forms:input type="email" path="email" />
 										<i class="icon-user"></i>
 									</p>
 									<p class="login-password">
-										<forms:input type="password" value="Password" />
+										<forms:input type="password" path="password" />
 										<i class="icon-lock"></i>
 										<a href="#">Forget</a>
 									</p>
-								</div>
+								</div> 
 								<p class="form-submit login-submit">
 									<input type="submit" value="Log in" class="button color small login-submit submit">
 								</p>
 								<div class="rememberme">
-									<label><forms:input type="checkbox" /> Remember Me</label>
+									<label><input type="checkbox" /> Remember Me</label>
 								</div>
 							</forms:form>
 						</div>
@@ -57,35 +57,35 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 					<div class="page-content">
 						<h2>Register Now</h2>
 						<div class="form-style form-style-3">
-							<forms:form>
+							<forms:form commandName="register">
 								<div class="form-inputs clearfix">
 									<p>
 										<label class="required">Name<span>*</span></label>
-										<forms:input type="text" />
+										<forms:input type="text" path="name" />
 									</p>
 									<p>
 										<label class="required">E-Mail<span>*</span></label>
-										<forms:input type="email" />
+										<forms:input type="email" path="email" />
 									</p>
 									<p>
 										<label class="required">Contact Number<span>*</span></label>
-										<forms:input type="text" />
+										<forms:input type="text" path="contact_number" />
 									</p>
 									<p>
 										<label class="required">Current Profession<span>*</span></label>
-										<forms:select>
-											<option selected disabled>Select Profession</option>
-											<option>Student</option>
-											<option>Professor</option>
+										<forms:select path="profession">
+											<forms:option value="Select Profession"/>
+											<forms:option value="Student" />
+											<forms:option value="Profession" />
 										</forms:select>
 									</p>
 									<p>
 										<label class="required">Password<span>*</span></label>
-										<forms:input type="password" />
+										<forms:input type="password" path="password" />
 									</p>
 									<p>
 										<label class="required">Confirm Password<span>*</span></label>
-										<forms:input type="password" />
+										<forms:input type="password" path="cnf_password"/>
 									</p>
 								</div>
 								<p class="form-submit">

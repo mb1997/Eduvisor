@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-<%@ taglib name="forms" uri="http://www.springframework.org/tags/form" %>
 <!-- ALL ELEMENTS WILL BE PLACED IN THE HEADER.JSP FILE
 SO ONLY THING YOU NEED TO DO IS TO CREATE SECTION WITH CLASS CONTAINER AND MAIN-CONTENT
 
