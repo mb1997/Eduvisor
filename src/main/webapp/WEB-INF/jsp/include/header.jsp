@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import="com.application.model.*" %>
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
@@ -41,7 +44,11 @@
 					<li><a href="index.html">Home</a></li>
 					<li><a href="">Ask Question</a></li>
 					<li><a href="">Questions</a></li>
-					<li><a href="">User</a>
+					<% 
+					if(session.getAttribute("user") != null)
+					{
+					%>
+					<li><a href=""> ${user.name} </a>
 						<ul>
 							<li><a href="">User Profile</a></li>
 							<li><a href="">User Questions</a></li>
@@ -49,7 +56,13 @@
 							<li><a href="">Edit Profile</a></li>
 						</ul>
 					</li>
+					<li><a href="/logout">Logout</a></li>
+					<%
+					}
+					else {
+					%>
 					<li><a href="/login">Login / SignUp</a></li>
+					<% } %>
 				</ul>
 			</nav>
 		</section><!-- End container -->

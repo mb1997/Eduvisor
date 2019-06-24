@@ -1,5 +1,6 @@
 package com.application.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -22,6 +24,7 @@ import com.application.service.NotificationService;
 import com.application.service.UserService;
 
 @Controller
+@SessionAttributes
 public class UserController implements WebMvcConfigurer {
 
 	@Autowired
@@ -46,7 +49,7 @@ public class UserController implements WebMvcConfigurer {
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model) {
+	public String login(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model, HttpServletRequest request) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("error", bindingResult);
 			model.addAttribute("register", new User());
@@ -59,6 +62,7 @@ public class UserController implements WebMvcConfigurer {
 		}
 		else {
 			if(user1.isVerified() == true) {
+				request.getSession().setAttribute("user", user1);
 				return "redirect:";
 			}
 			else {
@@ -66,6 +70,12 @@ public class UserController implements WebMvcConfigurer {
 				return "login";
 			}
 		}
+	}
+	
+	@RequestMapping(value="/logout")
+	public String logout(HttpServletRequest request) {
+		request.getSession().setAttribute("user", null);
+		return "redirect:";
 	}
 	
 	@RequestMapping(value="/register", method = RequestMethod.GET)
