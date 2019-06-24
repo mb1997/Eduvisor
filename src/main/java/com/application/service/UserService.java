@@ -15,17 +15,19 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public boolean create(User user) {
+	public User create(User user) {
 		user.setTokenID(UUID.randomUUID().toString());
-		User user1 = userRepository.save(user);
-		if(user1 == null) 
-			return false;
-		else
-			return true;
+		User user1 = userRepository.save(user); 
+		return user1;
 	}
 	
 	public User getUser(Login user) {
 		User user1 = userRepository.findByEmail(user.getEmail(), user.getPassword());
+		return user1;
+	}
+	
+	public User getUser(User user) {
+		User user1 = userRepository.findByEmail(user.getEmail());
 		return user1;
 	}
 	

@@ -28,8 +28,8 @@ public class User {
 	@NotBlank(message = "Password must not be empty")
 	private String password;
 
-	private boolean isVerified;
-	private String tokenID;
+	private boolean isVerified = false;
+	private String tokenID = null;
 
 	public String getName() {
 		return name;
