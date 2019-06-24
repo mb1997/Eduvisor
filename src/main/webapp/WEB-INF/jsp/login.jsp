@@ -18,6 +18,23 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 <!-- REMOVE HEADER STARTS HERE -->
 <jsp:include page="include/header.jsp" />
 <!-- REMOVE HEADER ENDS HERE -->
+	<div class="breadcrumbs">
+		<section class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Login</h1>
+				</div>
+				<div class="col-md-12">
+					<div class="crumbs">
+						<a href="#">Home</a>
+						<span class="crumbs-span">/</span>
+						<span class="current">Login</span>
+					</div>
+				</div>
+			</div><!-- End row -->
+		</section><!-- End container -->
+	</div><!-- End breadcrumbs -->
+	
 	<section class="container main-content">
 		<div class="login">
 			<div class="row">

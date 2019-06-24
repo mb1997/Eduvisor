@@ -4,7 +4,7 @@
 
 	<!-- Basic Page Needs -->
 	<meta charset="utf-8">
-	<title>Ask me – Responsive Questions and Answers Template</title>
+	<title>Ask me Responsive Questions and Answers Template</title>
 	<meta name="description" content="Ask Educational questions and get proper response by experienced professors">
 	<meta name="author" content="DA-IICT">
 	
@@ -49,26 +49,8 @@
 							<li><a href="">Edit Profile</a></li>
 						</ul>
 					</li>
+					<li><a href="/login">Login / SignUp</a></li>
 				</ul>
 			</nav>
 		</section><!-- End container -->
 	</header><!-- End header -->
-	
-	<div class="breadcrumbs">
-		<section class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h1>Login</h1>
-				</div>
-				<div class="col-md-12">
-					<div class="crumbs">
-						<a href="#">Home</a>
-						<span class="crumbs-span">/</span>
-						<a href="#">Pages</a>
-						<span class="crumbs-span">/</span>
-						<span class="current">Login</span>
-					</div>
-				</div>
-			</div><!-- End row -->
-		</section><!-- End container -->
-	</div><!-- End breadcrumbs -->
