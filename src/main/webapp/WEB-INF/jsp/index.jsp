@@ -6,7 +6,7 @@
 	
 	<section class="container main-content">
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-12">
 				
 				<div class="tabs-warp question-tab">
 		            <ul class="tabs">
@@ -769,60 +769,7 @@
 					</div>
 		        </div><!-- End page-content -->
 			</div><!-- End main -->
-			<aside class="col-md-3 sidebar">
-				<div class="widget widget_stats">
-					<h3 class="widget_title">Stats</h3>
-					<div class="ul_list ul_list-icon-ok">
-						<ul>
-							<li><i class="icon-question-sign"></i>Questions ( <span>20</span> )</li>
-							<li><i class="icon-comment"></i>Answers ( <span>50</span> )</li>
-						</ul>
-					</div>
-				</div>
-				
-				<div class="widget widget_social">
-					<h3 class="widget_title">Find Us</h3>
-					<ul>
-						<li class="rss-subscribers">
-							<a href="#" target="_blank">
-							<strong>
-								<i class="icon-rss"></i>
-								<span>Subscribe</span><br>
-								<small>To RSS Feed</small>
-							</strong>
-							</a>
-						</li>
-						<li class="facebook-fans">
-							<a href="#" target="_blank">
-							<strong>
-								<i class="social_icon-facebook"></i>
-								<span>5,000</span><br>
-								<small>People like it</small>
-							</strong>
-							</a>
-						</li>
-						<li class="twitter-followers">
-							<a href="#" target="_blank">
-							<strong>
-								<i class="social_icon-twitter"></i>
-								<span>3,000</span><br>
-								<small>Followers</small>
-							</strong>
-							</a>
-						</li>
-						<li class="youtube-subs">
-							<a href="#" target="_blank">
-							<strong>
-								<i class="icon-play"></i>
-								<span>1,000</span><br>
-								<small>Subscribers</small>
-							</strong>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</aside><!-- End sidebar -->
-		</div><!-- End row -->
+					</div><!-- End row -->
 	</section><!-- End container -->
 	
 <jsp:include page="include/footer.jsp" />
