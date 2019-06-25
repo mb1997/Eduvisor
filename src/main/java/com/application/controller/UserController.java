@@ -1,6 +1,5 @@
 package com.application.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -24,7 +22,6 @@ import com.application.service.NotificationService;
 import com.application.service.UserService;
 
 @Controller
-@SessionAttributes
 public class UserController implements WebMvcConfigurer {
 
 	@Autowired
@@ -49,7 +46,7 @@ public class UserController implements WebMvcConfigurer {
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model, HttpServletRequest request) {
+	public String login(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("error", bindingResult);
 			model.addAttribute("register", new User());
@@ -62,7 +59,6 @@ public class UserController implements WebMvcConfigurer {
 		}
 		else {
 			if(user1.isVerified() == true) {
-				request.getSession().setAttribute("user", user1);
 				return "redirect:";
 			}
 			else {
@@ -70,12 +66,6 @@ public class UserController implements WebMvcConfigurer {
 				return "login";
 			}
 		}
-	}
-	
-	@RequestMapping(value="/logout")
-	public String logout(HttpServletRequest request) {
-		request.getSession().setAttribute("user", null);
-		return "redirect:";
 	}
 	
 	@RequestMapping(value="/register", method = RequestMethod.GET)
@@ -87,14 +77,23 @@ public class UserController implements WebMvcConfigurer {
 	
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("register") User user, BindingResult bindingResult, WebRequest request, Model model) {
-		
+	
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("error", bindingResult);
 			model.addAttribute("login", new User());
 			return "login";
 		}
-		if(userService.getUser(user) != null) {
-			User registeredUser = userService.create(user);
+		
+		User registeredUser = new User();
+		String userEmail = user.getEmail();
+		String userName = user.getName();
+		
+		registeredUser = notificationservice.findUserByEmail(userEmail);
+		if(registeredUser!=null) {
+		    model.addAttribute("error","There is already an account with this username: " + userName);
+		    return "redirect:login";
+		}
+			registeredUser = userService.create(user);
 			if(registeredUser != null) {
 				try {
 					String appUrl = request.getContextPath();
@@ -108,10 +107,6 @@ public class UserController implements WebMvcConfigurer {
 			else
 				return "redirect:login";
 		}
-		else {
-			return "redirect:login";
-		}
-	}
 	
 	@GetMapping("/confirmRegistration")
 	public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
