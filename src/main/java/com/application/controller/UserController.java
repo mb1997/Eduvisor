@@ -1,5 +1,6 @@
 package com.application.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,10 @@ public class UserController implements WebMvcConfigurer {
 	}
 	
 	@RequestMapping(value="/login")
-	public String loginPage(Model model) {
+	public String loginPage(Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") != null) {
+			return "redirect:";
+		}
 		model.addAttribute("login", new User());
 		model.addAttribute("register", new User());
 		return "login";
@@ -55,6 +59,7 @@ public class UserController implements WebMvcConfigurer {
 		User user1 = userService.getUser(user);
 		if(user1 == null) {
 			model.addAttribute("register", new User());
+			model.addAttribute("loginError", new String("No account with this mail found"));
 			return "login";
 		}
 		else {
@@ -62,8 +67,16 @@ public class UserController implements WebMvcConfigurer {
 				return "redirect:";
 			}
 			else {
-				model.addAttribute("register", new User());
-				return "login";
+				if(user1.getPassword() != user.getPassword()) {
+					model.addAttribute("register", new User());
+					model.addAttribute("loginError", new String("Invalid Username or password"));
+					return "login";
+				}
+				else {
+					model.addAttribute("register", new User());
+					model.addAttribute("loginError", new String("You are not verified user, so kindly check your mail"));
+					return "login";
+				}
 			}
 		}
 	}
@@ -80,20 +93,11 @@ public class UserController implements WebMvcConfigurer {
 	
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("error", bindingResult);
-			model.addAttribute("login", new User());
+			model.addAttribute("login", new Login());
 			return "login";
 		}
-		
-		User registeredUser = new User();
-		String userEmail = user.getEmail();
-		String userName = user.getName();
-		
-		registeredUser = notificationservice.findUserByEmail(userEmail);
-		if(registeredUser!=null) {
-		    model.addAttribute("error","There is already an account with this username: " + userName);
-		    return "redirect:login";
-		}
-			registeredUser = userService.create(user);
+		if(userService.getUser(user) == null) {
+			User registeredUser = userService.create(user);
 			if(registeredUser != null) {
 				try {
 					String appUrl = request.getContextPath();
@@ -104,9 +108,18 @@ public class UserController implements WebMvcConfigurer {
 				}
 				return "redirect:";
 			}
-			else
-				return "redirect:login";
+			else {
+				model.addAttribute("login", new Login());
+				model.addAttribute("registerError", new String("Unexpected Error! Please try again later"));
+				return "login";
+			}
 		}
+		else {
+			model.addAttribute("login", new Login());
+			model.addAttribute("registerError", new String("Account already exist with corresponding email account"));
+			return "login";
+		}
+	}
 	
 	@GetMapping("/confirmRegistration")
 	public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {

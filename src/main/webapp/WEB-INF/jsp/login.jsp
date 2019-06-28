@@ -46,6 +46,9 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 							<forms:form method="POST" modelAttribute="login" action="login">
 								<forms:errors path="*" cssStyle="color: red; font-size: 20" />
 								<div class="form-inputs clearfix">
+									<p style="border:1px solid red">
+										${loginError}
+									</p>
 									<p class="login-text">
 										<forms:input type="text" path="email" />
 										<i class="icon-user"></i>
@@ -77,20 +80,23 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 						<div class="form-style form-style-3">
 							<forms:form method="POST" modelAttribute="register" action="register">
 								<div class="form-inputs clearfix">
+									<p style="border:1px solid red">
+										${registerError}
+									</p>
 									<p>
 										<label class="required">Name<span>*</span></label>
 										<forms:input type="text" path="name" />
-										<forms:errors path="name" cssStyle="color: red; font-size: 20px;" />
+										<forms:errors path="name" cssStyle="color: red; font-size: 15px;" />
 									</p>
 									<p>
 										<label class="required">E-Mail<span>*</span></label>
 										<forms:input type="email" path="email" />
-										<forms:errors path="email" cssStyle="color: red; font-size: 20px;" />
+										<forms:errors path="email" cssStyle="color: red; font-size: 15px;" />
 									</p>
 									<p>
 										<label class="required">Contact Number<span>*</span></label>
 										<forms:input type="text" path="contactNumber" />
-										<forms:errors path="contactNumber" cssStyle="color: red; font-size: 20px;" />
+										<forms:errors path="contactNumber" cssStyle="color: red; font-size: 15px;" />
 									</p>
 									<p>
 										<label class="required">Current Profession<span>*</span></label>
@@ -99,12 +105,12 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 											<forms:option value="Student" />
 											<forms:option value="Professor" />
 										</forms:select>
-										<forms:errors path="profession" cssStyle="color: red; font-size: 20px;" />
+										<forms:errors path="profession" cssStyle="color: red; font-size: 15px;" />
 									</p>
 									<p>
 										<label class="required">Password<span>*</span></label>
 										<forms:input type="password" path="password" />
-										<forms:errors path="password" cssStyle="color: red; font-size: 20px;" />
+										<forms:errors path="password" cssStyle="color: red; font-size: 15px;" />
 									</p>
 								</div>
 								<p class="form-submit">
@@ -121,13 +127,13 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 			</div><!-- End row -->
 		</div><!-- End login -->
 	</section><!-- End container -->
-	
 
 
 
 
 
-
+<br>
+<br>
 <!-- REMOVE FOOTER STARTS HERE -->
 <jsp:include page="include/footer.jsp" />
 <!-- REMOVE FOOTER ENDS HERE -->
