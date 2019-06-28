@@ -19,13 +19,15 @@ public class User {
 	private String name;
 
 	@NotBlank(message = "Contact number must not be empty")
-	@Size(min = 10, max = 10, message = "Contact number should be of 10 digits")
+	@Size(min = 10, max = 10, message = "Contact number must be of 10 digits")
+	@Pattern(regexp = "^[^0].*", message="Contact number must not start with 0")
 	private String contactNumber;
 
 	@NotBlank(message = "Please select appropriate profession")
 	private String profession;
 
 	@NotBlank(message = "Password must not be empty")
+	@Pattern(regexp ="(?=.*[a-z])(?=.*\\d)(?=.*[A-Z]).{8,40}", message = "Password must contain a lowercase, a uppercase, a digit and it must be greater than 8 characters")
 	private String password;
 
 	private boolean isVerified = false;

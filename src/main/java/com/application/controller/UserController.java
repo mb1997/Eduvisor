@@ -59,7 +59,7 @@ public class UserController implements WebMvcConfigurer {
 		User user1 = userService.getUser(user);
 		if(user1 == null) {
 			model.addAttribute("register", new User());
-			model.addAttribute("loginError", new String("No account with this mail found"));
+			model.addAttribute("loginError", new String("No account with this mail found."));
 			return "login";
 		}
 		else {
@@ -69,12 +69,12 @@ public class UserController implements WebMvcConfigurer {
 			else {
 				if(user1.getPassword() != user.getPassword()) {
 					model.addAttribute("register", new User());
-					model.addAttribute("loginError", new String("Invalid Username or password"));
+					model.addAttribute("loginError", new String("Invalid Username or password."));
 					return "login";
 				}
 				else {
 					model.addAttribute("register", new User());
-					model.addAttribute("loginError", new String("You are not verified user, so kindly check your mail"));
+					model.addAttribute("loginError", new String("You are not verified user, so kindly check your mail."));
 					return "login";
 				}
 			}
@@ -110,13 +110,13 @@ public class UserController implements WebMvcConfigurer {
 			}
 			else {
 				model.addAttribute("login", new Login());
-				model.addAttribute("registerError", new String("Unexpected Error! Please try again later"));
+				model.addAttribute("registerError", new String("Unexpected Error! Please try again later."));
 				return "login";
 			}
 		}
 		else {
 			model.addAttribute("login", new Login());
-			model.addAttribute("registerError", new String("Account already exist with corresponding email account"));
+			model.addAttribute("registerError", new String("Account already exist with corresponding email address."));
 			return "login";
 		}
 	}
