@@ -1,6 +1,7 @@
 package com.application.model;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,7 +13,10 @@ public class Login {
 	@NotBlank(message="Email must not be empty")
 	private String email;
 	
+	private String name;
+	
 	@NotBlank(message="Password must not be empty")
+	@Pattern(regexp ="(?=.*[a-z])(?=.*\\d)(?=.*[A-Z]).{8,40}", message = "Invalid password")
 	private String password;
 
 	private boolean isVerified;
@@ -40,6 +44,12 @@ public class Login {
 	}
 	public void setTokenID(String tokenID) {
 		this.tokenID = tokenID;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return name;
 	}
 	
 }
