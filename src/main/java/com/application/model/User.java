@@ -32,6 +32,15 @@ public class User {
 
 	private boolean isVerified = false;
 	private String tokenID = null;
+	private String[] areaOfInterest;
+	
+	public String[] getAreaOfInterest() {
+		return areaOfInterest;
+	}
+
+	public void setAreaOfInterest(String[] areaOfInterest) {
+		this.areaOfInterest = areaOfInterest;
+	}
 
 	public String getName() {
 		return name;

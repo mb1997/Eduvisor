@@ -1,0 +1,91 @@
+<%@page import="java.util.Arrays"%>
+<%@page import="com.application.model.User"%>
+<%@page import="java.util.List"%>
+<%@page import="com.application.model.AreaOfInterest"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form" %>
+
+<!-- HEADER CODE -->
+<jsp:include page="include/header.jsp"></jsp:include>
+<!-- HEADER CODE -->
+
+<div class="breadcrumbs">
+	<section class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Interests</h1>
+			</div>
+			<div class="col-md-12">
+				<div class="crumbs">
+					<a href="#">Home</a> <span class="crumbs-span">/</span> <span
+						class="current">Interests</span>
+				</div>
+			</div>
+		</div>
+		<!-- End row -->
+	</section>
+	<!-- End container -->
+</div>
+<!-- End breadcrumbs -->
+
+<section class="container main-content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-content">
+				<p>
+				
+				<%
+				User user = (User) session.getAttribute("user");
+				List<String> lis = Arrays.asList(user.getAreaOfInterest());
+				%>
+				
+					<forms:form modelAttribute="user1" action="/updateInterest">
+						<c:forEach var="listValue" items="${interestList}">
+							<!--
+			<div class="col-md-4">
+				<div class="page-content page-shortcode">
+					<div class="box_icon">
+						<span class="t_center icon_i"><span icon_size="120"><i
+								i_color="#1abc9c" i_hover="#34495e"
+								class="icon-tint color_default"
+								style="font-size: 60px; color: rgb(26, 188, 156);"></i></span></span>
+						<div class="t_center">
+							<h3>${listValue}</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			 -->
+
+							<%
+							if(lis.contains(pageContext.getAttribute("listValue")))
+							{
+							%>
+								<forms:checkbox path="areaOfInterest" value="${listValue}" label="${listValue}" checked="true" />
+							<% 
+							} 
+							else
+							{
+							%>
+								<forms:checkbox path="areaOfInterest" value="${listValue}" label="${listValue}" />
+							<%
+							}
+							%>
+						</c:forEach>
+						<input type="submit">
+					</forms:form>
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- FOOTER CODE -->
+<jsp:include page="include/footer.jsp"></jsp:include>
+<!-- FOOTER CODE -->
+
+
+<!-- SCRIPT CODE -->
+<jsp:include page=""></jsp:include>
+<!-- SCRIPT CODE -->

@@ -31,4 +31,8 @@ public class UserService {
 		return user1;
 	}
 	
+	public User updateAreaOfInterest(User user1, String[] interest) {
+		user1.setAreaOfInterest(interest);
+		return userRepository.save(user1);
+	}
 }

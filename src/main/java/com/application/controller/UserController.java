@@ -39,6 +39,13 @@ public class UserController implements WebMvcConfigurer {
 		return "index";
 	}
 	
+	@RequestMapping("/logout")
+	public String logoutFunciton(HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") != null)
+			request.getSession().setAttribute("user", null);
+		return "redirect:";
+	}
+	
 	@RequestMapping(value="/login")
 	public String loginPage(Model model, HttpServletRequest request) {
 		if(request.getSession().getAttribute("user") != null) {
@@ -50,7 +57,7 @@ public class UserController implements WebMvcConfigurer {
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model) {
+	public String login(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model, HttpServletRequest request) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("error", bindingResult);
 			model.addAttribute("register", new User());
@@ -64,6 +71,10 @@ public class UserController implements WebMvcConfigurer {
 		}
 		else {
 			if(user1.isVerified() == true) {
+				request.getSession().setAttribute("user", user1);
+				if(user1.getAreaOfInterest().length == 0) {
+					return "redirect:interest";
+				}
 				return "redirect:";
 			}
 			else {
@@ -82,7 +93,10 @@ public class UserController implements WebMvcConfigurer {
 	}
 	
 	@RequestMapping(value="/register", method = RequestMethod.GET)
-	public String registerPage(Model model) {
+	public String registerPage(Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") != null) {
+			return "redirect:";
+		}
 		model.addAttribute("login", new Login());
 		model.addAttribute("register", new User());
 		return "login";
