@@ -42,5 +42,4 @@ public class Login {
 		this.tokenID = tokenID;
 	}
 	
-	
 }
