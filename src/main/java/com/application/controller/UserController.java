@@ -44,7 +44,7 @@ public class UserController implements WebMvcConfigurer {
 		if(request.getSession().getAttribute("user") != null) {
 			return "redirect:";
 		}
-		model.addAttribute("login", new User());
+		model.addAttribute("login", new Login());
 		model.addAttribute("register", new User());
 		return "login";
 	}
@@ -83,7 +83,7 @@ public class UserController implements WebMvcConfigurer {
 	
 	@RequestMapping(value="/register", method = RequestMethod.GET)
 	public String registerPage(Model model) {
-		model.addAttribute("login", new User());
+		model.addAttribute("login", new Login());
 		model.addAttribute("register", new User());
 		return "login";
 	}
