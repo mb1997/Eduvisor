@@ -97,23 +97,22 @@ public class UserController implements WebMvcConfigurer {
 			model.addAttribute("login", new Login());
 			return "login";
 		}
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(16);
+		String hashpassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(hashpassword);
 		
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
-		user.setPassword(encoder.encode(user.getPassword()));
-		User RegisteredUser = userService.getUser(user);
-		
-		if(RegisteredUser == null) {
+		User user1 = userService.getUser(user);
+		if(user1 == null) {
 			User registeredUser = userService.create(user);
 			if(registeredUser != null) {
 				try {
 					String appUrl = request.getContextPath();
 					eventPublisher.publishEvent(new OnRegistrationSuccessEvent(registeredUser, request.getLocale(),appUrl));
-					model.addAttribute("success", new String("Mail sent to this mail id."));
 				}catch(Exception re) {
 					re.printStackTrace();
 //					throw new Exception("Error while sending confirmation email");
 				}
-				return "redirect:login";
+				return "redirect:";
 			}
 			else {
 				model.addAttribute("login", new Login());
@@ -132,7 +131,7 @@ public class UserController implements WebMvcConfigurer {
 	public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
 		
 		User verificationToken = notificationservice.getVerificationToken(token);
-		if(verificationToken == null) {
+		if(verificationToken == null || verificationToken.isVerified()) {
 			String message = "auth.message.invalidToken";
 			model.addAttribute("message", message);
 			return "redirect:access-denied";
@@ -143,5 +142,4 @@ public class UserController implements WebMvcConfigurer {
 		
 		return "redirect:login";
 	}
-	
 }
