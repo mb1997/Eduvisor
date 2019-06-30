@@ -11,6 +11,7 @@ public class Login {
 
 	@Id
 	@NotBlank(message="Email must not be empty")
+	@Pattern(regexp="^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", message="Enter Valid Email Address")
 	private String email;
 	
 	private String name;

@@ -21,5 +21,4 @@ public class AreaOfInterestService {
 			interests.add(aoi.getName());
 		return interests;
 	}
-	
 }

@@ -39,13 +39,11 @@ public class NotificationService {
 	
 	public User getVerificationToken(String t) {
 		
-		for(User a: userrepository.findAll()) {
-				//System.out.println(a.getUser().getName());
-			if(a.getTokenID().equals(t)) {
-				return a;
-			}
-		}
-		return null;
+		User user = userrepository.findByTokenID(t);
+		if(user != null)
+			return user;
+		else
+			return null;
 //		Token userToken = new Token("hello");
 //		return userToken;
 	}

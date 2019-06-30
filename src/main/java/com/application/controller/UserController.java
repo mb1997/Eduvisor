@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -63,6 +64,8 @@ public class UserController implements WebMvcConfigurer {
 			model.addAttribute("register", new User());
 			return "login";
 		}
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16); // Strength set as 16
+		user.setPassword(encoder.encode(user.getPassword()));
 		User user1 = userService.getUser(user);
 		if(user1 == null) {
 			model.addAttribute("register", new User());
@@ -72,13 +75,20 @@ public class UserController implements WebMvcConfigurer {
 		else {
 			if(user1.isVerified() == true) {
 				request.getSession().setAttribute("user", user1);
-				if(user1.getAreaOfInterest().length == 0) {
+				try 
+				{
+					if(user1.getAreaOfInterest().length == 0) 
+					{
+						return "redirect:interest";
+					}
+				}
+				catch(NullPointerException ex) {
 					return "redirect:interest";
 				}
 				return "redirect:";
 			}
 			else {
-				if(user1.getPassword() != user.getPassword()) {
+				if(encoder.matches(user1.getPassword(), user.getPassword())) {
 					model.addAttribute("register", new User());
 					model.addAttribute("loginError", new String("Invalid Username or password."));
 					return "login";
@@ -139,7 +149,7 @@ public class UserController implements WebMvcConfigurer {
 	public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
 		
 		User verificationToken = notificationservice.getVerificationToken(token);
-		if(verificationToken == null) {
+		if(verificationToken == null || verificationToken.isVerified() == true) {
 			String message = "auth.message.invalidToken";
 			model.addAttribute("message", message);
 			return "redirect:access-denied";
