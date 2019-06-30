@@ -130,7 +130,9 @@ public class UserController implements WebMvcConfigurer {
 					re.printStackTrace();
 //					throw new Exception("Error while sending confirmation email");
 				}
-				return "redirect:";
+				model.addAttribute("login", new Login());
+				model.addAttribute("registerSuccess", new String("Registered Successfully, Kindly check your mail to verify your account and Login again"));
+				return "login";
 			}
 			else {
 				model.addAttribute("login", new Login());
