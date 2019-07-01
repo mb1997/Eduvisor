@@ -1,5 +1,6 @@
 package com.application.model;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -11,7 +12,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
 	@Id
-	@NotBlank(message = "Email must not be empty")
+	@Email(message = "Email must not be empty")
+	@Pattern(regexp="^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", message = "Email Address not valid")
 	private String email;
 
 	@NotBlank(message = "Name must not be empty")

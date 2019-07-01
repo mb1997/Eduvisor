@@ -3,6 +3,8 @@ package com.application.service;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.application.model.Login;
@@ -17,6 +19,9 @@ public class UserService {
 	
 	public User create(User user) {
 		user.setTokenID(UUID.randomUUID().toString());
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(user.getPassword());
+		user.setPassword(hashedPassword);
 		User user1 = userRepository.save(user); 
 		return user1;
 	}

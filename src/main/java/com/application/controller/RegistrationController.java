@@ -62,19 +62,19 @@ public class RegistrationController {
 		return "registrationSuccess";
 	}
 	
-	@GetMapping("/confirmRegistration1")
-	public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
-		
-		User verificationToken = notificationservice.getVerificationToken(token);
-		if(verificationToken == null) {
-			String message = "auth.message.invalidToken";
-			model.addAttribute("message", message);
-			return "redirect:access-denied";
-		}
-		verificationToken.setVerified(true);
-		verificationToken.setTokenID(null);
-		notificationservice.enableRegisteredUser(verificationToken);
-		
-		return "User verified!";
-	}
+//	@GetMapping("/confirmRegistration1")
+//	public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
+//		
+//		User verificationToken = notificationservice.getVerificationToken(token);
+//		if(verificationToken == null) {
+//			String message = "auth.message.invalidToken";
+//			model.addAttribute("message", message);
+//			return "redirect:access-denied";
+//		}
+//		verificationToken.setVerified(true);
+//		verificationToken.setTokenID(null);
+//		notificationservice.enableRegisteredUser(verificationToken);
+//		
+//		return "User verified!";
+//	}
 }

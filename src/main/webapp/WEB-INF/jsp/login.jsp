@@ -30,6 +30,9 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 						<span class="crumbs-span">/</span>
 						<span class="current">Login</span>
 					</div>
+					<p style="border:1px dotted black; text-align: center; font-weight: bolder; font-size: 15px; color: black">
+						${success}
+					</p>
 				</div>
 			</div><!-- End row -->
 		</section><!-- End container -->
