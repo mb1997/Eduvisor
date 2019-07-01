@@ -1,5 +1,7 @@
 package com.application.model;
 
+import java.util.Arrays;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -98,4 +100,12 @@ public class User {
 	public void setTokenID(String tokenID) {
 		this.tokenID = tokenID;
 	}
+
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", name=" + name + ", contactNumber=" + contactNumber + ", profession="
+				+ profession + ", password=" + password + ", isVerified=" + isVerified + ", tokenID=" + tokenID
+				+ ", areaOfInterest=" + Arrays.toString(areaOfInterest) + "]";
+	}
+	
 }

@@ -52,5 +52,9 @@ public class Login {
 	public String getName() {
 		return name;
 	}
-	
+	@Override
+	public String toString() {
+		return "Login [email=" + email + ", name=" + name + ", password=" + password + ", isVerified=" + isVerified
+				+ ", tokenID=" + tokenID + "]";
+	}
 }
