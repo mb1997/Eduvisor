@@ -47,7 +47,6 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 					<h2>Login</h2>
 					<div class="form-style form-style-3">
 						<forms:form method="POST" modelAttribute="login" action="login">
-							<forms:errors path="*" cssStyle="color: red; font-size: 20" />
 							<div class="form-inputs clearfix">
 								<c:if test="${not empty loginError}">
 									<div class="alert-message warning">
@@ -79,9 +78,6 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 							</div>
 						</forms:form>
 					</div>
-					<p style="border:1px dotted black; text-align: center; font-weight: bolder; font-size: 15px; color: black">
-						${success}
-					</p>
 				</div>
 				<!-- End page-content -->
 			</div>
