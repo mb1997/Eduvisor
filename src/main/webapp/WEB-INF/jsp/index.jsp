@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form"%>
+
 <jsp:include page="include/header.jsp" />
 
 
@@ -17,6 +23,15 @@
 		            </ul>
 		            <div class="tab-inner-warp">
 						<div class="tab-inner">
+								<c:if test="${not empty postSuccess}">
+									<div class="alert-message warning">
+										<i class="icon-exclamation-sign"></i>
+										<p>
+											<span>Your Question posted.</span><br> ${postSuccess}
+										</p>
+									</div>
+								</c:if>
+								
 							<article class="question question-type-normal">
 								<h2>
 									<a href="single_question.html">This is my first Question</a>

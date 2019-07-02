@@ -42,7 +42,7 @@
 			<nav class="navigation">
 				<ul>
 					<li><a href="index.html">Home</a></li>
-					<li><a href="">Ask Question</a></li>
+					<li><a href="addQuestion">Ask Question</a></li>
 					<li><a href="">Questions</a></li>
 					<% 
 					if(session.getAttribute("user") != null)
