@@ -19,9 +19,8 @@ public class UserService {
 	
 	public User create(User user) {
 		user.setTokenID(UUID.randomUUID().toString());
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String hashedPassword = passwordEncoder.encode(user.getPassword());
-		user.setPassword(hashedPassword);
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(16);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		User user1 = userRepository.save(user); 
 		return user1;
 	}

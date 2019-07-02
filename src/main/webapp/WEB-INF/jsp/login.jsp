@@ -166,7 +166,13 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 </section>
 <!-- End container -->
 
-
+<script>
+function init() {
+    // Clear forms here
+    document.getElementById("password").value = "";
+}
+window.onload = init;
+</script>
 
 
 

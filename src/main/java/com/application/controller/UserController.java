@@ -65,6 +65,7 @@ public class UserController implements WebMvcConfigurer {
 			model.addAttribute("register", new User());
 			return "login";
 		}
+		String pass = user.getPassword();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16); // Strength set as 16
 		user.setPassword(encoder.encode(user.getPassword()));
 		User user1 = userService.getUser(user);
@@ -74,7 +75,7 @@ public class UserController implements WebMvcConfigurer {
 			model.addAttribute("loginError", new String("No account with this mail found."));
 			return "login";
 		} else {
-			if (encoder.matches(user.getPassword(), user1.getPassword()) == false) {
+			if (encoder.matches(pass, user1.getPassword()) == false) {
 				user.setPassword(null);
 				model.addAttribute("register", new User());
 				model.addAttribute("loginError", new String("Invalid Password"));
@@ -90,7 +91,6 @@ public class UserController implements WebMvcConfigurer {
 				}
 				return "redirect:";
 			} else {
-				user.setPassword(null);
 				model.addAttribute("register", new User());
 				model.addAttribute("loginError", new String("You are not verified user, so kindly check your mail."));
 				return "login";
@@ -141,7 +141,6 @@ public class UserController implements WebMvcConfigurer {
 			}
 		} else {
 			model.addAttribute("login", new Login());
-			user.setPassword(null);
 			model.addAttribute("registerError", new String("Account already exist with corresponding email address."));
 			return "login";
 		}
