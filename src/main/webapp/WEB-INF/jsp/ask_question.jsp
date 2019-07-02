@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
-
+<%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- HEADER INCLUSION CODE -->
 
 <jsp:include page="include/header.jsp"></jsp:include>
@@ -40,21 +40,36 @@
 				<div class="page-content ask-question">
 					<div class="boxedtitle page-title"><h2>Ask Question</h2></div>
 					<div class="form-style form-style-3" id="question-submit">
-						<form>
+						<forms:form modelAttribute="question" action="/addQuestion">
+						<!-- modelAttribute will have value of variable sent to the page over get request.
+						Action URL will have link where the insert query is mapped by the controller.
+						The mapped function on controller will have to access the form by creating object of modelAttribute to Post object
+						
+						EG: @RequestMapping(value = "/addQuestion", method = RequestMethod.POST)
+						public String AddQuestion(@ModelAttribute("question") Post post) {
+							//The post variable will have all the data inputted by the user....
+						}
+						 -->
 							<div class="form-inputs clearfix">
 								<p>
 									<label class="required">Question Title<span>*</span></label>
-									<input type="text" id="question-title">
+									<forms:input type="text" path="title" />
+									<forms:errors path="title" cssStyle="color: black; font-size: 15px;" />
 									<span class="form-description">Please choose an appropriate title for the question to answer it even easier .</span>
 								</p>
 								<p>
 									<label class="required">Category<span>*</span></label>
 									<span class="styled-select">
+										<!-- 
 										<select>
 											<option value="">Select a Category</option>
 											<option value="1">Category 1</option>
 											<option value="2">Category 2</option>
 										</select>
+										 -->
+										 <forms:select path="category" value="${category}" ></forms:select>
+										 <!-- Value will contain value of the variable having list of area of interest -->
+										 <forms:errors path="category" cssStyle="color: black; font-size: 15px;" />
 									</span>
 									<span class="form-description">Please choose the appropriate section so easily search for your question .</span>
 								</p>
@@ -62,14 +77,18 @@
 							<div id="form-textarea">
 								<p>
 									<label class="required">Details<span>*</span></label>
+									<!-- 
 									<textarea id="question-details" aria-required="true" cols="58" rows="8"></textarea>
+									 -->
+									 <forms:textarea path="description" />
+									 <forms:errors path="description" cssStyle="color: black; font-size: 15px;" />
 									<span class="form-description">Type the description thoroughly and in detail .</span>
 								</p>
 							</div>
 							<p class="form-submit">
 								<input type="submit" id="publish-question" value="Publish Your Question" class="button color small submit">
 							</p>
-						</form>
+						</forms:form>
 					</div>
 				</div><!-- End page-content -->
 			</div><!-- End main -->
