@@ -151,7 +151,7 @@ public class UserController implements WebMvcConfigurer {
 	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token) {
 
 		User verificationToken = notificationservice.getVerificationToken(token);
-		if (verificationToken == null || verificationToken.isVerified() == true) {
+		if(verificationToken == null || verificationToken.isVerified()) {
 			String message = "auth.message.invalidToken";
 			model.addAttribute("message", message);
 			return "redirect:access-denied";
@@ -162,5 +162,4 @@ public class UserController implements WebMvcConfigurer {
 
 		return "redirect:login";
 	}
-
 }
