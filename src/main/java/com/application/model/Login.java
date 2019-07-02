@@ -11,6 +11,7 @@ public class Login {
 
 	@Id
 	@NotBlank(message="Email must not be empty")
+	@Pattern(regexp="^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", message="Enter Valid Email Address")
 	private String email;
 	
 	private String name;
@@ -51,5 +52,9 @@ public class Login {
 	public String getName() {
 		return name;
 	}
-	
+	@Override
+	public String toString() {
+		return "Login [email=" + email + ", name=" + name + ", password=" + password + ", isVerified=" + isVerified
+				+ ", tokenID=" + tokenID + "]";
+	}
 }

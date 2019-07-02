@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import com.application.model.Login;
@@ -36,4 +36,13 @@ public class UserService {
 		return user1;
 	}
 	
+	public User updateAreaOfInterest(User user1, String[] interest) {
+		user1.setAreaOfInterest(interest);
+		return userRepository.save(user1);
+	}
+	
+	public boolean checkAoI(User user) {
+		//userRepository.findByAreaOfInterestExists(true);
+		return true;
+	}
 }

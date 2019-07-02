@@ -1,5 +1,7 @@
 package com.application.model;
 
+import java.util.Arrays;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -34,6 +36,15 @@ public class User {
 
 	private boolean isVerified = false;
 	private String tokenID = null;
+	private String[] areaOfInterest;
+	
+	public String[] getAreaOfInterest() {
+		return areaOfInterest;
+	}
+
+	public void setAreaOfInterest(String[] areaOfInterest) {
+		this.areaOfInterest = areaOfInterest;
+	}
 
 	public String getName() {
 		return name;
@@ -90,4 +101,12 @@ public class User {
 	public void setTokenID(String tokenID) {
 		this.tokenID = tokenID;
 	}
+
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", name=" + name + ", contactNumber=" + contactNumber + ", profession="
+				+ profession + ", password=" + password + ", isVerified=" + isVerified + ", tokenID=" + tokenID
+				+ ", areaOfInterest=" + Arrays.toString(areaOfInterest) + "]";
+	}
+	
 }

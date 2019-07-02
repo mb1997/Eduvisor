@@ -38,7 +38,10 @@ public class NotificationService {
 	
 	public User getVerificationToken(String t) {
 		User user = userrepository.findByTokenID(t);
-		return user;
+		if(user != null)
+			return user;
+		else
+			return null;
 	}
 	
 	public void enableRegisteredUser(User user) {

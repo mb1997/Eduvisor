@@ -28,108 +28,128 @@ public class UserController implements WebMvcConfigurer {
 
 	@Autowired
 	private ApplicationEventPublisher eventPublisher;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private NotificationService notificationservice;
-	
+
 	@RequestMapping("/")
 	public String homePage() {
 		return "index";
 	}
-	
-	@RequestMapping(value="/login")
+
+	@RequestMapping("/logout")
+	public String logoutFunciton(HttpServletRequest request) {
+		if (request.getSession().getAttribute("user") != null)
+			request.getSession().setAttribute("user", null);
+		return "redirect:";
+	}
+
+	@RequestMapping(value = "/login")
 	public String loginPage(Model model, HttpServletRequest request) {
-		if(request.getSession().getAttribute("user") != null) {
+		if (request.getSession().getAttribute("user") != null) {
 			return "redirect:";
 		}
 		model.addAttribute("login", new Login());
 		model.addAttribute("register", new User());
 		return "login";
 	}
-	
-	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()) {
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model,
+			HttpServletRequest request) {
+		if (bindingResult.hasErrors()) {
 			model.addAttribute("error", bindingResult);
 			model.addAttribute("register", new User());
 			return "login";
 		}
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16); // Strength set as 16
+		user.setPassword(encoder.encode(user.getPassword()));
 		User user1 = userService.getUser(user);
-		if(user1 == null) {
+		if (user1 == null) {
+			user.setPassword(null);
 			model.addAttribute("register", new User());
 			model.addAttribute("loginError", new String("No account with this mail found."));
 			return "login";
-		}
-		else {
-			if(user1.isVerified() == true) {
+		} else {
+			if (encoder.matches(user.getPassword(), user1.getPassword()) == false) {
+				user.setPassword(null);
+				model.addAttribute("register", new User());
+				model.addAttribute("loginError", new String("Invalid Password"));
+				return "login";
+			} else if (user1.isVerified() == true) {
+				request.getSession().setAttribute("user", user1);
+				try {
+					if (user1.getAreaOfInterest().length == 0) {
+						return "redirect:interest";
+					}
+				} catch (NullPointerException ex) {
+					return "redirect:interest";
+				}
 				return "redirect:";
-			}
-			else {
-				if(user1.getPassword() != user.getPassword()) {
-					model.addAttribute("register", new User());
-					model.addAttribute("loginError", new String("Invalid Username or password."));
-					return "login";
-				}
-				else {
-					model.addAttribute("register", new User());
-					model.addAttribute("loginError", new String("You are not verified user, so kindly check your mail."));
-					return "login";
-				}
+			} else {
+				user.setPassword(null);
+				model.addAttribute("register", new User());
+				model.addAttribute("loginError", new String("You are not verified user, so kindly check your mail."));
+				return "login";
 			}
 		}
 	}
-	
-	@RequestMapping(value="/register", method = RequestMethod.GET)
-	public String registerPage(Model model) {
+
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String registerPage(Model model, HttpServletRequest request) {
+		if (request.getSession().getAttribute("user") != null) {
+			return "redirect:";
+		}
 		model.addAttribute("login", new Login());
 		model.addAttribute("register", new User());
 		return "login";
 	}
-	
-	@RequestMapping(value="/register", method = RequestMethod.POST)
-	public String register(@Valid @ModelAttribute("register") User user, BindingResult bindingResult, WebRequest request, Model model) {
-	
-		if(bindingResult.hasErrors()) {
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(@Valid @ModelAttribute("register") User user, BindingResult bindingResult,
+			WebRequest request, Model model) {
+
+		if (bindingResult.hasErrors()) {
 			model.addAttribute("error", bindingResult);
 			model.addAttribute("login", new Login());
+			user.setPassword(null);
 			return "login";
 		}
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(16);
-		String hashpassword = passwordEncoder.encode(user.getPassword());
-		user.setPassword(hashpassword);
-		
-		User user1 = userService.getUser(user);
-		if(user1 == null) {
+		if (userService.getUser(user) == null) {
 			User registeredUser = userService.create(user);
-			if(registeredUser != null) {
+			if (registeredUser != null) {
 				try {
 					String appUrl = request.getContextPath();
-					eventPublisher.publishEvent(new OnRegistrationSuccessEvent(registeredUser, request.getLocale(),appUrl));
-				}catch(Exception re) {
+					eventPublisher
+							.publishEvent(new OnRegistrationSuccessEvent(registeredUser, request.getLocale(), appUrl));
+				} catch (Exception re) {
 					re.printStackTrace();
 //					throw new Exception("Error while sending confirmation email");
 				}
-				return "redirect:";
-			}
-			else {
 				model.addAttribute("login", new Login());
+				model.addAttribute("registerSuccess", new String(
+						"Registered Successfully, Kindly check your mail to verify your account and Login again"));
+				return "login";
+			} else {
+				model.addAttribute("login", new Login());
+				user.setPassword(null);
 				model.addAttribute("registerError", new String("Unexpected Error! Please try again later."));
 				return "login";
 			}
-		}
-		else {
+		} else {
 			model.addAttribute("login", new Login());
+			user.setPassword(null);
 			model.addAttribute("registerError", new String("Account already exist with corresponding email address."));
 			return "login";
 		}
 	}
-	
+
 	@GetMapping("/confirmRegistration")
-	public String confirmRegistration(WebRequest request, Model model,@RequestParam("token") String token) {
-		
+	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token) {
+
 		User verificationToken = notificationservice.getVerificationToken(token);
 		if(verificationToken == null || verificationToken.isVerified()) {
 			String message = "auth.message.invalidToken";
@@ -139,7 +159,7 @@ public class UserController implements WebMvcConfigurer {
 		verificationToken.setVerified(true);
 		verificationToken.setTokenID(null);
 		notificationservice.enableRegisteredUser(verificationToken);
-		
+
 		return "redirect:login";
 	}
 }
