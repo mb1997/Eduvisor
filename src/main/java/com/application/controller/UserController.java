@@ -161,4 +161,5 @@ public class UserController implements WebMvcConfigurer {
 
 		return "redirect:login";
 	}
+	
 }

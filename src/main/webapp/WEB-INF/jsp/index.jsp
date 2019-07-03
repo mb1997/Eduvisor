@@ -8,8 +8,6 @@
 
 <jsp:include page="include/header.jsp" />
 
-
-	
 	<section class="container main-content">
 		<div class="row">
 			<div class="col-md-12">
@@ -48,7 +46,6 @@
 										<span class="question-answered question-answered-done"><i class="icon-ok"></i>solved</span>
 										<span class="question-favorite"><i class="icon-star"></i>5</span>
 									</div>
-									<span class="question-category"><a href="#"><i class="icon-folder-close"></i>wordpress</a></span>
 									<span class="question-date"><i class="icon-time"></i>4 mins ago</span>
 									<span class="question-comment"><a href="#"><i class="icon-comment"></i>5 Answer</a></span>
 									<span class="question-view"><i class="icon-user"></i>70 views</span>
@@ -70,7 +67,6 @@
 									<div class="question-details">
 										<span class="question-favorite"><i class="icon-star"></i>5</span>
 									</div>
-									<span class="question-category"><a href="#"><i class="icon-folder-close"></i>wordpress</a></span>
 									<span class="question-date"><i class="icon-time"></i>4 mins ago</span>
 									<span class="question-comment"><a href="#"><i class="icon-comment"></i>5 Answer</a></span>
 									<span class="question-view"><i class="icon-user"></i>70 views</span>
@@ -93,7 +89,6 @@
 										<span class="question-answered"><i class="icon-ok"></i>in progress</span>
 										<span class="question-favorite"><i class="icon-star"></i>5</span>
 									</div>
-									<span class="question-category"><a href="#"><i class="icon-folder-close"></i>wordpress</a></span>
 									<span class="question-date"><i class="icon-time"></i>4 mins ago</span>
 									<span class="question-comment"><a href="#"><i class="icon-comment"></i>5 Answer</a></span>
 									<span class="question-view"><i class="icon-user"></i>70 views</span>
@@ -116,7 +111,6 @@
 										<span class="question-answered"><i class="icon-ok"></i>in progress</span>
 										<span class="question-favorite"><i class="icon-star"></i>5</span>
 									</div>
-									<span class="question-category"><a href="#"><i class="icon-folder-close"></i>wordpress</a></span>
 									<span class="question-date"><i class="icon-time"></i>4 mins ago</span>
 									<span class="question-comment"><a href="#"><i class="icon-comment"></i>5 Answer</a></span>
 									<span class="question-view"><i class="icon-user"></i>70 views</span>
@@ -139,7 +133,6 @@
 										<span class="question-answered"><i class="icon-ok"></i>in progress</span>
 										<span class="question-favorite"><i class="icon-star"></i>5</span>
 									</div>
-									<span class="question-category"><a href="#"><i class="icon-folder-close"></i>wordpress</a></span>
 									<span class="question-date"><i class="icon-time"></i>4 mins ago</span>
 									<span class="question-comment"><a href="#"><i class="icon-comment"></i>5 Answer</a></span>
 									<span class="question-view"><i class="icon-user"></i>70 views</span>
@@ -162,7 +155,6 @@
 										<span class="question-answered"><i class="icon-ok"></i>in progress</span>
 										<span class="question-favorite"><i class="icon-star"></i>5</span>
 									</div>
-									<span class="question-category"><a href="#"><i class="icon-folder-close"></i>wordpress</a></span>
 									<span class="question-date"><i class="icon-time"></i>4 mins ago</span>
 									<span class="question-comment"><a href="#"><i class="icon-comment"></i>5 Answer</a></span>
 									<span class="question-view"><i class="icon-user"></i>70 views</span>
@@ -185,7 +177,6 @@
 										<span class="question-answered"><i class="icon-ok"></i>in progress</span>
 										<span class="question-favorite"><i class="icon-star"></i>5</span>
 									</div>
-									<span class="question-category"><a href="#"><i class="icon-folder-close"></i>wordpress</a></span>
 									<span class="question-date"><i class="icon-time"></i>4 mins ago</span>
 									<span class="question-comment"><a href="#"><i class="icon-comment"></i>5 Answer</a></span>
 									<span class="question-view"><i class="icon-user"></i>70 views</span>
@@ -208,7 +199,6 @@
 										<span class="question-answered"><i class="icon-ok"></i>in progress</span>
 										<span class="question-favorite"><i class="icon-star"></i>5</span>
 									</div>
-									<span class="question-category"><a href="#"><i class="icon-folder-close"></i>wordpress</a></span>
 									<span class="question-date"><i class="icon-time"></i>4 mins ago</span>
 									<span class="question-comment"><a href="#"><i class="icon-comment"></i>5 Answer</a></span>
 									<span class="question-view"><i class="icon-user"></i>70 views</span>

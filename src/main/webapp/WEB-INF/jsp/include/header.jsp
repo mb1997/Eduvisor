@@ -7,7 +7,7 @@
 
 	<!-- Basic Page Needs -->
 	<meta charset="utf-8">
-	<title>Ask me Responsive Questions and Answers Template</title>
+	<title>Ask me Responsive Questions and Answers</title>
 	<meta name="description" content="Ask Educational questions and get proper response by experienced professors">
 	<meta name="author" content="DA-IICT">
 	
@@ -41,7 +41,7 @@
 			<div class="logo"><a href="index.html"><img alt="" src="images/logo.png"></a></div>
 			<nav class="navigation">
 				<ul>
-					<li><a href="index.html">Home</a></li>
+					<li><a href="index">Home</a></li>
 					<li><a href="addQuestion">Ask Question</a></li>
 					<li><a href="">Questions</a></li>
 					<% 
@@ -51,7 +51,7 @@
 					<li><a href=""> ${user.name} </a>
 						<ul>
 							<li><a href="">User Profile</a></li>
-							<li><a href="">User Questions</a></li>
+							<li><a href="view_post">User Questions</a></li>
 							<li><a href="">User Answers</a></li>
 							<li><a href="">Edit Profile</a></li>
 						</ul>

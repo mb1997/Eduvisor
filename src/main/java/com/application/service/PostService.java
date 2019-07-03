@@ -1,7 +1,9 @@
 package com.application.service;
 
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +24,8 @@ public class PostService {
 		post.setPostedDate(localDate);
 		postrepository.save(post);
 		return post;
+	}
+	public List<Post> display(String email) {
+		return postrepository.findByEmail(email);
 	}
 }

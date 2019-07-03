@@ -41,7 +41,6 @@ public class PostController {
 //		if(request.getSession().getAttribute("user") == null) {
 //			return "redirect:";
 //		}
-//		
 //		return "viewAllposts";
 //	}
 	
@@ -67,5 +66,18 @@ public class PostController {
 		// Tell user to refresh their feed to view their post.
 		model.addAttribute("postSuccess", new String("Refresh your feed!"));
 		return "index";
+	}
+	
+	@RequestMapping(value="/view_post",method = RequestMethod.GET)
+	public String viewPost(Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") == null) {
+			return "redirect:";
+		}
+		else
+		{
+			User user = (User) request.getSession().getAttribute("user");
+			model.addAttribute("postValue",postService.display(user.getEmail()));
+			return "view_post";
+		}
 	}
 }
