@@ -18,9 +18,11 @@ public class Post {
 	@NotBlank(message = "Please enter description")
 	private String description;
 	
+	@NotBlank(message = "Please select appropriate category")
+	private String Category;
+	
 	private String email;
 	private LocalDate postedDate;
-	private String Category;
 	
 	public String get_id() {
 		return id;
