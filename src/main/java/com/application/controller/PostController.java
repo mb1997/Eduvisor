@@ -12,8 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.application.model.Comment;
 import com.application.model.Post;
 import com.application.model.User;
 import com.application.service.AreaOfInterestService;
@@ -78,6 +79,32 @@ public class PostController {
 			User user = (User) request.getSession().getAttribute("user");
 			model.addAttribute("postValue",postService.display(user.getEmail()));
 			return "view_post";
+		}
+	}
+	
+	@RequestMapping(value = "/postDetail", method = RequestMethod.GET)
+	public String postDetailPage(@RequestParam("s") String id, Model model) {
+		model.addAttribute("post", postService.onePost(id));
+		model.addAttribute("commentform", new Comment());
+		System.out.println("GET REQUEST");
+		return "postDetail";
+	}
+	
+	@RequestMapping(value = "/postDetail", method = RequestMethod.POST)
+	public String comment(@RequestParam("s") String id, @Valid @ModelAttribute("commentform") Comment comment, Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") == null) {
+			return "redirect:";
+		}
+		Post post = postService.onePost(id);
+		User user = (User) request.getSession().getAttribute("user");
+		comment.setEmail(user.getEmail());
+		post = postService.comment(post, comment);
+		if(post == null) {
+			model.addAttribute("message", new String("Unexpected error! Please try again later"));
+			return "postDetail?s="+id;
+		}
+		else {
+			return "redirect:postDetail?s="+id;
 		}
 	}
 }

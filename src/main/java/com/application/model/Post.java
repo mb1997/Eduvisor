@@ -1,6 +1,7 @@
 package com.application.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
@@ -19,17 +20,12 @@ public class Post {
 	private String description;
 	
 	@NotBlank(message = "Please select appropriate category")
-	private String Category;
+	private String category;
 	
 	private String email;
 	private LocalDate postedDate;
+	private List<Comment> comments;
 	
-	public String get_id() {
-		return id;
-	}
-	public void set_id(String id) {
-		this.id = id;
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -55,10 +51,28 @@ public class Post {
 		this.postedDate = localDate;
 	}
 	public String getCategory() {
-		return Category;
+		return category;
 	}
 	public void setCategory(String category) {
-		Category = category;
+		this.category = category;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public List<Comment> getComments() {
+		return comments;
+	}
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	@Override
+	public String toString() {
+		return "Post [id=" + id + ", title=" + title + ", description=" + description + ", category=" + category
+				+ ", email=" + email + ", postedDate=" + postedDate + ", comments=" + comments + "]";
+	}
+	
 	
 }
