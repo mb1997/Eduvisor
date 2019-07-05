@@ -86,7 +86,6 @@ public class PostController {
 	public String postDetailPage(@RequestParam("s") String id, Model model) {
 		model.addAttribute("post", postService.onePost(id));
 		model.addAttribute("commentform", new Comment());
-		System.out.println("GET REQUEST");
 		return "postDetail";
 	}
 	

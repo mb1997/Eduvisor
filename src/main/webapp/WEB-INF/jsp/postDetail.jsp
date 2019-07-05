@@ -1,3 +1,7 @@
+<%@page import="com.application.model.Comment"%>
+<%@page import="java.util.List"%>
+<%@page import="java.time.Period"%>
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,13 +15,13 @@
 	<section class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1>This is my first Question</h1>
+				<h1>${post.title}</h1>
 			</div>
 			<div class="col-md-12">
 				<div class="crumbs">
 					<a href="#">Home</a> <span class="crumbs-span">/</span> <a href="#">Questions</a>
-					<span class="crumbs-span">/</span> <span class="current">This
-						is my first Question</span>
+					<span class="crumbs-span">/</span> <span class="current">
+						${post.title} </span>
 				</div>
 			</div>
 		</div>
@@ -40,12 +44,23 @@
 						<p>${post.description}</p>
 					</div>
 					<span class="question-category"><a href="#"><i
-							class="icon-folder-close"></i>wordpress</a></span> <span
-						class="question-date"><i class="icon-time"></i>
-						${post.postedDate} </span> <span class="question-comment"><a
-						href="#"><i class="icon-comment"></i>5 Answer</a></span> <span
-						class="question-view"><i class="icon-user"></i>70 views</span> <span
-						class="single-question-vote-result">+22</span>
+							class="icon-folder-close"></i>${post.category}</a></span> <span
+						class="question-date"><i class="icon-time"></i> <c:set
+							var="postDate" value="${post.postedDate}" /> <%
+ 	LocalDate now1 = LocalDate.now();
+ 	Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
+ 	out.print(time1.getDays() + " Days ago");
+ %></span> <span class="question-comment"><a href="#"><i
+							class="icon-comment"></i> <c:set var="i" value="0" /> 
+							<%
+							int i = 0;
+							%>
+							<c:forEach items="${post.comments}" var="comment">
+								<%
+									//pageContext.setAttribute("i", (Integer.parseInt((String) pageContext.getAttribute("i")) + 1));
+									i++;
+								%>
+							</c:forEach> <%=i %> </a></span>
 					<div class="clearfix"></div>
 				</div>
 			</article>
@@ -53,7 +68,7 @@
 			<div id="commentlist" class="page-content">
 				<div class="boxedtitle page-title">
 					<h2>
-						Answers ( <span class="color">5</span> )
+						Answers ( <span class="color"><%=i %></span> )
 					</h2>
 				</div>
 				<ol class="commentlist clearfix">
@@ -61,28 +76,28 @@
 						<li class="comment">
 							<div class="comment-body clearfix">
 								<div class="avatar">
-									<img alt="" src="../ask-me/images/demo/avatar.png">
+									<img alt="" src="images/demo/avatar.png">
 								</div>
 								<div class="comment-text">
 									<div class="author clearfix">
 										<div class="comment-author">
 											<a href="#"> ${comment.email} </a>
 										</div>
-										<div class="comment-vote">
-											<ul class="question-vote">
-												<li><a href="#" class="question-vote-up" title="Like"></a></li>
-												<li><a href="#" class="question-vote-down"
-													title="Dislike"></a></li>
-											</ul>
-										</div>
 										<div class="comment-meta">
 											<div class="date">
-												<i class="icon-time"></i> ${comment.postedDate }
+												<i class="icon-time"></i>
+												<!--  ${comment.postedDate}  -->
+												<c:set var="commentDate" value="${comment.postedDate}" />
+												<%
+													LocalDate now = LocalDate.now();
+														Period time = Period.between((LocalDate) pageContext.getAttribute("commentDate"), now);
+														out.print(time.getDays() + " Days ago");
+												%>
 											</div>
 										</div>
 									</div>
 									<div class="text">
-										<p> ${comment.comment} </p>
+										<p>${comment.comment}</p>
 									</div>
 								</div>
 							</div>
@@ -117,6 +132,8 @@
 	<!-- End row -->
 </section>
 <!-- End container -->
+<br>
+<br>
 
 
 

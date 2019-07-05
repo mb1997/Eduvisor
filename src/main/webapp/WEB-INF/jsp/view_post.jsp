@@ -1,3 +1,5 @@
+<%@page import="java.time.Period"%>
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form"%>
@@ -6,57 +8,83 @@
 <!-- HEADER INCLUSION CODE -->
 
 <jsp:include page="include/header.jsp"></jsp:include>
-
-<!-- HEADER INCLUSION CODE -->
-
-<body>
-	<c:forEach var="postItems" items="${postValue}">
-		<div id="wrap" class="grid_1200">
-			<section class="container main-content">
-				<div class="row">
-					<div class="col-md-12">
-						<article class="post single-post clearfix">
-							<div class="post-inner">
-								<div class="post-img">
-									<a href="single_post.html"><img
-										src="../ask-me/images/demo/posts/loneliness-1440x900.jpg"
-										alt=""></a>
-								</div>
-								<h2 class="post-title">
-									<span class="post-type"><i class="icon-film"></i></span>${postItems.title}</h2>
-								<div class="post-meta">
-									<span class="meta-date"> </span> <span>${postItems.postedDate}</span>
-
-
-								</div>
-								<div class="post-content">
-									<p>${postItems.description}</p>
-
-								</div>
-								<!-- End post-content -->
-								<div class="clearfix"></div>
-							</div>
-							<!-- End post-inner -->
-						</article>
-						<!-- End article.post -->
-					</div>
-					<!-- End row -->
+<div class="breadcrumbs">
+	<section class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>User Questions</h1>
+			</div>
+			<div class="col-md-12">
+				<div class="crumbs">
+					<a href="#">Home</a> <span class="crumbs-span">/</span> <a href="#">User</a>
+					<span class="crumbs-span">/</span> <span class="current">User
+						Questions</span>
 				</div>
-			</section>
-			<!-- End container -->
-
+			</div>
 		</div>
-		<!-- End wrap -->
+		<!-- End row -->
+	</section>
+	<!-- End container -->
+</div>
+<!-- End breadcrumbs -->
+<!-- HEADER INCLUSION CODE -->
+<section class="container main-content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="clearfix"></div>
+			<div class="page-content page-content-user">
+				<div class="user-questions">
+					<c:forEach var="postItems" items="${postValue}">
+						<%
+							int i = 0;
+						%>
+						<c:forEach items="${postItems.comments}" var="comment">
+							<%
+								//pageContext.setAttribute("i", (Integer.parseInt((String) pageContext.getAttribute("i")) + 1));
+										i++;
+							%>
+						</c:forEach>
+						<c:set var="postDate" value="${postItems.postedDate}" />
+						<%
+							LocalDate now1 = LocalDate.now();
+								Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
+						%>
+						<article class="question user-question">
+							<h3>
+								<a href="/postDetail?s=${postItems.id}">${postItems.title}</a>
+							</h3>
+							<div class="question-type-main">
+								<i class="icon-question-sign"></i>Question
+							</div>
+							<div class="question-content">
+								<div class="question-bottom">
+									<span class="question-category"><a href="#"><i
+											class="icon-folder-close"></i>${postItems.category}</a></span> <span
+										class="question-date"><i class="icon-time"></i> <%
+ 	out.print(time1.getDays() + " Days ago");
+ %></span> <span class="question-comment"><a href="#"><i
+											class="icon-comment"></i><%=i%> Answers</a></span> <a
+										class="question-reply" href="#">
+								</div>
+							</div>
+						</article>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<br>
+<br>
+<br>
+<!-- FOOTER INCLUSION CODE -->
 
-	</c:forEach>
-	<!-- FOOTER INCLUSION CODE -->
+<jsp:include page="include/footer.jsp"></jsp:include>
 
-	<jsp:include page="include/footer.jsp"></jsp:include>
+<!-- FOOTER INCLUSION CODE -->
 
-	<!-- FOOTER INCLUSION CODE -->
+<!-- SCRIPT INCLUSION CODE -->
 
-	<!-- SCRIPT INCLUSION CODE -->
+<jsp:include page="include/script.jsp"></jsp:include>
 
-	<jsp:include page="include/script.jsp"></jsp:include>
-
-	<!-- SCRIPT INCLUSION CODE -->
+<!-- SCRIPT INCLUSION CODE -->
