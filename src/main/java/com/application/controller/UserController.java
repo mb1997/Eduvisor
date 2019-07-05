@@ -40,6 +40,11 @@ public class UserController implements WebMvcConfigurer {
 		return "index";
 	}
 
+	@RequestMapping("/index")
+	public String home() {
+		return "redirect:";
+	}
+	
 	@RequestMapping("/logout")
 	public String logoutFunciton(HttpServletRequest request) {
 		if (request.getSession().getAttribute("user") != null)

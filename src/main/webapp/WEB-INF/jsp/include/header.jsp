@@ -38,7 +38,7 @@
 	
 	<header id="header">
 		<section class="container clearfix">
-			<div class="logo"><a href="index.html"><img alt="" src="images/logo.png"></a></div>
+			<div class="logo"><a href="index"><img alt="" src="images/logo.png"></a></div>
 			<nav class="navigation">
 				<ul>
 					<li><a href="index">Home</a></li>

@@ -64,7 +64,7 @@
  	out.print(time1.getDays() + " Days ago");
  %></span> <span class="question-comment"><a href="#"><i
 											class="icon-comment"></i><%=i%> Answers</a></span> <a
-										class="question-reply" href="#">
+										class="question-reply" href="#"></a>
 								</div>
 							</div>
 						</article>
@@ -74,9 +74,9 @@
 		</div>
 	</div>
 </section>
-<br>
-<br>
-<br>
+
+<footer id="footer">
+</footer>
 <!-- FOOTER INCLUSION CODE -->
 
 <jsp:include page="include/footer.jsp"></jsp:include>
