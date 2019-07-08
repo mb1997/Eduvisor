@@ -30,8 +30,9 @@
 	<!-- End container -->
 </div>
 <!-- End breadcrumbs -->
-
+								
 <section class="container main-content">
+								
 	<div class="row">
 		<div class="col-md-12">
 			<article class="question single-question question-type-normal">
@@ -45,12 +46,14 @@
 					</div>
 					<span class="question-category"><a href="#"><i
 							class="icon-folder-close"></i>${post.category}</a></span> <span
-						class="question-date"><i class="icon-time"></i> <c:set
+						class="question-date"><i class="icon-time"></i>
+						<c:set
 							var="postDate" value="${post.postedDate}" /> <%
- 	LocalDate now1 = LocalDate.now();
- 	Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
- 	out.print(time1.getDays() + " Days ago");
- %></span> <span class="question-comment"><a href="#"><i
+			 	LocalDate now1 = LocalDate.now();
+			 	Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
+			 	out.print(time1.getDays() + " Days ago");
+			 %></span> <span class="question-comment">
+ 						<a href="#"><i
 							class="icon-comment"></i> <c:set var="i" value="0" /> 
 							<%
 							int i = 0;
@@ -60,7 +63,13 @@
 									//pageContext.setAttribute("i", (Integer.parseInt((String) pageContext.getAttribute("i")) + 1));
 									i++;
 								%>
-							</c:forEach> <%=i %> </a></span>
+							</c:forEach> <%=i %> </a>
+							<a class="question-report" href="updatepost?s=${post.id}">Update</a>
+							<a class="" href="#">Delete</a>
+							</span>
+							
+<!-- Add Comment button here -->
+						 
 					<div class="clearfix"></div>
 				</div>
 			</article>

@@ -33,6 +33,7 @@
 		<div class="col-md-12">
 			<div class="clearfix"></div>
 			<div class="page-content page-content-user">
+			
 				<div class="user-questions">
 					<c:forEach var="postItems" items="${postValue}">
 						<%

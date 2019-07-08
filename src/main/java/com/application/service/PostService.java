@@ -31,6 +31,19 @@ public class PostService {
 	public List<Post> display(String email) {
 		return postrepository.findByEmail(email);
 	}
+	public Post updatepost(Post post, Post post1) {
+		if(!(post1.getTitle().equalsIgnoreCase(post.getTitle())) && 
+				(post1.getDescription().equalsIgnoreCase(post.getDescription()) && 
+						(post1.getCategory().equals(post.getCategory())))) {
+			post1.setTitle(post.getTitle());
+			post1.setCategory(post.getCategory());
+			post1.setDescription(post.getDescription());
+			LocalDateTime localDateTime = LocalDateTime.now();
+			LocalDate localDate = localDateTime.toLocalDate();
+			post1.setPostedDate(localDate);
+		}
+		return setposts(post1);
+	}
 
 	public Post onePost(String id) {
 		Optional<Post> ans = postrepository.findById(id);
@@ -55,8 +68,6 @@ public class PostService {
 			clist.add(comment);
 			post.setComments(clist);
 		}
-		System.out.println(comment.toString());
-		System.out.println(post.toString());
 		return postrepository.save(post);
 	}
 }

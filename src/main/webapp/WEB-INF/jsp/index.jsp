@@ -29,7 +29,14 @@
 										</p>
 									</div>
 								</c:if>
-								
+								<c:if test="${not empty postUpdateSuccess}">
+									<div class="alert-message warning">
+										<i class="icon-exclamation-sign"></i>
+										<p>
+											<span>Your Question updated.</span><br> ${postUpdateSuccess}
+										</p>
+									</div>
+								</c:if>
 							<article class="question question-type-normal">
 								<h2>
 									<a href="single_question.html">This is my first Question</a>

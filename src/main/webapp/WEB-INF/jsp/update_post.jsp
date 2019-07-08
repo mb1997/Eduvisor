@@ -17,9 +17,10 @@
 			</div>
 			<div class="col-md-12">
 				<div class="crumbs">
-					<a href="#">Home</a> <span class="crumbs-span">/</span> <a href="#">Pages</a>
-					<span class="crumbs-span">/</span> <span class="current">Ask
-						Question</span>
+					<a href="#">Home</a> <span class="crumbs-span">/</span> <a href="#">Questions</a>
+					<span class="crumbs-span">/</span> <span class="current">
+						${post.title} </span><span class="current">
+						update </span>
 				</div>
 			</div>
 		</div>
@@ -42,16 +43,8 @@
 					<h2>Ask Question</h2>
 				</div>
 				<div class="form-style form-style-3" id="question-submit">
-					<forms:form modelAttribute="question" action="/addQuestion">
-						<!-- modelAttribute will have value of variable sent to the page over get request.
-						Action URL will have link where the insert query is mapped by the controller.
-						The mapped function on controller will have to access the form by creating object of modelAttribute to Post object
+					<forms:form modelAttribute="post" action="/updatepost?s=${ post.id }">
 						
-						EG: @RequestMapping(value = "/addQuestion", method = RequestMethod.POST)
-						public String AddQuestion(@ModelAttribute("question") Post post) {
-							//The post variable will have all the data inputed by the user....
-						}
-						 -->
 						<div class="form-inputs clearfix">
 							<c:if test="${not empty postError}">
 								<div class="alert-message warning">
@@ -66,13 +59,13 @@
 								<div class="alert-message warning">
 									<i class="icon-exclamation-sign"></i>
 									<p>
-										<span>Error </span><br> ${postError}
+										<span>Error </span><br> ${loggedinuser}
 									</p>
 								</div>
 							</c:if>
 							<p>
 								<label class="required">Question Title<span>*</span></label>
-								<forms:input type="text" path="title" />
+								<forms:input type="text" path="title" value="${ post.title }" />
 								<forms:errors path="title"
 									cssStyle="color: black; font-size: 15px;" />
 								<span class="form-description">Please choose an
@@ -87,7 +80,7 @@
 											<option value="2">Category 2</option>
 										</select>
 										 --> <forms:select path="category">
-										 <forms:option value="" label="Select Category" />
+										 <forms:option value="${ post.category }" label="Select Category" />
 										<c:forEach var="listValue" items="${categories}">
 											<forms:option value="${listValue}" label="${listValue}" />
 										</c:forEach>
@@ -95,8 +88,7 @@
 									<forms:errors path="category"
 										cssStyle="color: black; font-size: 15px;" />
 								</span> <span class="form-description">Please choose the
-									appropriate section so easily search for your question .</span>
-							</p>
+									
 						</div>
 						<div id="form-textarea">
 							<p>
@@ -104,7 +96,7 @@
 								<!-- 
 									<textarea id="question-details" aria-required="true" cols="58" rows="8"></textarea>
 									 -->
-								<forms:textarea path="description" />
+								<forms:textarea path="description"  value="${ post.description }"/>
 								<forms:errors path="description"
 									cssStyle="color: black; font-size: 15px;" />
 								<span class="form-description">Type the description
@@ -113,7 +105,7 @@
 						</div>
 						<p class="form-submit">
 							<input type="submit" id="publish-question"
-								value="Publish Your Question" class="button color small submit">
+								value="Update" class="button color small submit">
 						</p>
 					</forms:form>
 				</div>

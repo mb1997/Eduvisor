@@ -106,4 +106,44 @@ public class PostController {
 			return "redirect:postDetail?s="+id;
 		}
 	}
+	
+	@RequestMapping(value = "/updatepost", method = RequestMethod.GET)
+	public String updatePostPage(@RequestParam("s") String id, Model model, HttpServletRequest request) {
+		
+		// check if user loggedin or not.
+		if(request.getSession().getAttribute("user") == null) {
+			model.addAttribute("postError", new String("Please login first."));
+			return "index";
+		}
+		
+		List<String> categories = areaservice.listOfInterests();
+		// fetch whole post data by given id in url.
+		model.addAttribute("post", postService.onePost(id));
+		model.addAttribute("categories", categories);
+		return "update_post";
+	}
+	
+	@RequestMapping(value = "/updatepost", method = RequestMethod.POST)
+	public String updatePost(@RequestParam("s") String id, @Valid @ModelAttribute("post") Post post, BindingResult bindingResult, Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") == null) {
+			model.addAttribute("loggedinuser", new String("Please login first."));
+			return "index";
+		}
+		// Check : Title and description cannot be blank.
+		if(post.getDescription() == "" || post.getTitle()== "") {
+			return "redirect:postDetail?s="+id;
+		}
+		Post post1 = postService.onePost(id);
+		post.setId(id);
+		User user = (User) request.getSession().getAttribute("user"); 
+		post.setEmail(user.getEmail());
+		Post post2 = postService.updatepost(post,post1);
+		
+		// Check if any error occured in updating.
+		if(post2 == null) {
+			return "view_post";
+		}
+		model.addAttribute("postUpdateSuccess", new String("Refresh your feed!"));
+		return "index";
+	}
 }
