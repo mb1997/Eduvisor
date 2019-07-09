@@ -73,9 +73,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 								<input type="submit" value="Log in"
 									class="button color small login-submit submit">
 							</p>
-							<div class="rememberme">
-								<label><input type="checkbox"> Remember Me</label>
-							</div>
+							
 						</forms:form>
 					</div>
 				</div>

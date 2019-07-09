@@ -65,8 +65,25 @@
 								%>
 							</c:forEach> <%=i %> </a>
 							<a class="question-report" href="updatepost?s=${post.id}">Update</a>
-							<a class="" href="#">Delete</a>
+							<button onclick="deleteButton()" value="delete">Delete</button>
 							</span>
+												
+					<script type="text/javascript">
+					 function deleteButton()  {
+						 
+			              var result = confirm("Do you want to continue?");
+			 
+			              if(result)
+			              {
+			            	  window.location.href = "/delete?id=${post.id}";
+			              } 
+			              else 
+			              {
+			                  window.location.href="/view_post";
+			              }
+			         }	
+					
+					</script>
 							
 <!-- Add Comment button here -->
 						 

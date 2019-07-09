@@ -139,11 +139,27 @@ public class PostController {
 		post.setEmail(user.getEmail());
 		Post post2 = postService.updatepost(post,post1);
 		
-		// Check if any error occured in updating.
+		// Check if any error occurs in updating.
 		if(post2 == null) {
 			return "view_post";
 		}
 		model.addAttribute("postUpdateSuccess", new String("Refresh your feed!"));
 		return "index";
 	}
+	
+	//Delete post
+	@RequestMapping(value="/delete", method = RequestMethod.GET)
+	  public String deleteById(@RequestParam("id") String id, Post post,HttpServletRequest request)
+	  {
+		  if(request.getSession().getAttribute("user") == null) 
+		  {
+			   return "redirect:login";
+		  } 
+		  else
+		  {
+			  postService.deletePost(id);
+			  return "redirect:view_post";
+		  }
+		  
+	  }
 }

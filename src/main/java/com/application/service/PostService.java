@@ -70,4 +70,10 @@ public class PostService {
 		}
 		return postrepository.save(post);
 	}
+	
+	
+	public void deletePost(String id)
+	{
+		postrepository.deleteById(id);
+	}
 }
