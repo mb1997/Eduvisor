@@ -21,4 +21,11 @@ public class AreaOfInterestService {
 			interests.add(aoi.getName());
 		return interests;
 	}
+	
+	public List<String> listOfInterests(List<AreaOfInterest> aoiList) {
+		List<String> interests = new ArrayList<String>();
+		for(AreaOfInterest aoi:aoiList)
+			interests.add(aoi.getName());
+		return interests;
+	}
 }

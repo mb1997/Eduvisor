@@ -1,5 +1,6 @@
 package com.application.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -13,4 +14,6 @@ public interface PostRepository extends MongoRepository<Post, String>  {
 	//List<Post> findByCategory(final String Category);
 	
 	public List<Post> findByEmail(String email);
+	
+	public List<Post> findByCategoryIn(Collection<String> list);
 }

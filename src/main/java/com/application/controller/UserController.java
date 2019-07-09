@@ -1,5 +1,8 @@
 package com.application.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -18,9 +21,13 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.application.event.OnRegistrationSuccessEvent;
+import com.application.model.Filter;
 import com.application.model.Login;
+import com.application.model.Post;
 import com.application.model.User;
+import com.application.service.AreaOfInterestService;
 import com.application.service.NotificationService;
+import com.application.service.PostService;
 import com.application.service.UserService;
 
 @Controller
@@ -33,10 +40,20 @@ public class UserController implements WebMvcConfigurer {
 	private UserService userService;
 
 	@Autowired
+	private PostService postService;
+
+	@Autowired
+	private AreaOfInterestService aoiService;
+
+	@Autowired
 	private NotificationService notificationservice;
 
-	@RequestMapping("/")
-	public String homePage() {
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String homePage(Model model) {
+		List<String> interest = aoiService.listOfInterests();
+		model.addAttribute("interestList", interest);
+		model.addAttribute("list", postService.allPost());
+		model.addAttribute("filter", new Filter());
 		return "index";
 	}
 
@@ -44,7 +61,26 @@ public class UserController implements WebMvcConfigurer {
 	public String home() {
 		return "redirect:";
 	}
-	
+
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public String filterHomePage(Model model, @ModelAttribute("filter") Filter list) {
+		List<String> interest = aoiService.listOfInterests();
+		model.addAttribute("interestList", interest);
+		List<Post> posts = new ArrayList<>();
+		try {
+			if (list.getName().isEmpty() == false) {
+				posts = postService.filterFunction(list.getName());
+				model.addAttribute("setFilter", list.getName());
+			}
+		}
+		catch(NullPointerException ex) {
+			posts = postService.allPost();
+		}
+		model.addAttribute("list", posts);
+		model.addAttribute("filter", new Filter());
+		return "index";
+	}
+
 	@RequestMapping("/logout")
 	public String logoutFunciton(HttpServletRequest request) {
 		if (request.getSession().getAttribute("user") != null)
@@ -155,7 +191,7 @@ public class UserController implements WebMvcConfigurer {
 	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token) {
 
 		User verificationToken = notificationservice.getVerificationToken(token);
-		if(verificationToken == null || verificationToken.isVerified()) {
+		if (verificationToken == null || verificationToken.isVerified()) {
 			String message = "auth.message.invalidToken";
 			model.addAttribute("message", message);
 			return "redirect:access-denied";
@@ -166,5 +202,5 @@ public class UserController implements WebMvcConfigurer {
 
 		return "redirect:login";
 	}
-	
+
 }

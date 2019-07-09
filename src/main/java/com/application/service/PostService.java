@@ -19,6 +19,10 @@ public class PostService {
 	@Autowired
 	public PostRepository postrepository;
 
+	public List<Post> allPost() {
+		return (List<Post>) postrepository.findAll();
+	}
+	
 	public Post setposts(Post post) {
 
 		LocalDateTime localDateTime = LocalDateTime.now();
@@ -70,10 +74,11 @@ public class PostService {
 		}
 		return postrepository.save(post);
 	}
-	
-	
 	public void deletePost(String id)
 	{
 		postrepository.deleteById(id);
+	}
+	public List<Post> filterFunction(List<String> name) {
+		return postrepository.findByCategoryIn(name);
 	}
 }
