@@ -36,8 +36,8 @@ public class PostService {
 		return postrepository.findByEmail(email);
 	}
 	public Post updatepost(Post post, Post post1) {
-		if(!(post1.getTitle().equalsIgnoreCase(post.getTitle())) && 
-				(post1.getDescription().equalsIgnoreCase(post.getDescription()) && 
+		if(!(post1.getTitle().equalsIgnoreCase(post.getTitle())) || 
+				(post1.getDescription().equalsIgnoreCase(post.getDescription()) || 
 						(post1.getCategory().equals(post.getCategory())))) {
 			post1.setTitle(post.getTitle());
 			post1.setCategory(post.getCategory());

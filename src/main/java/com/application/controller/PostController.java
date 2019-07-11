@@ -31,6 +31,10 @@ public class PostController {
 	
 	@RequestMapping(value="/addQuestion", method = RequestMethod.GET)
 	public String viewAllPosts(Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") == null) {
+			model.addAttribute("loggedinuser", new String("Please Login first."));
+			return "redirect:";
+		}
 		List<String> categories = areaservice.listOfInterests();
 		model.addAttribute("question", new Post());
 		model.addAttribute("categories", categories);
@@ -46,15 +50,15 @@ public class PostController {
 //	}
 	
 	@RequestMapping(value="/addQuestion", method = RequestMethod.POST)
-	public String post(@Valid @ModelAttribute("post") Post post, BindingResult bindingResult, HttpServletRequest request, Model model) {
+	public String post(@Valid @ModelAttribute("question") Post post, BindingResult bindingResult, HttpServletRequest request, Model model) {
 		if(request.getSession().getAttribute("user") == null) {
 			model.addAttribute("loggedinuser", new String("Please Login first."));
 			return "redirect:";
 		}
-		if(bindingResult.hasErrors()) {
-			model.addAttribute("error", bindingResult);
+		else if(bindingResult.hasErrors()) {
 			List<String> categories = areaservice.listOfInterests();
-			model.addAttribute("question", new Post()); model.addAttribute("categories",categories); 
+			model.addAttribute("categories", categories);
+			model.addAttribute("errors", bindingResult);
 			return "ask_question";
 		}
 		// set session email to post's email
@@ -121,7 +125,7 @@ public class PostController {
 		// check if user logged in or not.
 		if(request.getSession().getAttribute("user") == null) {
 			model.addAttribute("postError", new String("Please login first."));
-			return "index";
+			return "redirect:";
 		}
 		
 		List<String> categories = areaservice.listOfInterests();
@@ -135,11 +139,11 @@ public class PostController {
 	public String updatePost(@RequestParam("s") String id, @Valid @ModelAttribute("post") Post post, BindingResult bindingResult, Model model, HttpServletRequest request) {
 		if(request.getSession().getAttribute("user") == null) {
 			model.addAttribute("loggedinuser", new String("Please login first."));
-			return "index";
+			return "redirect:";
 		}
 		// Check : Title and description cannot be blank.
-		if(post.getDescription() == "" || post.getTitle()== "") {
-			return "redirect:postDetail?s="+id;
+		if(post.getDescription() == "" || post.getTitle()== "" || post.getCategory() == "") {
+			return "redirect:updatepost?s="+id;
 		}
 		Post post1 = postService.onePost(id);
 		post.setId(id);
@@ -152,7 +156,7 @@ public class PostController {
 			return "view_post";
 		}
 		model.addAttribute("postUpdateSuccess", new String("Refresh your feed!"));
-		return "index";
+		return "redirect:postDetail?s="+id;
 	}
 	
 	//Delete post

@@ -46,7 +46,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 				<div class="page-content">
 					<h2>Login</h2>
 					<div class="form-style form-style-3">
-					
+
 						<forms:form method="POST" modelAttribute="login" action="login">
 							<div class="form-inputs clearfix">
 								<c:if test="${not empty loginError}">
@@ -57,29 +57,40 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 										</p>
 									</div>
 								</c:if>
-								
+
 								<p class="login-text">
-									<forms:input type="text" path="email" />
-									<forms:errors path="name"
-										cssStyle="color: black; font-size: 15px;" />
+									<forms:input type="text" path="email" required="required" />
 									<i class="icon-user"></i>
 								</p>
+								<c:if test="${not empty error}">
+									<p>
+									<blockquote>
+										<forms:errors path="email" />
+									</blockquote>
+									</p>
+								</c:if>
 								<p class="login-password">
-									<forms:input type="password" path="password" />
-									<forms:errors path="name"
-										cssStyle="color: black; font-size: 15px;" />
-									<i class="icon-lock"></i> 
+									<forms:input type="password" path="password"
+										required="required" />
+									<i class="icon-lock"></i>
 								</p>
+								<c:if test="${not empty error}">
+									<p>
+									<blockquote>
+										<forms:errors path="password" />
+									</blockquote>
+									</p>
+								</c:if>
 							</div>
 							<p class="form-submit login-submit">
 								<input type="submit" value="Log in"
 									class="button color small login-submit submit">
 							</p>
 							<p>
-							<br>
-							<a class="color small button f_right" href="/forgetPassword">Forget</a>
+								<br> <a class="color small button f_right"
+									href="/forgetPassword">Forget</a>
 							</p>
-						
+
 						</forms:form>
 					</div>
 				</div>
@@ -114,40 +125,63 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 										</p>
 									</div>
 								</c:if>
-								
+
 								<p>
 									<label class="required">Name<span>*</span></label>
-									<forms:input type="text" path="name" />
-									<forms:errors path="name"
-										cssStyle="color: black; font-size: 15px;" />
+									<forms:input type="text" path="name" required="required" />
+									<c:if test="${not empty errors }">
+										<blockquote>
+											<forms:errors path="name"
+												cssStyle="color: black; font-size: 15px;" />
+										</blockquote>
+									</c:if>
 								</p>
 								<p>
 									<label class="required">E-Mail<span>*</span></label>
 									<forms:input type="email" path="email" />
-									<forms:errors path="email"
-										cssStyle="color: black; font-size: 15px;" />
+									<c:if test="${not empty errors }">
+										<blockquote>
+											<forms:errors path="email"
+												cssStyle="color: black; font-size: 15px;"
+												required="required" />
+										</blockquote>
+									</c:if>
 								</p>
 								<p>
 									<label class="required">Contact Number<span>*</span></label>
-									<forms:input type="text" path="contactNumber" />
-									<forms:errors path="contactNumber"
-										cssStyle="color: black; font-size: 15px;" />
+									<forms:input type="text" path="contactNumber"
+										required="required" />
+									<c:if test="${not empty errors }">
+										<blockquote>
+											<forms:errors path="contactNumber"
+												cssStyle="color: black; font-size: 15px;" />
+										</blockquote>
+									</c:if>
 								</p>
 								<p>
 									<label class="required">Current Profession<span>*</span></label>
-									<forms:select path="profession">
+									<forms:select path="profession" required="required">
 										<forms:option label="Select Profession" value="" />
 										<forms:option value="Student" />
 										<forms:option value="Professor" />
 									</forms:select>
-									<forms:errors path="profession"
-										cssStyle="color: black; font-size: 15px;" />
+									<c:if test="${not empty errors }">
+										<blockquote>
+											<forms:errors path="profession"
+												cssStyle="color: black; font-size: 15px;" />
+										</blockquote>
+									</c:if>
 								</p>
 								<p>
 									<label class="required">Password<span>*</span></label>
-									<forms:input type="password" path="password" />
-									<forms:errors path="password"
-										cssStyle="color: black; font-size: 15px;" />
+									<forms:input type="password" path="password"
+										required="required" />
+									<c:if test="${not empty errors }">
+										<blockquote>
+											<forms:errors path="password"
+												cssStyle="color: black; font-size: 15px;" />
+										</blockquote>
+									</c:if>
 								</p>
 							</div>
 							<p class="form-submit">
@@ -170,11 +204,11 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 <!-- End container -->
 
 <script>
-function init() {
-    // Clear forms here
-    document.getElementById("password").value = "";
-}
-window.onload = init;
+	function init() {
+		// Clear forms here
+		document.getElementById("password").value = "";
+	}
+	window.onload = init;
 </script>
 
 <br>

@@ -72,11 +72,16 @@
 							</c:if>
 							<p>
 								<label class="required">Question Title<span>*</span></label>
-								<forms:input type="text" path="title" />
-								<forms:errors path="title"
-									cssStyle="color: black; font-size: 15px;" />
+								<forms:input type="text" path="title" required="required" />
 								<span class="form-description">Please choose an
 									appropriate title for the question to answer it even easier .</span>
+
+								<c:if test="${not empty errors }">
+									<blockquote>
+										<forms:errors path="title"
+											cssStyle="color: black; font-size: 15px;" />
+									</blockquote>
+								</c:if>
 							</p>
 							<p>
 								<label class="required">Category<span>*</span></label> <span
@@ -86,16 +91,20 @@
 											<option value="1">Category 1</option>
 											<option value="2">Category 2</option>
 										</select>
-										 --> <forms:select path="category">
-										 <forms:option value="" label="Select Category" />
+										 --> <forms:select path="category" required="required">
+										<forms:option value="" label="Select Category" />
 										<c:forEach var="listValue" items="${categories}">
 											<forms:option value="${listValue}" label="${listValue}" />
 										</c:forEach>
 									</forms:select> <!-- Value will contain value of the variable having list of area of interest -->
-									<forms:errors path="category"
-										cssStyle="color: black; font-size: 15px;" />
 								</span> <span class="form-description">Please choose the
 									appropriate section so easily search for your question .</span>
+								<c:if test="${not empty errors }">
+									<blockquote>
+										<forms:errors path="category"
+											cssStyle="color: black; font-size: 15px;" />
+									</blockquote>
+								</c:if>
 							</p>
 						</div>
 						<div id="form-textarea">
@@ -104,11 +113,15 @@
 								<!-- 
 									<textarea id="question-details" aria-required="true" cols="58" rows="8"></textarea>
 									 -->
-								<forms:textarea path="description" />
-								<forms:errors path="description"
-									cssStyle="color: black; font-size: 15px;" />
+								<forms:textarea path="description" required="required" />
 								<span class="form-description">Type the description
 									thoroughly and in detail .</span>
+								<c:if test="${not empty errors }">
+									<blockquote>
+										<forms:errors path="description"
+											cssStyle="color: black; font-size: 15px;" />
+									</blockquote>
+								</c:if>
 							</p>
 						</div>
 						<p class="form-submit">

@@ -72,14 +72,14 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 							<div class="form-inputs clearfix">
 								<p>
 								<label class="required">New Password<span>*</span></label>
-								<forms:input type="password" path="Password" />
+								<forms:input type="password" path="Password" required="required" />
 								</p>
 								<blockquote>
 									<forms:errors path="Password" />
 								</blockquote>
 								<p>
 								<label class="required">Confirm New Password<span>*</span></label>
-								<forms:input type="password" path="ConfirmPassword" />
+								<forms:input type="password" path="ConfirmPassword" required="required" />
 								</p>
 								<blockquote>
 									<forms:errors path="ConfirmPassword" />

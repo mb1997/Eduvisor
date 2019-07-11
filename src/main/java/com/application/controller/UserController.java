@@ -111,14 +111,8 @@ public class UserController implements WebMvcConfigurer {
 		}
 		String pass = user.getPassword();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16); // Strength set as 16
-		user.setPassword(encoder.encode(user.getPassword()));
-		User user1 = userService.getUser(user);
-		if (user1 == null) {
-			user.setPassword(null);
-			model.addAttribute("register", new User());
-			model.addAttribute("loginError", new String("No account with this mail found."));
-			return "login";
-		} else {
+		User user1 = userService.getUserByMail(user.getEmail());
+		if (user1 != null) {
 			if (encoder.matches(pass, user1.getPassword()) == false) {
 				user.setPassword(null);
 				model.addAttribute("register", new User());
@@ -139,6 +133,11 @@ public class UserController implements WebMvcConfigurer {
 				model.addAttribute("loginError", new String("You are not verified user, so kindly check your mail."));
 				return "login";
 			}
+		} else {
+			user.setPassword(null);
+			model.addAttribute("register", new User());
+			model.addAttribute("loginError", new String("No account with this mail found."));
+			return "login";
 		}
 	}
 
@@ -213,7 +212,7 @@ public class UserController implements WebMvcConfigurer {
 	public String register(@Valid @ModelAttribute("register") User user, BindingResult bindingResult,
 			WebRequest request, Model model) {
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("error", bindingResult);
+			model.addAttribute("errors", bindingResult);
 			model.addAttribute("login", new Login());
 			user.setPassword(null);
 			return "login";
