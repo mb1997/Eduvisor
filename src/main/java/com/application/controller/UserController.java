@@ -23,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.application.event.OnRegistrationSuccessEvent;
 import com.application.model.Filter;
 import com.application.model.Login;
+import com.application.model.Mail;
 import com.application.model.Post;
 import com.application.model.User;
 import com.application.service.AreaOfInterestService;
@@ -98,6 +99,7 @@ public class UserController implements WebMvcConfigurer {
 		return "login";
 	}
 
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model,
 			HttpServletRequest request) {
@@ -148,11 +150,39 @@ public class UserController implements WebMvcConfigurer {
 		model.addAttribute("register", new User());
 		return "login";
 	}
+	
+//	@RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
+//	public String forgetPage( Model model){
+//		model.addAttribute("mailObject", new Mail());
+//		return "forget_password";
+//	}
+//	
+//	@RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
+//	public String forgetPasswordPage(@Valid @ModelAttribute("mailObject") Mail email,BindingResult bindingResult,Model model, HttpServletRequest request) {
+//		User user = userService.getUserByMail(email.getEmail());
+//		if (user == null) {
+//			model.addAttribute("InvalidMail", new String("We didn't find an account for that e-mail address."));
+//			return "forget_password";
+//		}
+//		String token = user.getTokenID();
+//		String appUrl = request.getContextPath();
+//		if(userService.forgetPasswordMail(email.getEmail(), appUrl, token) == "") {
+//			model.addAttribute("MailError", new String("Some error occured in sending mail. Please try again letter."));
+//			return "forget_password";
+//		}
+//		model.addAttribute("MailSuccess", new String("Reset Password Mail sent to your ID."));
+//		return "forget_password";
+//	}
+//	
+//	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+//	public String changePasswordPage(Model model,BindingResult bindingResult,HttpServletRequest request) {
+//		
+//		return "change_password";
+//	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("register") User user, BindingResult bindingResult,
 			WebRequest request, Model model) {
-
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("error", bindingResult);
 			model.addAttribute("login", new Login());
@@ -189,7 +219,6 @@ public class UserController implements WebMvcConfigurer {
 
 	@GetMapping("/confirmRegistration")
 	public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token) {
-
 		User verificationToken = notificationservice.getVerificationToken(token);
 		if (verificationToken == null || verificationToken.isVerified()) {
 			String message = "auth.message.invalidToken";
@@ -197,9 +226,7 @@ public class UserController implements WebMvcConfigurer {
 			return "redirect:access-denied";
 		}
 		verificationToken.setVerified(true);
-		verificationToken.setTokenID(null);
 		notificationservice.enableRegisteredUser(verificationToken);
-
 		return "redirect:login";
 	}
 
