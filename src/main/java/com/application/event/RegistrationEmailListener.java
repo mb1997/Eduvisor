@@ -21,31 +21,18 @@ public class RegistrationEmailListener implements ApplicationListener<OnRegistra
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
-	private NotificationService userService;
-	
-//	@Autowired
-//	private MessageSource messages;
-//	
-	@Autowired
 	private JavaMailSender mailSender;
 	
-//	@Autowired
-//	private MailSender mailSender;
-
 	@Override
 	public void onApplicationEvent(OnRegistrationSuccessEvent event) {
 		this.confirmRegistration(event);
-		
 	}
 
 	private void confirmRegistration(OnRegistrationSuccessEvent event) {
 		User user = event.getUser();
 		
         try {
-        	String token = UUID.randomUUID().toString();
-    		user.setTokenID(token);
-    		userService.enableRegisteredUser(user);
-    		
+        	String token = user.getTokenID();
         	String recipient = user.getEmail();
     		String subject = "Registration Confirmation";
             String url 

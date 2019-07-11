@@ -66,14 +66,18 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 									<forms:input type="password" path="password" />
 									<forms:errors path="name"
 										cssStyle="color: black; font-size: 15px;" />
-									<i class="icon-lock"></i> <a href="#">Forget</a>
+									<i class="icon-lock"></i> 
 								</p>
 							</div>
 							<p class="form-submit login-submit">
 								<input type="submit" value="Log in"
 									class="button color small login-submit submit">
 							</p>
-							
+							<p>
+							<br>
+							<a class="color small button f_right" href="/forgetPassword">Forget</a>
+							</p>
+						
 						</forms:form>
 					</div>
 				</div>
@@ -155,8 +159,6 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 			<!-- End col-md-6 -->
 			<!-- REGISTRATION    (ENDS HERE) -->
 
-
-
 		</div>
 		<!-- End row -->
 	</div>
@@ -172,17 +174,11 @@ function init() {
 window.onload = init;
 </script>
 
-
-
 <br>
 <br>
 <!-- REMOVE FOOTER STARTS HERE -->
 <jsp:include page="include/footer.jsp" />
 <!-- REMOVE FOOTER ENDS HERE -->
-
-
-
-
 
 <!-- REMOVE SCRIPTS STARTS HERE -->
 <jsp:include page="include/script.jsp"></jsp:include>
