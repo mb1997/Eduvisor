@@ -69,6 +69,14 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 										</p>
 									</div>
 					</c:if>
+					<c:if test="${not empty MailSuccess}">
+									<div class="alert-message success">
+										<i class="icon-ok"></i>
+										<p>
+											<span>Check Your MailBox.</span><br> ${MailSuccess}
+										</p>
+									</div>
+					</c:if>
 							<div class="form-inputs clearfix">
 								<p>
 								<label class="required">Enter Your Registered Email Id<span>*</span></label>

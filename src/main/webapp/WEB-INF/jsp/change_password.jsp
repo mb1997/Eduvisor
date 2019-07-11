@@ -52,26 +52,45 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 					<h2>Change password</h2>
 					<div class="form-style form-style-3">
 					  
-					<forms:form method="post" modelAttribute="" action="change_password">
+					<forms:form method="post" modelAttribute="Changepassword" action="">
+					<c:if test="${not empty PasswordMismatch}">
+									<div class="alert-message warning">
+										<i class="icon-exclamation-sign"></i>
+										<p>
+											<span>Error</span><br> ${PasswordMismatch}
+										</p>
+									</div>
+					</c:if>
+					<c:if test="${not empty PasswordChanged}">
+									<div class="alert-message success">
+										<i class="icon-ok"></i>
+										<p>
+											<span>Your Password has been Changed. </span><br> ${PasswordChanged}
+										</p>
+									</div>
+					</c:if>
 							<div class="form-inputs clearfix">
 								<p>
 								<label class="required">New Password<span>*</span></label>
-								<forms:input type="password" path="password" />
-									<forms:errors path="name"
-										cssStyle="color: black; font-size: 15px;" />
+								<forms:input type="password" path="Password" />
 								</p>
+								<blockquote>
+									<forms:errors path="Password" />
+								</blockquote>
 								<p>
 								<label class="required">Confirm New Password<span>*</span></label>
-								<forms:input type="password" path="password" />
-									<forms:errors path="name"
-										cssStyle="color: black; font-size: 15px;" />
+								<forms:input type="password" path="ConfirmPassword" />
 								</p>
+								<blockquote>
+									<forms:errors path="ConfirmPassword" />
+								</blockquote>
 							</div>
 							<p class="form-submit">
 							<input type="submit" value="Continue" class="button color small submit">
 							</p>
 						</forms:form>
-	<!-- </div>  -->
+					</div>
+					</div>
 
 					</div>
 				</div>

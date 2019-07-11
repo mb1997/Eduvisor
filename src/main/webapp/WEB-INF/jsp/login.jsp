@@ -46,6 +46,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 				<div class="page-content">
 					<h2>Login</h2>
 					<div class="form-style form-style-3">
+					
 						<forms:form method="POST" modelAttribute="login" action="login">
 							<div class="form-inputs clearfix">
 								<c:if test="${not empty loginError}">
@@ -56,6 +57,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 										</p>
 									</div>
 								</c:if>
+								
 								<p class="login-text">
 									<forms:input type="text" path="email" />
 									<forms:errors path="name"
@@ -112,6 +114,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 										</p>
 									</div>
 								</c:if>
+								
 								<p>
 									<label class="required">Name<span>*</span></label>
 									<forms:input type="text" path="name" />

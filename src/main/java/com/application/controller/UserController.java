@@ -21,6 +21,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.application.event.OnRegistrationSuccessEvent;
+import com.application.model.ChangePassword;
 import com.application.model.Filter;
 import com.application.model.Login;
 import com.application.model.Mail;
@@ -151,35 +152,63 @@ public class UserController implements WebMvcConfigurer {
 		return "login";
 	}
 	
-//	@RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
-//	public String forgetPage( Model model){
-//		model.addAttribute("mailObject", new Mail());
-//		return "forget_password";
-//	}
-//	
-//	@RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
-//	public String forgetPasswordPage(@Valid @ModelAttribute("mailObject") Mail email,BindingResult bindingResult,Model model, HttpServletRequest request) {
-//		User user = userService.getUserByMail(email.getEmail());
-//		if (user == null) {
-//			model.addAttribute("InvalidMail", new String("We didn't find an account for that e-mail address."));
-//			return "forget_password";
-//		}
-//		String token = user.getTokenID();
-//		String appUrl = request.getContextPath();
-//		if(userService.forgetPasswordMail(email.getEmail(), appUrl, token) == "") {
-//			model.addAttribute("MailError", new String("Some error occured in sending mail. Please try again letter."));
-//			return "forget_password";
-//		}
-//		model.addAttribute("MailSuccess", new String("Reset Password Mail sent to your ID."));
-//		return "forget_password";
-//	}
-//	
-//	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
-//	public String changePasswordPage(Model model,BindingResult bindingResult,HttpServletRequest request) {
-//		
-//		return "change_password";
-//	}
+	@RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
+	public String forgetPage( Model model){
+		model.addAttribute("mailObject", new Mail());
+		return "forget_password";
+	}
+	
+	@RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
+	public String forgetPasswordPage(@Valid @ModelAttribute("mailObject") Mail email,BindingResult bindingResult,Model model, HttpServletRequest request) {
+		User user = userService.getUserByMail(email.getEmail());
+		if (user == null) {
+			model.addAttribute("InvalidMail", new String("We didn't find an account for that e-mail address."));
+			return "forget_password";
+		}
+		String token = user.getTokenID();
+		String appUrl = request.getContextPath();
+		if(userService.forgetPasswordMail(email.getEmail(), appUrl, token) == "") {
+			model.addAttribute("MailError", new String("Some error occured in sending mail. Please try again letter."));
+			return "forget_password";
+		}
+		model.addAttribute("MailSuccess", new String("Reset Password Link sent to your Mail ID."));
+		return "forget_password";
+	}
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+	public String changePasswordPage(@RequestParam("token") String token,Model model) {
+		model.addAttribute("Changepassword", new ChangePassword());
+		return "change_password";
+	}
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	public String newPasswordPage(@RequestParam("token") String token,@Valid @ModelAttribute("Changepassword")ChangePassword newPassword ,BindingResult bindingResult,Model model) {
+		if (bindingResult.hasErrors()) {
+			System.out.println(bindingResult.getErrorCount());
+			model.addAttribute("error", bindingResult);
+			return "change_password";
+		}
+		if(!(newPassword.getPassword().equals(newPassword.getConfirmPassword()))) {
+			model.addAttribute("PasswordMismatch", new String("Password should be same in both fields."));
+			return "change_password";
+		}
+		User user = notificationservice.getVerificationToken(token);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16); // Strength set as 16
+		user.setPassword(encoder.encode(newPassword.getPassword()));
+		notificationservice.enableRegisteredUser(user);
+		
+		model.addAttribute("PasswordChanged", new String("Please login."));
+		return "change_password";
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("register") User user, BindingResult bindingResult,
 			WebRequest request, Model model) {

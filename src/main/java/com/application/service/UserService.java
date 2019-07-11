@@ -67,7 +67,7 @@ public class UserService {
             SimpleMailMessage email = new SimpleMailMessage();
             email.setTo(recipient);
             email.setSubject(subject);
-            email.setText(message + "https://eduvisor.herokuapp.com" + url);
+            email.setText(message + "http://localhost:8080" + url);
             System.out.println(url);
             mailSender.send(email);
 		}catch(MailException e) {
