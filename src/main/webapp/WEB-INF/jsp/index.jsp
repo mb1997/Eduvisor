@@ -29,6 +29,7 @@ li {
 	display: flex;
 	flex-direction: column;
 }
+
 </style>
 
 <section class="container main-content">
@@ -94,9 +95,10 @@ li {
 								<h2>
 									<a href="/postDetail?s=${postItems.id}">${postItems.title}</a>
 								</h2>
-								<a class="question-report" href="#">Report</a>
-								<div class="question-type-main">
-									<i class="icon-question-sign"></i>Question
+						<!-- 		<a class="question-report" href="#">${postItems.category}</a>
+							 -->	
+								<div class="question-report">
+									<i class="icon-question-sign"></i><span> &nbsp; ${postItems.category}</span>
 								</div>
 								<div class="question-author">
 									<a href="#" original-title="ahmed"
@@ -106,10 +108,14 @@ li {
 								<div class="question-inner">
 									<div class="clearfix"></div>
 									<p class="question-desc">${postItems.description}</p>
-									<span class="question-date"><i class="icon-time"></i> <%
- 	out.print(time1.getDays() + " Days ago");
- %></span> <span class="question-comment"><a href="#"><i
-											class="icon-comment"></i><%=i%> Answer</a></span>
+									<span class="question-date"><i class="icon-time"></i>
+									<%
+ 										out.print(time1.getDays() + " Days ago");
+ 									%>
+ 									</span>
+ 									<span class="question-comment"><a href="#">
+ 										<i class="icon-comment"></i><%=i%> Answer</a>
+ 									</span>
 									<div class="clearfix"></div>
 								</div>
 							</article>

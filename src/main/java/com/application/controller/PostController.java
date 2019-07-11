@@ -51,6 +51,12 @@ public class PostController {
 			model.addAttribute("loggedinuser", new String("Please Login first."));
 			return "redirect:";
 		}
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("error", bindingResult);
+			List<String> categories = areaservice.listOfInterests();
+			model.addAttribute("question", new Post()); model.addAttribute("categories",categories); 
+			return "ask_question";
+		}
 		// set session email to post's email
 		User user = (User) request.getSession().getAttribute("user"); 
 		post.setEmail(user.getEmail());
@@ -69,6 +75,7 @@ public class PostController {
 		return "index";
 	}
 	
+	//View post
 	@RequestMapping(value="/view_post",method = RequestMethod.GET)
 	public String viewPost(Model model, HttpServletRequest request) {
 		if(request.getSession().getAttribute("user") == null) {
@@ -107,10 +114,11 @@ public class PostController {
 		}
 	}
 	
+	//update post
 	@RequestMapping(value = "/updatepost", method = RequestMethod.GET)
 	public String updatePostPage(@RequestParam("s") String id, Model model, HttpServletRequest request) {
 		
-		// check if user loggedin or not.
+		// check if user logged in or not.
 		if(request.getSession().getAttribute("user") == null) {
 			model.addAttribute("postError", new String("Please login first."));
 			return "index";

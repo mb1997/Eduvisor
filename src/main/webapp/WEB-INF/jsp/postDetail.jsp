@@ -6,10 +6,12 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form"%>
+<%@ page import="com.application.model.*" %>
+
+
 <!-- HEADER FILE INCLUSION -->
 <jsp:include page="include/header.jsp"></jsp:include>
 <!-- HEADER FILE INCLUSION -->
-
 
 <div class="breadcrumbs">
 	<section class="container">
@@ -48,26 +50,51 @@
 							class="icon-folder-close"></i>${post.category}</a></span> <span
 						class="question-date"><i class="icon-time"></i>
 						<c:set
-							var="postDate" value="${post.postedDate}" /> <%
-			 	LocalDate now1 = LocalDate.now();
-			 	Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
-			 	out.print(time1.getDays() + " Days ago");
-			 %></span> <span class="question-comment">
- 						<a href="#"><i
-							class="icon-comment"></i> <c:set var="i" value="0" /> 
+							var="postDate" value="${post.postedDate}" />
+							<%
+			 					LocalDate now1 = LocalDate.now();
+			 					Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
+			 					out.print(time1.getDays() + " Days ago");
+			 				%></span>
+			 				<span class="question-comment">
+ 							<a href="#"><i class="icon-comment"></i>
+ 							<c:set var="i" value="0" /> 
 							<%
 							int i = 0;
 							%>
 							<c:forEach items="${post.comments}" var="comment">
-								<%
-									//pageContext.setAttribute("i", (Integer.parseInt((String) pageContext.getAttribute("i")) + 1));
-									i++;
-								%>
+							<%
+								//pageContext.setAttribute("i", (Integer.parseInt((String) pageContext.getAttribute("i")) + 1));
+								i++;
+							%>
 							</c:forEach> <%=i %> </a>
-							<a class="question-report" href="updatepost?s=${post.id}">Update</a>
-							<button onclick="deleteButton()" value="delete">Delete</button>
 							</span>
-												
+							
+							<% 
+								if(request.getSession().getAttribute("user") != null)
+								{
+									User user = (User) request.getSession().getAttribute("user");
+									String current_user=user.getEmail();
+									
+									Post post=(Post) request.getAttribute("post");
+									String post_user=post.getEmail();
+									
+									if(current_user.equals(post_user))
+									{
+						 	%>
+							<span>
+								<a class="question-reply" href="updatepost?s=${post.id}"><i class="icon-edit"></i>Update</a> &emsp;
+							</span>
+							
+							<span>
+								<a class="question-reply" onclick="deleteButton()" href="#"><i class="icon-remove"></i>Delete</a>
+							</span>
+							<%
+								 	}
+								}
+							%>
+							
+											
 					<script type="text/javascript">
 					 function deleteButton()  {
 						 
@@ -160,7 +187,6 @@
 <!-- End container -->
 <br>
 <br>
-
 
 
 <!-- FOOTER FILE INCLUSION -->
