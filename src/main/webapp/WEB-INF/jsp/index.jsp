@@ -113,7 +113,7 @@ li {
  										out.print(time1.getDays() + " Days ago");
  									%>
  									</span>
- 									<span class="question-comment"><a href="#">
+ 									<span class="question-comment"><a href="/postDetail?s=${postItems.id}">
  										<i class="icon-comment"></i><%=i%> Answer</a>
  									</span>
 									<div class="clearfix"></div>

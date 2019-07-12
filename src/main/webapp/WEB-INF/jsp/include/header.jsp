@@ -7,7 +7,7 @@
 
 	<!-- Basic Page Needs -->
 	<meta charset="utf-8">
-	<title>Ask me Responsive Questions and Answers</title>
+	<title>Ask me Questions and Answers</title>
 	<meta name="description" content="Ask Educational questions and get proper response by experienced professors">
 	<meta name="author" content="DA-IICT">
 	
@@ -42,12 +42,12 @@
 			<nav class="navigation">
 				<ul>
 					<li><a href="index">Home</a></li>
-					<li><a href="addQuestion">Ask Question</a></li>
-					<li><a href="">Questions</a></li>
+					
 					<% 
 					if(session.getAttribute("user") != null)
 					{
 					%>
+					<li><a href="addQuestion">Ask Question</a></li>
 					<li><a href=""> ${user.name} </a>
 						<ul>
 							<li><a href="">User Profile</a></li>
@@ -61,9 +61,13 @@
 					}
 					else {
 					%>
+					<li><a href="login">Ask Question</a></li>
 					<li><a href="/login">Login / SignUp</a></li>
-					<% } %>
+					<% 
+						} 
+					%>
 				</ul>
 			</nav>
 		</section><!-- End container -->
 	</header><!-- End header -->
+</div>

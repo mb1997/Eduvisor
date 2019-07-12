@@ -17,9 +17,9 @@
 			</div>
 			<div class="col-md-12">
 				<div class="crumbs">
-					<a href="#">Home</a> <span class="crumbs-span">/</span> <a href="#">Pages</a>
-					<span class="crumbs-span">/</span> <span class="current">Ask
-						Question</span>
+					<a href="index">Home</a>
+					<span class="crumbs-span">/</span>
+					<span class="current">Ask Question</span>
 				</div>
 			</div>
 		</div>
