@@ -201,12 +201,11 @@ public class UserController implements WebMvcConfigurer {
 	}
 
 	
-	
-	
-	
-	
-	
-	
+	@RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
+	public String updateProfilepage(Model model) {
+		model.addAttribute("user", new User());
+		return "update_profile";
+	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("register") User user, BindingResult bindingResult,
