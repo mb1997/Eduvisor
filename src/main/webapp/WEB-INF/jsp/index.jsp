@@ -1,3 +1,4 @@
+<%@page import="com.application.model.Post"%>
 <%@page import="java.util.List"%>
 <%@page import="java.time.Period"%>
 <%@page import="java.time.LocalDate"%>
@@ -107,7 +108,16 @@ li {
 								</div>
 								<div class="question-inner">
 									<div class="clearfix"></div>
-									<p class="question-desc">${postItems.description}</p>
+									<p class="question-desc">
+									<%
+									Post desc = (Post) pageContext.getAttribute("postItems");
+									String descrip = desc.getDescription();
+									if(descrip == null || descrip == "" || descrip.length() == 0)
+										out.print("");
+									else
+										out.print(descrip.substring(0, descrip.length() > 100 ? 99 : descrip.length()-1));
+									%>
+									</p>
 									<span class="question-date"><i class="icon-time"></i>
 									<%
  										out.print(time1.getDays() + " Days ago");

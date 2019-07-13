@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,6 +63,9 @@ public class PostService {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		LocalDate localDate = localDateTime.toLocalDate();
 		comment.setPostedDate(localDate);
+		String id = UUID.randomUUID().toString();
+		comment.setId(id);
+		System.out.println(comment.toString());
 		if(post.getComments() == null) {
 			List<Comment> clist = new ArrayList<>();
 			clist.add(comment);
