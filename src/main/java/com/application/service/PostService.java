@@ -3,6 +3,7 @@ package com.application.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,7 +22,9 @@ public class PostService {
 	public PostRepository postrepository;
 
 	public List<Post> allPost() {
-		return (List<Post>) postrepository.findAll();
+		List<Post> p = postrepository.findAll();
+		Collections.sort(p,(p1,p2) -> p2.getPostedDate().compareTo(p1.getPostedDate()));
+		return p; 
 	}
 	
 	public Post setposts(Post post) {
@@ -83,6 +86,8 @@ public class PostService {
 		postrepository.deleteById(id);
 	}
 	public List<Post> filterFunction(List<String> name) {
-		return postrepository.findByCategoryIn(name);
+		List<Post> p = postrepository.findByCategoryIn(name);
+		Collections.sort(p,(p1,p2) -> p2.getPostedDate().compareTo(p1.getPostedDate()));
+		return p;
 	}
 }
