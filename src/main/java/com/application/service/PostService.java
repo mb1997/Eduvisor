@@ -35,6 +35,7 @@ public class PostService {
 	public List<Post> display(String email) {
 		return postrepository.findByEmail(email);
 	}
+	
 	public Post updatepost(Post post, Post post1) {
 		if(!(post1.getTitle().equalsIgnoreCase(post.getTitle())) || 
 				(post1.getDescription().equalsIgnoreCase(post.getDescription()) || 
@@ -74,10 +75,13 @@ public class PostService {
 		}
 		return postrepository.save(post);
 	}
+	
 	public void deletePost(String id)
 	{
 		postrepository.deleteById(id);
 	}
+	
+	
 	public List<Post> filterFunction(List<String> name) {
 		return postrepository.findByCategoryIn(name);
 	}

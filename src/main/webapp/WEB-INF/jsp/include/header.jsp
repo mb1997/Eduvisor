@@ -46,6 +46,7 @@
 					<% 
 					if(session.getAttribute("user") != null)
 					{
+						User user = (User) request.getSession().getAttribute("user");
 					%>
 					<li><a href="addQuestion">Ask Question</a></li>
 					<li><a href=""> ${user.name} </a>
@@ -53,7 +54,7 @@
 							<li><a href="">User Profile</a></li>
 							<li><a href="view_post">User Questions</a></li>
 							<li><a href="">User Answers</a></li>
-							<li><a href="">Edit Profile</a></li>
+							<li><a href="updateProfile?data=<%=user.getEmail() %>">Edit Profile</a></li>
 						</ul>
 					</li>
 					<li><a href="/logout">Logout</a></li>

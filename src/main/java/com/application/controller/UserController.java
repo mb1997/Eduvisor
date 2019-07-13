@@ -200,13 +200,6 @@ public class UserController implements WebMvcConfigurer {
 		return "change_password";
 	}
 
-	
-	@RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
-	public String updateProfilepage(Model model) {
-		model.addAttribute("user", new User());
-		return "update_profile";
-	}
-	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("register") User user, BindingResult bindingResult,
 			WebRequest request, Model model) {
@@ -256,5 +249,46 @@ public class UserController implements WebMvcConfigurer {
 		notificationservice.enableRegisteredUser(verificationToken);
 		return "redirect:login";
 	}
-
+	
+	
+	@RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
+	public String updateProfilePage(@RequestParam("data") String email, Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") == null) 
+		{
+			   return "redirect:login";
+		} 
+		else
+		{
+			model.addAttribute("user", request.getSession().getAttribute("user")); 
+			return "update_profile";
+		}
+	}
+	
+	@RequestMapping(value = "/updateProfile", method = RequestMethod.POST)
+	public String updatePost(@RequestParam("data") String email, @ModelAttribute("user") User user, Model model, HttpServletRequest request) 
+	{
+		if(request.getSession().getAttribute("user") == null) 
+		{
+			   return "redirect:login";
+		}
+		
+		if(user.getName() == "" || user.getGender()== "") {
+			return "redirect:updateProfile?data="+email;
+		}
+	
+		/*
+		 * model.addAttribute("user", request.getSession().getAttribute("user")); User
+		 * user1=(User) model.addAttribute(user);
+		 */
+		
+		
+		//model.addAttribute("user",userService.updateProfile(user));
+		User loggedinuser = (User) request.getSession().getAttribute("user");
+		user.setEmail(loggedinuser.getEmail());
+		userService.updateProfile(user, loggedinuser);
+		return "redirect:view_post";
+	}
+			
 }
+	
+	

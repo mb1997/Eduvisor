@@ -38,6 +38,61 @@ public class User {
 	private String tokenID = null;
 	private String[] areaOfInterest;
 	
+	private String gender;
+	private String dob;
+	private String university;
+	private String degree;
+	private String expertise;
+	private String currentUniversity;
+	
+	public String getCurrentUniversity() {
+		return currentUniversity;
+	}
+
+	public void setCurrentUniversity(String currentUniversity) {
+		this.currentUniversity = currentUniversity;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public String getExpertise() {
+		return expertise;
+	}
+
+	public void setExpertise(String expertise) {
+		this.expertise = expertise;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getUniversity() {
+		return university;
+	}
+
+	public void setUniversity(String university) {
+		this.university = university;
+	}
+
+	public String getDegree() {
+		return degree;
+	}
+
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+
 	public String[] getAreaOfInterest() {
 		return areaOfInterest;
 	}
@@ -106,7 +161,8 @@ public class User {
 	public String toString() {
 		return "User [email=" + email + ", name=" + name + ", contactNumber=" + contactNumber + ", profession="
 				+ profession + ", password=" + password + ", isVerified=" + isVerified + ", tokenID=" + tokenID
-				+ ", areaOfInterest=" + Arrays.toString(areaOfInterest) + "]";
+				+ ", areaOfInterest=" + Arrays.toString(areaOfInterest) +", gender=" + gender + ", dob= " 
+				+ dob +	", university= "+ university + ", degree= " + degree + ",expertise= " + expertise + "]" ;
 	}
 	
 }

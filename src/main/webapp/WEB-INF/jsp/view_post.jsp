@@ -61,11 +61,14 @@
 								<div class="question-bottom">
 									<span class="question-category"><a href="#"><i
 											class="icon-folder-close"></i>${postItems.category}</a></span> <span
-										class="question-date"><i class="icon-time"></i> <%
- 	out.print(time1.getDays() + " Days ago");
- %></span> <span class="question-comment"><a href="#"><i
-											class="icon-comment"></i><%=i%> Answers</a></span> <a
-										class="question-reply" href="#"></a>
+										class="question-date"><i class="icon-time"></i>
+										<%
+ 											out.print(time1.getDays() + " Days ago");
+ 										%>
+ 										</span>
+ 										<span class="question-comment"><a href="#">
+ 										<i class="icon-comment"></i><%=i%> Answers</a></span>
+ 										<a class="question-reply" href="#"></a>
 								</div>
 							</div>
 						</article>

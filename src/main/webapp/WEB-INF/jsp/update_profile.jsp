@@ -1,24 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="forms" uri="http://www.springframework.org/tags/form"%>
-<!-- ALL ELEMENTS WILL BE PLACED IN THE HEADER.JSP FILE
-SO ONLY THING YOU NEED TO DO IS TO CREATE SECTION WITH CLASS CONTAINER AND MAIN-CONTENT
-
-SAME AS FOOTER YOU ONLY NEED TO ADD FOOTER.JSP TO INCLUDE FOOTER
-
-AND YOU NEED TO ADD SCRIPTS.JSP TO ADD JAVASCRIPTS TO YOUR CODE
-
-YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH TEMPLATE
--->
-
-
-
-<!-- REMOVE HEADER STARTS HERE -->
+<%@ page import="com.application.model.*" %>
+<!-- HEADER STARTS HERE -->
 <jsp:include page="include/header.jsp" />
-<!-- REMOVE HEADER ENDS HERE -->
+<!-- HEADER ENDS HERE -->
 
 <div class="breadcrumbs">
 		<section class="container">
@@ -37,7 +25,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 				</div>
 			</div><!-- End row -->
 		</section><!-- End container -->
-	</div><!-- End breadcrumbs -->
+	</div><!-- End bread crumbs -->
 
 <style>
 	.page-content .boxedtitle{
@@ -52,19 +40,19 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 					<div class="boxedtitle page-title"><h2>Edit Profile</h2></div>
 					
 						<div class="form-style form-style-4">
-							<forms:form method="post" modelAttribute="user" action="update_profile">
+							<forms:form modelAttribute="user" action="/updateProfile?data=${user.email}">
 								<div class="form-inputs clearfix">
 									<p>
 										<label>Name</label>
-										<forms:input type="text" path="" />
+										<forms:input type="text" path="name" value="${user.name}"/>
 										<forms:errors path=""
 										cssStyle="color: black; font-size: 15px;" />
 									</p>
 								</div>
 								<div class="form-inputs clearfix">
 									<p>
-										<label>Birthdate</label>
-										<forms:input type="text" path="" />
+										<label>Date of Birth</label>
+										<forms:input type="date" path="dob" value="${user.dob}" />
 										<forms:errors path=""
 										cssStyle="color: black; font-size: 15px;" />
 									</p>
@@ -72,16 +60,25 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 								<div class="form-inputs clearfix">
 									<p>
 										<label>Gender</label>
-										<forms:input type="text" path="" />
+										<forms:input type="text" path="gender" value="${user.gender}" />
 										<forms:errors path=""
 										cssStyle="color: black; font-size: 15px;" />
 									</p>
 								</div>
+								<div class="form-inputs clearfix">
+									<p>
+										<label>Contact Number</label>
+										<forms:input type="text" path="contactNumber" value="${user.contactNumber}"/>
+										<forms:errors path=""
+										cssStyle="color: black; font-size: 15px;" />
+									</p>
+								</div>
+								
 								<div class=""><h3>Qualification</h3>
 									<div class="form-inputs clearfix">
 										<p>
 											<label>University</label>
-											<forms:input type="text" path="" />
+											<forms:input type="text" path="university"  value="${user.university}"/>
 										<forms:errors path=""
 										cssStyle="color: black; font-size: 15px;" />
 										</p>
@@ -89,7 +86,26 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 									<div class="form-inputs clearfix">
 										<p>
 											<label>Degree</label>
-											<forms:input type="text" path="" />
+											<forms:input type="text" path="degree" value="${user.degree}"/>
+										<forms:errors path=""
+										cssStyle="color: black; font-size: 15px;" />
+										</p>
+									</div>
+									
+									<% 
+										if(request.getSession().getAttribute("user") != null)
+										{
+											User user = (User) request.getSession().getAttribute("user");
+											String current_user=user.getProfession();
+											
+											if(current_user.equalsIgnoreCase("Professor"))
+											{
+						 			%>
+									
+									<div class="form-inputs clearfix">
+										<p>
+											<label>Current University</label>
+											<forms:input type="text" path="currentUniversity" value="${user.currentUniversity}" />
 										<forms:errors path=""
 										cssStyle="color: black; font-size: 15px;" />
 										</p>
@@ -97,19 +113,16 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 									<div class="form-inputs clearfix">
 										<p>
 											<label>Expertise</label>
-											<forms:input type="text" path="" />
+											<forms:input type="text" path="expertise" value="${user.expertise}" />
 										<forms:errors path=""
 										cssStyle="color: black; font-size: 15px;" />
 										</p>
 									</div>
-								</div>
-								<div class="form-inputs clearfix">
-									<p>
-										<label>Contact Number</label>
-										<forms:input type="text" path="" />
-										<forms:errors path=""
-										cssStyle="color: black; font-size: 15px;" />
-									</p>
+								
+								<%
+											}
+										}
+								%>
 								</div>
 								<p class="form-submit">
 									<input type="submit" value="Update" class="button color small login-submit submit">
