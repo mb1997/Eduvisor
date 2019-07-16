@@ -40,9 +40,17 @@ public class User {
 	
 	private String gender;
 	private String dob;
+	
+	@Pattern(regexp = "([a-zA-Z] {50})",message="Number is not allowed")
 	private String university;
+	
+	@Pattern(regexp = "(?=.*[a-z])",message="Number is not allowed")
 	private String degree;
+	
+	@Pattern(regexp = "(?=.*[a-z])",message="Number is not allowed")
 	private String expertise;
+	
+	@Pattern(regexp = "(?=.*[a-z])",message="Number is not allowed")
 	private String currentUniversity;
 	
 	public String getCurrentUniversity() {

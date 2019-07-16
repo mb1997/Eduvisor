@@ -52,15 +52,15 @@
 									<p>
 										<label>Name</label>
 										<forms:input type="text" path="name" value="${user.name}"/>
-										<forms:errors path="name"
-										cssStyle="color: black; font-size: 15px;" />
+										<forms:errors path="name" cssStyle="color: black; font-size: 15px;" />
 									</p>
 								
 									<p>
 										<label>Date of Birth</label>
 										<forms:input type="date" path="dob" value="${user.dob}" id="datepicker" />
-										<forms:errors path="dob"
-										cssStyle="color: black; font-size: 15px;" />
+										<forms:errors path="dob" cssStyle="color: black; font-size: 15px;" />
+										<%-- <forms:input type="date" path="dob" value="${user.dob}" />
+										<forms:errors path="" cssStyle="color: black; font-size: 15px;" /> --%>
 									</p>
 								
 									<p>
@@ -74,24 +74,21 @@
 									<p>
 										<label>Contact Number</label>
 										<forms:input type="text" path="contactNumber" value="${user.contactNumber}"/>
-										<forms:errors path="contactNumber"
-										cssStyle="color: black; font-size: 15px;" />
+										<forms:errors path="contactNumber" cssStyle="color: black; font-size: 15px;" />
 									</p>
 								
 								<div><h3>Qualification</h3></div>
 			
 										<p>
-										<label>University</label>
-										<forms:input type="text" path="university"  value="${user.university}"/>
-										<forms:errors path="university"
-										cssStyle="color: black; font-size: 15px;" />
+											<label>Graduation University</label>
+											<forms:input type="text" path="university"  value="${user.university}"/>
+											<forms:errors path="university" cssStyle="color: black; font-size: 15px;" />
 										</p>
 								
 										<p>
-										<label>Degree</label>
-										<forms:input type="text" path="degree" value="${user.degree}"/>
-										<forms:errors path="degree"
-										cssStyle="color: black; font-size: 15px;" />
+											<label>Degree</label>
+											<forms:input type="text" path="degree" value="${user.degree}"/>
+											<forms:errors path="degree"	cssStyle="color: black; font-size: 15px;" />
 										</p>
 									
 										<% 
@@ -106,15 +103,13 @@
 										<p>
 											<label>Current University</label>
 											<forms:input type="text" path="currentUniversity" value="${user.currentUniversity}" />
-										<forms:errors path="currentUniversity"
-										cssStyle="color: black; font-size: 15px;" />
+											<forms:errors path="currentUniversity" cssStyle="color: black; font-size: 15px;" />
 										</p>
 								
 										<p>
 											<label>Expertise</label>
 											<forms:input type="text" path="expertise" value="${user.expertise}" />
-										<forms:errors path="expertise"
-										cssStyle="color: black; font-size: 15px;" />
+											<forms:errors path="expertise" cssStyle="color: black; font-size: 15px;" />
 										</p>
 								
 									<%	}	%>
