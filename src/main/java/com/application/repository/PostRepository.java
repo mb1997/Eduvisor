@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import com.application.model.Comment;
 import com.application.model.Post;
 
 @Repository
@@ -16,4 +17,6 @@ public interface PostRepository extends MongoRepository<Post, String>  {
 	public List<Post> findByEmail(String email);
 	
 	public List<Post> findByCategoryIn(Collection<String> list);
+	
+	public Comment findByComments(String id);
 }

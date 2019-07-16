@@ -31,8 +31,8 @@
 	.page-content .boxedtitle{
 		margin-left : 40%;
 	}
-
 </style>
+
 	<section class="container main-content" style="margin-left:23%;">
 		<div class="row">
 			<div class="col-md-9">
@@ -41,89 +41,83 @@
 					
 						<div class="form-style form-style-4">
 							<forms:form modelAttribute="user" action="/updateProfile?data=${user.email}">
-								<div class="form-inputs clearfix">
+								<c:if test="${not empty UpdateSuccess}">
+									<div class="alert-message success">
+										<i class="icon-ok"></i>
+										<p>
+											<span>Updated!</span><br> ${UpdateSuccess}
+										</p>
+									</div>
+								</c:if>
 									<p>
 										<label>Name</label>
 										<forms:input type="text" path="name" value="${user.name}"/>
-										<forms:errors path=""
+										<forms:errors path="name"
 										cssStyle="color: black; font-size: 15px;" />
 									</p>
-								</div>
-								<div class="form-inputs clearfix">
+								
 									<p>
 										<label>Date of Birth</label>
-										<forms:input type="date" path="dob" value="${user.dob}" />
-										<forms:errors path=""
+										<forms:input type="date" path="dob" value="${user.dob}" id="datepicker" />
+										<forms:errors path="dob"
 										cssStyle="color: black; font-size: 15px;" />
 									</p>
-								</div>
-								<div class="form-inputs clearfix">
+								
 									<p>
-										<label>Gender</label>
-										<forms:input type="text" path="gender" value="${user.gender}" />
-										<forms:errors path=""
-										cssStyle="color: black; font-size: 15px;" />
+									<forms:select path="gender" required="required">
+										<forms:option label="Select Gender" value="${ user.gender } " />
+										<forms:option value="Male" />
+										<forms:option value="Female" />
+									</forms:select>
 									</p>
-								</div>
-								<div class="form-inputs clearfix">
+		
 									<p>
 										<label>Contact Number</label>
 										<forms:input type="text" path="contactNumber" value="${user.contactNumber}"/>
-										<forms:errors path=""
+										<forms:errors path="contactNumber"
 										cssStyle="color: black; font-size: 15px;" />
 									</p>
-								</div>
 								
-								<div class=""><h3>Qualification</h3>
-									<div class="form-inputs clearfix">
+								<div><h3>Qualification</h3></div>
+			
 										<p>
-											<label>University</label>
-											<forms:input type="text" path="university"  value="${user.university}"/>
-										<forms:errors path=""
+										<label>University</label>
+										<forms:input type="text" path="university"  value="${user.university}"/>
+										<forms:errors path="university"
 										cssStyle="color: black; font-size: 15px;" />
 										</p>
-									</div>
-									<div class="form-inputs clearfix">
+								
 										<p>
-											<label>Degree</label>
-											<forms:input type="text" path="degree" value="${user.degree}"/>
-										<forms:errors path=""
+										<label>Degree</label>
+										<forms:input type="text" path="degree" value="${user.degree}"/>
+										<forms:errors path="degree"
 										cssStyle="color: black; font-size: 15px;" />
 										</p>
-									</div>
 									
-									<% 
-										if(request.getSession().getAttribute("user") != null)
-										{
-											User user = (User) request.getSession().getAttribute("user");
-											String current_user=user.getProfession();
-											
-											if(current_user.equalsIgnoreCase("Professor"))
-											{
-						 			%>
+										<% 
+												User user = (User) request.getSession().getAttribute("user");
+												String current_user=user.getProfession();
+												
+												if(current_user.equalsIgnoreCase("Professor"))
+												{
+						 				%>
 									
-									<div class="form-inputs clearfix">
+						
 										<p>
 											<label>Current University</label>
 											<forms:input type="text" path="currentUniversity" value="${user.currentUniversity}" />
-										<forms:errors path=""
+										<forms:errors path="currentUniversity"
 										cssStyle="color: black; font-size: 15px;" />
 										</p>
-									</div>
-									<div class="form-inputs clearfix">
+								
 										<p>
 											<label>Expertise</label>
 											<forms:input type="text" path="expertise" value="${user.expertise}" />
-										<forms:errors path=""
+										<forms:errors path="expertise"
 										cssStyle="color: black; font-size: 15px;" />
 										</p>
-									</div>
 								
-								<%
-											}
-										}
-								%>
-								</div>
+									<%	}	%>
 								<p class="form-submit">
 									<input type="submit" value="Update" class="button color small login-submit submit">
 								</p>
@@ -134,6 +128,26 @@
 		</div>
 	</section>
 
+<!-- SCRIPT INCLUSION CODE -->
+
+<jsp:include page="include/script.jsp"></jsp:include>
+
+<!-- SCRIPT INCLUSION CODE -->
+<script>
+$(function()
+  {
+  $("#datepicker").datepicker(
+  {
+  showOn:"both",
+  buttonImage:"image.jpg",
+  dateFormat:"yy-mm-dd",
+  buttonImageOnly:false,
+  minDate:+0, //you do not want to show previous date.
+  maxDate:+0   // you do not want to show next day.
+  });
+ });
+
+</script>
 
 <!-- REMOVE FOOTER STARTS HERE -->
 <jsp:include page="include/footer.jsp" />

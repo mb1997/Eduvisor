@@ -62,6 +62,11 @@ public class PostService {
 		return res.get(0);
 	}
 	
+	public Comment oneComment(String id) {
+		Comment c = postrepository.findByComments(id);
+		return c;
+	}
+	
 	public Post comment(Post post, Comment comment) {
 
 		LocalDateTime localDateTime = LocalDateTime.now();

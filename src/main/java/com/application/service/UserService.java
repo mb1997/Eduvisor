@@ -85,19 +85,14 @@ public class UserService {
 	{	
 		  if(user.getEmail().equals(loggedinuser.getEmail())) 
 		  {
-			  if(user.getName().equals(loggedinuser.getName()) || user.getContactNumber().equals(loggedinuser.getContactNumber()))
-			  {
-				  user.setName(loggedinuser.getName());
-				  user.setContactNumber(loggedinuser.getContactNumber());
-			  }
 			  loggedinuser.setDob(user.getDob());
 			  loggedinuser.setGender(user.getGender());
 			  loggedinuser.setUniversity(user.getUniversity());
 			  loggedinuser.setCurrentUniversity(user.getCurrentUniversity());
 			  loggedinuser.setExpertise(user.getExpertise());
-			  user=userRepository.save(loggedinuser); 
+			  loggedinuser.setDegree(user.getDegree());
+			  user = userRepository.save(loggedinuser); 
 		  }
-		  
 		return user;
 	}
 }

@@ -51,9 +51,13 @@ public class UserController implements WebMvcConfigurer {
 	private NotificationService notificationservice;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String homePage(Model model) {
+	public String homePage(Model model, HttpServletRequest request) {
 		List<String> interest = aoiService.listOfInterests();
-		model.addAttribute("interestList", interest);
+		model.addAttribute("interestList", null);
+		if (request.getSession().getAttribute("user") != null) {
+			interest = aoiService.listOfInterests();
+			model.addAttribute("interestList", interest);
+		}
 		model.addAttribute("list", postService.allPost());
 		model.addAttribute("filter", new Filter());
 		return "index";
@@ -250,6 +254,15 @@ public class UserController implements WebMvcConfigurer {
 		return "redirect:login";
 	}
 	
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public String userProfilePage(Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") == null) 
+			return "redirect:login";
+		
+		User u = userService.getUser((User)request.getSession().getAttribute("user"));
+		model.addAttribute("userProfile", u);
+		return "viewprofile";
+	}
 	
 	@RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
 	public String updateProfilePage(@RequestParam("data") String email, Model model, HttpServletRequest request) {
@@ -275,18 +288,11 @@ public class UserController implements WebMvcConfigurer {
 		if(user.getName() == "" || user.getGender()== "") {
 			return "redirect:updateProfile?data="+email;
 		}
-	
-		/*
-		 * model.addAttribute("user", request.getSession().getAttribute("user")); User
-		 * user1=(User) model.addAttribute(user);
-		 */
-		
-		
-		//model.addAttribute("user",userService.updateProfile(user));
 		User loggedinuser = (User) request.getSession().getAttribute("user");
 		user.setEmail(loggedinuser.getEmail());
 		userService.updateProfile(user, loggedinuser);
-		return "redirect:view_post";
+		model.addAttribute("UpdateSuccess", new String("Your Profile has been updated"));
+		return "redirect:updateProfile?data="+email;
 	}
 			
 }

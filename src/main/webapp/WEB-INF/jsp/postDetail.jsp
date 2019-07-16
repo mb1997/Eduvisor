@@ -50,13 +50,13 @@
 							class="icon-folder-close"></i>${post.category}</a></span> <span
 						class="question-date"><i class="icon-time"></i> <c:set
 							var="postDate" value="${post.postedDate}" /> <%
- 	LocalDate now1 = LocalDate.now();
- 	Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
- 	out.print(time1.getDays() + " Days ago");
- %></span> <span class="question-comment"> <a href="#"><i
-							class="icon-comment"></i> <c:set var="i" value="0" /> <%
- 	int i = 0;
- %> <c:forEach items="${post.comments}" var="comment">
+								LocalDate now1 = LocalDate.now();
+								Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
+								out.print(time1.getDays() + " Days ago");
+							%></span> <span class="question-comment"> <a href="#"><i
+								class="icon-comment"></i> <c:set var="i" value="0" /> <%
+								int i = 0;
+							%> <c:forEach items="${post.comments}" var="comment">
 								<%
 									//pageContext.setAttribute("i", (Integer.parseInt((String) pageContext.getAttribute("i")) + 1));
 										i++;
@@ -125,60 +125,51 @@
 										</div>
 										<script type="text/javascript">
 										function upvote(num) {
+											
+											var JSONObject= {
+													'id' : ${num}
+											};
+											
 											$.ajax({
 												type : "GET",
-												data : {
-													"id" : ${num}
-												},
-											    url : "${pageContext.request.contextPath}/hello",
+												data : JSON.stringify(JSONObject),
+											    url : "${pageContext.request.contextPath}/upVote?id="${ comment.id },
+											    dataType: 'json',
 												success : function(data) {
 													$('#output').html(data);
-												}
+												},
+												error: function(jqXHR, textStatus, errorThrown) {
+										            alert(jqXHR.status + ' ' + jqXHR.responseText);
+										        }
 											});
 										}
+										
 										</script>
 										<div class="comment-vote">
 											<ul class="question-vote">
-												<%
-													Comment cm = (Comment) pageContext.getAttribute("comment");
+												<%-- <%
+														Comment cm = (Comment) pageContext.getAttribute("comment");
 														List<String> upvoteList = cm.getUpvote_list();
 														List<String> downvoteList = cm.getDownvote_list();
 														if (request.getSession().getAttribute("user") != null) {
 															User loggedin = (User) request.getSession().getAttribute("user");
 															if (upvoteList != null) {
 												%>
-												<li><a href="#" class="question-vote-up" title="Like"
-													<%if (upvoteList.contains(loggedin.getEmail())) {%>
-													style="pointer-events: none" <%}%>></a></li>
-												<%
-													} else {
-												%>
-												<li><a href="#" class="question-vote-up" title="Like"
+												 --%>
+												<li><a href="/upVote?id=${ comment.id }" class="question-vote-up" title="Like"
 													onclick="upvote()"></a></li>
-												<%
-													}
-															if (downvoteList != null) {
-												%>
-												<li><a href="#" class="question-vote-down"
-													title="Dislike"
-													<%if (downvoteList.contains(loggedin.getEmail())) { %>
-													style="pointer-events: none" <% } %>></a></li>
-												<%
-													} else {
-												%>
-												<li><a href="#" class="question-vote-down"
+												
+												<br>
+												<li type="number" th:value = "${upcount}" disabled></li>
+												
+												<li><a href="/downVote" class="question-vote-down"
 													title="Dislike" onclick="downvote()"></a></li>
-												<%
-													}
-														} else {
-												%>
-												<li><a href="#" class="question-vote-up" title="Like"
+												
+												<%-- <li><a href="#" class="question-vote-up" title="Like"
 													onclick="upvote(${postItems.id})"></a></li>
 												<li><a href="#" class="question-vote-down"
-													title="Dislike"></a></li>
-												<%
-													}
-												%>
+													title="Dislike"></a></li> --%>
+												
 											</ul>
 										</div>
 										<div class="comment-meta">

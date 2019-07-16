@@ -181,6 +181,30 @@ public class PostController {
 			  postService.deletePost(id);
 			  return "redirect:view_post";
 		  }
-		  
 	  }
+	
+//	@RequestMapping(value="/upVote", method = RequestMethod.GET)
+//		public String UpVote(@RequestParam("id") String cid, Model model, HttpServletRequest request) {
+//		if(request.getSession().getAttribute("user") == null) {
+//			return "redirect:";
+//		}
+//		//Post post = postService.onePost(pid);
+//		User user = (User) request.getSession().getAttribute("user");
+//		Comment comment = postService.oneComment(cid);
+//		
+//		List<String> a = comment.getUpvote_list();
+//		List<String> b = comment.getDownvote_list();
+//		
+//		if((a == null && b == null) || ((! a.contains(user.getEmail()) && (! b.contains(user.getEmail()))))) {
+//			comment.setUpvote_count(comment.getUpvote_count()+1);
+//			a.add(user.getEmail());
+//		}else if( (! a.contains(user.getEmail()) && ( b.contains(user.getEmail()))) ) {
+//			b.remove(user.getEmail());
+//			a.add(user.getEmail());
+//		}
+//		
+//		model.addAttribute("upcount", comment.getUpvote_count());
+//		
+//		return "redirect:index";
+//	}
 }
