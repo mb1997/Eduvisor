@@ -1,7 +1,10 @@
 package com.application.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,13 +31,13 @@ public class PostController {
 
 	@Autowired
 	private PostService postService;
-	
+
 	@Autowired
 	private AreaOfInterestService areaservice;
-	
-	@RequestMapping(value="/addQuestion", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/addQuestion", method = RequestMethod.GET)
 	public String viewAllPosts(Model model, HttpServletRequest request) {
-		if(request.getSession().getAttribute("user") == null) {
+		if (request.getSession().getAttribute("user") == null) {
 			model.addAttribute("loggedinuser", new String("Please Login first."));
 			return "redirect:";
 		}
@@ -43,13 +46,14 @@ public class PostController {
 		model.addAttribute("categories", categories);
 		return "/ask_question";
 	}
-	
+
 	@RequestMapping("/hello")
 	@ResponseBody
-	public void ajaxBody(@RequestParam String id, HttpServletResponse response, HttpServletRequest request) throws IOException {
+	public void ajaxBody(@RequestParam String id, HttpServletResponse response, HttpServletRequest request)
+			throws IOException {
 		response.getWriter().println(id);
 	}
-	
+
 //	@RequestMapping(value="/viewAllposts", method = RequestMethod.GET)
 //	public String viewPost(Model model, HttpServletRequest request) {
 //		if(request.getSession().getAttribute("user") == null) {
@@ -57,28 +61,28 @@ public class PostController {
 //		}
 //		return "viewAllposts";
 //	}
-	
-	@RequestMapping(value="/addQuestion", method = RequestMethod.POST)
-	public String post(@Valid @ModelAttribute("question") Post post, BindingResult bindingResult, HttpServletRequest request, Model model) {
-		if(request.getSession().getAttribute("user") == null) {
+
+	@RequestMapping(value = "/addQuestion", method = RequestMethod.POST)
+	public String post(@Valid @ModelAttribute("question") Post post, BindingResult bindingResult,
+			HttpServletRequest request, Model model) {
+		if (request.getSession().getAttribute("user") == null) {
 			model.addAttribute("loggedinuser", new String("Please Login first."));
 			return "redirect:";
-		}
-		else if(bindingResult.hasErrors()) {
+		} else if (bindingResult.hasErrors()) {
 			List<String> categories = areaservice.listOfInterests();
 			model.addAttribute("categories", categories);
 			model.addAttribute("errors", bindingResult);
 			return "ask_question";
 		}
 		// set session email to post's email
-		User user = (User) request.getSession().getAttribute("user"); 
+		User user = (User) request.getSession().getAttribute("user");
 		post.setEmail(user.getEmail());
-		
+
 		// save post to database
 		Post post2 = postService.setposts(post);
-		
+
 		// if post isn't saved then show error
-		if(post2 == null) {
+		if (post2 == null) {
 			model.addAttribute("post", new Post());
 			model.addAttribute("postError", new String("Unexpected Error! Please try again later."));
 			return "redirect:";
@@ -87,124 +91,177 @@ public class PostController {
 		model.addAttribute("postSuccess", new String("Refresh your feed!"));
 		return "index";
 	}
-	
-	//View post
-	@RequestMapping(value="/view_post",method = RequestMethod.GET)
+
+	// View post
+	@RequestMapping(value = "/view_post", method = RequestMethod.GET)
 	public String viewPost(Model model, HttpServletRequest request) {
-		if(request.getSession().getAttribute("user") == null) {
-			return "redirect:";
-		}
-		else
-		{
+		if (request.getSession().getAttribute("user") == null) {
+			return "redirect:login";
+		} else {
 			User user = (User) request.getSession().getAttribute("user");
-			model.addAttribute("postValue",postService.display(user.getEmail()));
+			model.addAttribute("postValue", postService.display(user.getEmail()));
 			return "view_post";
 		}
 	}
-	
+
 	@RequestMapping(value = "/postDetail", method = RequestMethod.GET)
 	public String postDetailPage(@RequestParam("s") String id, Model model) {
-		model.addAttribute("post", postService.onePost(id));
+		Post post = postService.onePost(id);
+		List<Comment> commentlist = post.getComments();
+		List<Comment> sorted = commentlist.stream().sorted(Comparator.comparing(Comment::getUpvote_count).reversed()).collect(Collectors.toList());
+		post.setComments(sorted);
+		model.addAttribute("post", post);
 		model.addAttribute("commentform", new Comment());
 		return "postDetail";
 	}
-	
+
 	@RequestMapping(value = "/postDetail", method = RequestMethod.POST)
-	public String comment(@RequestParam("s") String id, @Valid @ModelAttribute("commentform") Comment comment, Model model, HttpServletRequest request) {
-		if(request.getSession().getAttribute("user") == null) {
+	public String comment(@RequestParam("s") String id, @Valid @ModelAttribute("commentform") Comment comment,
+			Model model, HttpServletRequest request) {
+		if (request.getSession().getAttribute("user") == null) {
 			return "redirect:";
 		}
 		Post post = postService.onePost(id);
 		User user = (User) request.getSession().getAttribute("user");
 		comment.setEmail(user.getEmail());
 		post = postService.comment(post, comment);
-		if(post == null) {
+		if (post == null) {
 			model.addAttribute("message", new String("Unexpected error! Please try again later"));
-			return "postDetail?s="+id;
-		}
-		else {
-			return "redirect:postDetail?s="+id;
+			return "postDetail?s=" + id;
+		} else {
+			return "redirect:postDetail?s=" + id;
 		}
 	}
-	
-	//update post
+
+	// update post
 	@RequestMapping(value = "/updatepost", method = RequestMethod.GET)
 	public String updatePostPage(@RequestParam("s") String id, Model model, HttpServletRequest request) {
-		
+
 		// check if user logged in or not.
-		if(request.getSession().getAttribute("user") == null) {
-			model.addAttribute("postError", new String("Please login first."));
-			return "redirect:";
+		if (request.getSession().getAttribute("user") == null) {
+			return "redirect:login";
 		}
-		
+
 		List<String> categories = areaservice.listOfInterests();
 		// fetch whole post data by given id in url.
 		model.addAttribute("post", postService.onePost(id));
 		model.addAttribute("categories", categories);
 		return "update_post";
 	}
-	
+
 	@RequestMapping(value = "/updatepost", method = RequestMethod.POST)
-	public String updatePost(@RequestParam("s") String id, @Valid @ModelAttribute("post") Post post, BindingResult bindingResult, Model model, HttpServletRequest request) {
-		if(request.getSession().getAttribute("user") == null) {
-			model.addAttribute("loggedinuser", new String("Please login first."));
-			return "redirect:";
+	public String updatePost(@RequestParam("s") String id, @Valid @ModelAttribute("post") Post post,
+			BindingResult bindingResult, Model model, HttpServletRequest request) {
+		if (request.getSession().getAttribute("user") == null) {
+			return "redirect:login";
 		}
 		// Check : Title and description cannot be blank.
-		if(post.getDescription() == "" || post.getTitle()== "" || post.getCategory() == "") {
-			return "redirect:updatepost?s="+id;
+		if (post.getDescription() == "" || post.getTitle() == "" || post.getCategory() == "") {
+			return "redirect:updatepost?s=" + id;
 		}
 		Post post1 = postService.onePost(id);
 		post.setId(id);
-		User user = (User) request.getSession().getAttribute("user"); 
+		User user = (User) request.getSession().getAttribute("user");
 		post.setEmail(user.getEmail());
-		Post post2 = postService.updatepost(post,post1);
-		
+		Post post2 = postService.updatepost(post, post1);
+
 		// Check if any error occurs in updating.
-		if(post2 == null) {
+		if (post2 == null) {
 			return "view_post";
 		}
 		model.addAttribute("postUpdateSuccess", new String("Refresh your feed!"));
-		return "redirect:postDetail?s="+id;
+		return "redirect:postDetail?s=" + id;
+	}
+
+	// Delete post
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String deleteById(@RequestParam("id") String id, Post post, HttpServletRequest request) {
+		if (request.getSession().getAttribute("user") == null) {
+			return "redirect:login";
+		} else {
+			postService.deletePost(id);
+			return "redirect:view_post";
+		}
+	}
+
+	@RequestMapping(value = "/upVote", method = RequestMethod.GET)
+	public String UpVote(@RequestParam("id") String cid, @RequestParam("post") String post_id, Model model,
+			HttpServletRequest request) {
+		if (request.getSession().getAttribute("user") == null) {
+			return "redirect:login";
+		}
+		Post post = postService.onePost(post_id);
+		User user = (User) request.getSession().getAttribute("user");
+//		Comment comment = postService.oneComment(cid);
+
+//		Post post = postService.onePost(post_id);
+		List<Comment> commentList = post.getComments();
+		Comment comment = new Comment();
+		for (Comment c : commentList) {
+			if (c.getId().equals(cid)) {
+				comment = c;
+			}
+		}
+
+		List<String> a = comment.getUpvote_list() == null ? new ArrayList<>() : comment.getUpvote_list();
+		List<String> b = comment.getDownvote_list() == null ? new ArrayList<>() : comment.getDownvote_list();
+
+		if (a == null || !(a.contains(user.getEmail()))) {
+			commentList.remove(comment);
+			if(b.contains(user.getEmail())) {
+				b.remove(user.getEmail());
+				comment.setDownvote_list(b);
+				comment.setDownvote_count(comment.getDownvote_count() - 1);
+			}
+			comment.setUpvote_count(comment.getUpvote_count() + 1);
+			a.add(user.getEmail());
+			comment.setUpvote_list(a);
+			commentList.add(comment);
+		}
+		post.setComments(commentList);
+		postService.setposts(post);
+
+		// model.addAttribute("upcount", comment.getUpvote_count());
+
+		return "redirect:postDetail?s=" + post_id;
 	}
 	
-	//Delete post
-	@RequestMapping(value="/delete", method = RequestMethod.GET)
-	  public String deleteById(@RequestParam("id") String id, Post post,HttpServletRequest request)
-	  {
-		  if(request.getSession().getAttribute("user") == null) 
-		  {
-			   return "redirect:login";
-		  } 
-		  else
-		  {
-			  postService.deletePost(id);
-			  return "redirect:view_post";
-		  }
-	  }
-	
-//	@RequestMapping(value="/upVote", method = RequestMethod.GET)
-//		public String UpVote(@RequestParam("id") String cid, Model model, HttpServletRequest request) {
-//		if(request.getSession().getAttribute("user") == null) {
-//			return "redirect:";
-//		}
-//		//Post post = postService.onePost(pid);
-//		User user = (User) request.getSession().getAttribute("user");
+	@RequestMapping(value = "/downVote", method = RequestMethod.GET)
+	public String DownVote(@RequestParam("id") String cid, @RequestParam("post") String post_id, Model model,
+			HttpServletRequest request) {
+		if (request.getSession().getAttribute("user") == null) {
+			return "redirect:login";
+		}
+		Post post = postService.onePost(post_id);
+		User user = (User) request.getSession().getAttribute("user");
 //		Comment comment = postService.oneComment(cid);
-//		
-//		List<String> a = comment.getUpvote_list();
-//		List<String> b = comment.getDownvote_list();
-//		
-//		if((a == null && b == null) || ((! a.contains(user.getEmail()) && (! b.contains(user.getEmail()))))) {
-//			comment.setUpvote_count(comment.getUpvote_count()+1);
-//			a.add(user.getEmail());
-//		}else if( (! a.contains(user.getEmail()) && ( b.contains(user.getEmail()))) ) {
-//			b.remove(user.getEmail());
-//			a.add(user.getEmail());
-//		}
-//		
-//		model.addAttribute("upcount", comment.getUpvote_count());
-//		
-//		return "redirect:index";
-//	}
+
+//		Post post = postService.onePost(post_id);
+		List<Comment> commentList = post.getComments();
+		Comment comment = new Comment();
+		for (Comment c : commentList) {
+			if (c.getId().equals(cid)) {
+				comment = c;
+			}
+		}
+
+		List<String> a = comment.getDownvote_list() == null ? new ArrayList<>() : comment.getDownvote_list();
+		List<String> b = comment.getUpvote_list() == null ? new ArrayList<>() : comment.getUpvote_list();
+
+		if (a == null || !(a.contains(user.getEmail()))) {
+			commentList.remove(comment);
+			if(b.contains(user.getEmail())) {
+				b.remove(user.getEmail());
+				comment.setUpvote_list(b);
+				comment.setUpvote_count(comment.getUpvote_count() - 1);
+			}
+			comment.setDownvote_count(comment.getDownvote_count() + 1);
+			a.add(user.getEmail());
+			comment.setDownvote_list(a);
+			commentList.add(comment);
+		}
+		post.setComments(commentList);
+		postService.setposts(post);
+		return "redirect:postDetail?s=" + post_id;
+	}
 }

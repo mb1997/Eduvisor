@@ -53,7 +53,7 @@ public class UserController implements WebMvcConfigurer {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String homePage(Model model, HttpServletRequest request) {
 		List<String> interest = aoiService.listOfInterests();
-		model.addAttribute("interestList", null);
+		model.addAttribute("interestList", interest);
 		if (request.getSession().getAttribute("user") != null) {
 			interest = aoiService.listOfInterests();
 			model.addAttribute("interestList", interest);

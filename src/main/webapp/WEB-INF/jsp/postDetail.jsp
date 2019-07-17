@@ -156,13 +156,15 @@
 															if (upvoteList != null) {
 												%>
 												 --%>
-												<li><a href="/upVote?id=${ comment.id }" class="question-vote-up" title="Like"
+												<%-- <li><a href="/upVote?id=${ comment.id }" class="question-vote-up" title="Like"
 													onclick="upvote()"></a></li>
 												
 												<br>
-												<li type="number" th:value = "${upcount}" disabled></li>
+												<li type="number" th:value = "${upcount}" disabled></li> --%>
 												
-												<li><a href="/downVote" class="question-vote-down"
+												<li><a href="/upVote?id=${ comment.id }&post=${post.id}" class="question-vote-up" title="Like"></a></li>
+												<li>${comment.upvote_count}</li>
+												<li><a href="/downVote?id=${ comment.id }&post=${post.id}" class="question-vote-down"
 													title="Dislike" onclick="downvote()"></a></li>
 												
 												<%-- <li><a href="#" class="question-vote-up" title="Like"

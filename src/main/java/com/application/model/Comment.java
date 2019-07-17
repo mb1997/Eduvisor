@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Post")
+@Document(collection = "Comment")
 public class Comment {
 
 	@Id
@@ -14,9 +14,9 @@ public class Comment {
 	
 	private String comment;
 	
-	private int upvote_count;
+	private int upvote_count = 0;
 	
-	private int downvote_count;
+	private int downvote_count = 0;
 	
 	private List<String> upvote_list;
 	
@@ -92,7 +92,11 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", comment=" + comment + ", email=" + email + ", postedDate=" + postedDate + "]";
+		return "Comment [id=" + id + ", comment=" + comment + ", upvote_count=" + upvote_count + ", downvote_count="
+				+ downvote_count + ", upvote_list=" + upvote_list + ", downvote_list=" + downvote_list + ", email="
+				+ email + ", postedDate=" + postedDate + "]";
 	}
+	
+	
 	
 }

@@ -1,7 +1,5 @@
 package com.application.event;
 
-import java.util.UUID;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import com.application.controller.UserController;
 import com.application.model.User;
-import com.application.service.NotificationService;
 
 @Component
 public class RegistrationEmailListener implements ApplicationListener<OnRegistrationSuccessEvent> {

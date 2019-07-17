@@ -63,8 +63,8 @@ public class PostService {
 	}
 	
 	public Comment oneComment(String id) {
-		Comment c = postrepository.findByComments(id);
-		return c;
+//		Comment c = postrepository.findByComments(id);
+		return new Comment();
 	}
 	
 	public Post comment(Post post, Comment comment) {

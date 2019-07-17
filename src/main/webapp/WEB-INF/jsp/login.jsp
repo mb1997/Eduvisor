@@ -39,6 +39,14 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 <!-- End breadcrumbs -->
 
 <section class="container main-content">
+	<c:if test="${not empty Error}">
+		<div class="alert-message warning">
+			<i class="icon-exclamation-sign"></i>
+			<p>
+				<span>Login Error.</span><br> ${postSuccess}
+			</p>
+		</div>
+	</c:if>
 	<div class="login">
 		<div class="row">
 			<!-- LOGIN    (STARTS HERE) -->
