@@ -264,4 +264,25 @@ public class PostController {
 		postService.setposts(post);
 		return "redirect:postDetail?s=" + post_id;
 	}
+	
+	@RequestMapping(value="/deleteComment", method = RequestMethod.GET)
+	public String commentDelete(@RequestParam("com_id") String comment_id, @RequestParam("post_id") String post_id, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") == null) {
+			return "redirect:login";
+		}
+		
+		Post post = postService.onePost(post_id);
+		List<Comment> commentList = post.getComments();
+		Comment comment = new Comment();
+		for (Comment c : commentList) {
+			if (c.getId().equals(comment_id)) {
+				comment = c;
+			}
+		}
+		commentList.remove(comment);
+		post.setComments(commentList);
+		postService.setposts(post);
+		
+		return "redirect:postDetail?s="+post_id;
+	}
 }

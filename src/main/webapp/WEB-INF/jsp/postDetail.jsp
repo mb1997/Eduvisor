@@ -1,4 +1,6 @@
 <%@page import="com.application.model.Comment"%>
+<%@page import="com.application.model.Post"%>
+<%@page import="com.application.model.User"%>
 <%@page import="java.util.List"%>
 <%@page import="java.time.Period"%>
 <%@page import="java.time.LocalDate"%>
@@ -54,7 +56,7 @@
 								Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
 								out.print(time1.getDays() + " Days ago");
 							%></span> <span class="question-comment"> <a href="#"><i
-								class="icon-comment"></i> <c:set var="i" value="0" /> <%
+							class="icon-comment"></i> <c:set var="i" value="0" /> <%
 								int i = 0;
 							%> <c:forEach items="${post.comments}" var="comment">
 								<%
@@ -116,8 +118,7 @@
 								<div class="avatar">
 									<img alt="" src="images/demo/avatar.png">
 								</div>
-								<div id="output">
-								</div>
+								<div id="output"></div>
 								<div class="comment-text">
 									<div class="author clearfix">
 										<div class="comment-author">
@@ -161,17 +162,21 @@
 												
 												<br>
 												<li type="number" th:value = "${upcount}" disabled></li> --%>
-												
-												<li><a href="/upVote?id=${ comment.id }&post=${post.id}" class="question-vote-up" title="Like"></a></li>
+
+												<li><a
+													href="/upVote?id=${ comment.id }&post=${post.id}"
+													class="question-vote-up" title="Like"></a></li>
 												<li>${comment.upvote_count}</li>
-												<li><a href="/downVote?id=${ comment.id }&post=${post.id}" class="question-vote-down"
-													title="Dislike" onclick="downvote()"></a></li>
-												
+												<li><a
+													href="/downVote?id=${ comment.id }&post=${post.id}"
+													class="question-vote-down" title="Dislike"
+													onclick="downvote()"></a></li>
+
 												<%-- <li><a href="#" class="question-vote-up" title="Like"
 													onclick="upvote(${postItems.id})"></a></li>
 												<li><a href="#" class="question-vote-down"
 													title="Dislike"></a></li> --%>
-												
+
 											</ul>
 										</div>
 										<div class="comment-meta">
@@ -190,6 +195,20 @@
 									<div class="text">
 										<p>${comment.comment}</p>
 									</div>
+									<%
+									Comment com = (Comment) pageContext.getAttribute("comment");
+									Post post = (Post) pageContext.getAttribute("post");
+									User user = (User) session.getAttribute("user");
+									if(session.getAttribute("user") != null) {
+										if(com.getEmail().equals(user.getEmail()) || post.getEmail().equals(com.getEmail())) {
+									%>
+									<div>
+										<a href="deleteComment?com_id=${comment.id}&post_id=${post.id}">Delete</a>
+									</div>
+									<%
+										}
+									}
+									%>
 								</div>
 							</div>
 						</li>
