@@ -28,7 +28,6 @@ public class PostService {
 	}
 	
 	public Post setposts(Post post) {
-
 		LocalDateTime localDateTime = LocalDateTime.now();
 		LocalDate localDate = localDateTime.toLocalDate();
 		post.setPostedDate(localDate);

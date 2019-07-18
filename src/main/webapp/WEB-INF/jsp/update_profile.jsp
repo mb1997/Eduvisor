@@ -41,6 +41,7 @@
 					
 						<div class="form-style form-style-4">
 							<forms:form modelAttribute="user" action="/updateProfile?data=${user.email}">
+							
 								<c:if test="${not empty UpdateSuccess}">
 									<div class="alert-message success">
 										<i class="icon-ok"></i>
@@ -49,6 +50,7 @@
 										</p>
 									</div>
 								</c:if>
+								
 									<p>
 										<label>Name</label>
 										<forms:input type="text" path="name" value="${user.name}"/>
@@ -57,10 +59,11 @@
 								
 									<p>
 										<label>Date of Birth</label>
-										<forms:input type="date" path="dob" value="${user.dob}" id="datepicker" />
-										<forms:errors path="dob" cssStyle="color: black; font-size: 15px;" />
-										<%-- <forms:input type="date" path="dob" value="${user.dob}" />
-										<forms:errors path="" cssStyle="color: black; font-size: 15px;" /> --%>
+
+										<forms:input type="date" path="dob" value="${user.dob}" />
+										<forms:errors path="dob"
+										cssStyle="color: black; font-size: 15px;" />
+
 									</p>
 								
 									<p>
@@ -95,7 +98,7 @@
 												User user = (User) request.getSession().getAttribute("user");
 												String current_user=user.getProfession();
 												
-												if(current_user.equalsIgnoreCase("Professor"))
+												if(current_user.equals("Professor"))
 												{
 						 				%>
 									

@@ -260,9 +260,12 @@ public class UserController implements WebMvcConfigurer {
 			return "redirect:login";
 		
 		User u = userService.getUser((User)request.getSession().getAttribute("user"));
+		List<Post> p = postService.display(u.getEmail());
+		model.addAttribute("posts", p);
 		model.addAttribute("userProfile", u);
 		return "viewprofile";
 	}
+	
 	
 	@RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
 	public String updateProfilePage(@RequestParam("data") String email, Model model, HttpServletRequest request) {
@@ -292,6 +295,7 @@ public class UserController implements WebMvcConfigurer {
 		User loggedinuser = (User) request.getSession().getAttribute("user");
 		user.setEmail(loggedinuser.getEmail());
 		userService.updateProfile(user, loggedinuser);
+		
 		model.addAttribute("UpdateSuccess", new String("Your Profile has been updated"));
 		return "redirect:updateProfile?data="+email;
 
