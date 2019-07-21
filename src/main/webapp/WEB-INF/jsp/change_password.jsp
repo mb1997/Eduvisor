@@ -27,7 +27,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 			</div>
 			<div class="col-md-12">
 				<div class="crumbs">
-					<a href="#">Home</a> <span class="crumbs-span">/</span> <span
+					<a href="index">Home</a> <span class="crumbs-span">/</span> <span
 						class="current">Change Password</span>
 				</div>
 			</div>

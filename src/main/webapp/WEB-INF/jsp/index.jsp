@@ -90,7 +90,7 @@ li {
 							<c:set var="postDate" value="${postItems.postedDate}" />
 							<%
 								LocalDate now1 = LocalDate.now();
-									Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
+								Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
 							%>
 							<article class="question question-type-normal">
 								<h2>
@@ -102,7 +102,7 @@ li {
 									<i class="icon-question-sign"></i><span> &nbsp; ${postItems.category}</span>
 								</div>
 								<div class="question-author">
-									<a href="#" original-title="ahmed"
+									<a href="" original-title="ahmed"
 										class="question-author-img tooltip-n"><span></span><img
 										alt="" src="../ask-me/images/demo/avatar.png"></a>
 								</div>
@@ -130,8 +130,8 @@ li {
 								</div>
 							</article>
 						</c:forEach>
-						<a href="#" class="load-questions"><i class="icon-refresh"></i>Load
-							More Questions</a>
+						<!-- <a href="#" class="load-questions"><i class="icon-refresh"></i>Load
+							More Questions</a> -->
 					</div>
 				</div>
 			</div>
@@ -142,7 +142,9 @@ li {
 	<!-- End row -->
 </section>
 <!-- End container -->
-
+<!-- Inclusion of footer  -->
 <jsp:include page="include/footer.jsp" />
 
+
+<!-- Inclusion of Script  -->
 <jsp:include page="include/script.jsp" />

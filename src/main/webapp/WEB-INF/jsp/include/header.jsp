@@ -55,7 +55,7 @@
 						<ul>
 							<li><a href="profile">User Profile</a></li>
 							<li><a href="view_post">User Questions</a></li>
-							<li><a href="">User Answers</a></li>
+							<!-- <li><a href="">User Answers</a></li> -->
 							<li><a href="updateProfile?data=<%=user.getEmail() %>">Edit Profile</a></li>
 						</ul>
 					</li>

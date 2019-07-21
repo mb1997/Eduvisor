@@ -16,9 +16,11 @@
 			</div>
 			<div class="col-md-12">
 				<div class="crumbs">
-					<a href="#">Home</a> <span class="crumbs-span">/</span> <a href="#">User</a>
-					<span class="crumbs-span">/</span> <span class="current">
-						User Profile</span>
+					<a href="index">Home</a> 
+					<span class="crumbs-span">/</span>
+					<span>User</span>
+					<span class="crumbs-span">/</span> 
+					<span class="current">User Profile</span>
 				</div>
 			</div>
 		</div>
@@ -40,7 +42,7 @@
 									<ul style="font-weight: bold;">
 										<li><i class="icon-user" ></i>Gender  :  <span>${ user.gender }</span></li>
 										<li><i class="icon-map-marker"></i>Country  :  <span>India</span></li>
-										<li><i class="icon-gift"></i>Birthdate   :   <span>${ user.dob }</span></li>
+										<li><i class="icon-gift"></i>Date of Birth   :   <span>${ user.dob }</span></li>
 										<li><i class="icon-phone-sign"></i>Contact-Number  :  <span>${ user.contactNumber }</span></li>
 										<li><i class="icon-envelope" ></i>Email  :  <span>${ user.email }</span></li>
 										<br>
@@ -98,8 +100,6 @@
 
 
 
-<footer id="footer">
-</footer>
 <!-- FOOTER INCLUSION CODE -->
 
 <jsp:include page="include/footer.jsp"></jsp:include>

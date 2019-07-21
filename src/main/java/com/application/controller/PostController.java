@@ -108,8 +108,13 @@ public class PostController {
 	public String postDetailPage(@RequestParam("s") String id, Model model) {
 		Post post = postService.onePost(id);
 		List<Comment> commentlist = post.getComments();
-		List<Comment> sorted = commentlist.stream().sorted(Comparator.comparing(Comment::getUpvote_count).reversed()).collect(Collectors.toList());
-		post.setComments(sorted);
+		
+		if(commentlist!=null) 
+		{
+			List<Comment> sorted = commentlist.stream().sorted(Comparator.comparing(Comment::getUpvote_count).reversed()).collect(Collectors.toList());
+			post.setComments(sorted);
+		}
+		
 		model.addAttribute("post", post);
 		model.addAttribute("commentform", new Comment());
 		return "postDetail";

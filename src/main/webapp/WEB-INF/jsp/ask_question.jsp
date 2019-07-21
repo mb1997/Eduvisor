@@ -73,13 +73,12 @@
 							<p>
 								<label class="required">Question Title<span>*</span></label>
 								<forms:input type="text" path="title" required="required" />
-								<span class="form-description">Please choose an
-									appropriate title for the question to answer it even easier .</span>
+								<span class="form-description">Please choose an appropriate title 
+										for the question to answer it even easier .</span>
 
 								<c:if test="${not empty errors }">
 									<blockquote>
-										<forms:errors path="title"
-											cssStyle="color: black; font-size: 15px;" />
+										<forms:errors path="title" cssStyle="color: black; font-size: 15px;" />
 									</blockquote>
 								</c:if>
 							</p>

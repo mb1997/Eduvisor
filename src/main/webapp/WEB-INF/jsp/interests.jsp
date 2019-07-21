@@ -19,7 +19,7 @@
 			</div>
 			<div class="col-md-12">
 				<div class="crumbs">
-					<a href="#">Home</a> <span class="crumbs-span">/</span> <span
+					<a href="index">Home</a> <span class="crumbs-span">/</span> <span
 						class="current">Interests</span>
 				</div>
 			</div>

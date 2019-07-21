@@ -16,7 +16,7 @@
 			</div>
 			<div class="col-md-12">
 				<div class="crumbs">
-					<a href="#">Home</a> <span class="crumbs-span">/</span> <a href="#">User</a>
+					<a href="index">Home</a> <span class="crumbs-span">/</span> <a href="viewprofile">User</a>
 					<span class="crumbs-span">/</span> <span class="current">User
 						Questions</span>
 				</div>
@@ -55,12 +55,13 @@
 								<a href="/postDetail?s=${postItems.id}">${postItems.title}</a>
 							</h3>
 							<div class="question-type-main">
-								<i class="icon-question-sign"></i>Question
+								<i class="icon-question-sign"></i>${postItems.category}
 							</div>
 							<div class="question-content">
 								<div class="question-bottom">
-									<span class="question-category"><a href="#"><i
-											class="icon-folder-close"></i>${postItems.category}</a></span> <span
+									<span class="question-category">
+										<i class="icon-folder-close"></i>${postItems.category}</span> 
+										<span
 										class="question-date"><i class="icon-time"></i>
 										<%
  											out.print(time1.getDays() + " Days ago");
@@ -68,7 +69,7 @@
  										</span>
  										<span class="question-comment"><a href="#">
  										<i class="icon-comment"></i><%=i%> Answers</a></span>
- 										<a class="question-reply" href="#"></a>
+ 										<!-- <a class="question-reply" href="#"></a> -->
 								</div>
 							</div>
 						</article>
@@ -79,8 +80,6 @@
 	</div>
 </section>
 
-<footer id="footer">
-</footer>
 <!-- FOOTER INCLUSION CODE -->
 
 <jsp:include page="include/footer.jsp"></jsp:include>

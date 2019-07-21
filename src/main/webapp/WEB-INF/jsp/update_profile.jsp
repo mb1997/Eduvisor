@@ -16,9 +16,9 @@
 				</div>
 				<div class="col-md-12">
 					<div class="crumbs">
-						<a href="#">Home</a>
+						<a href="index">Home</a>
 						<span class="crumbs-span">/</span>
-						<a href="#">user</a>
+						<a href="viewprofile">user</a>
 						<span class="crumbs-span">/</span>
 						<span class="current">Edit Profile</span>
 					</div>

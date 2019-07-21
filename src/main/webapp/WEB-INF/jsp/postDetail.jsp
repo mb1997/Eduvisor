@@ -23,7 +23,7 @@
 			</div>
 			<div class="col-md-12">
 				<div class="crumbs">
-					<a href="#">Home</a> <span class="crumbs-span">/</span> <a href="#">Questions</a>
+					<a href="index">Home</a> <span class="crumbs-span">/</span> <a href="view_post">Questions</a>
 					<span class="crumbs-span">/</span> <span class="current">
 						${post.title} </span>
 				</div>
@@ -41,29 +41,35 @@
 		<div class="col-md-12">
 			<article class="question single-question question-type-normal">
 				<h2>
-					<a href="single_question.html"> ${post.title} </a>
+					<a href="/postDetail?s=${ post.id }"> ${post.title} </a>
 				</h2>
 				<div class="question-inner">
 					<div class="clearfix"></div>
 					<div class="question-desc">
 						<p>${post.description}</p>
 					</div>
-					<span class="question-category"><a href="#"><i
-							class="icon-folder-close"></i>${post.category}</a></span> <span
-						class="question-date"><i class="icon-time"></i> <c:set
-							var="postDate" value="${post.postedDate}" /> <%
+					<span class="question-category">
+					<i class="icon-folder-close"></i>${post.category}</span>
+					 <span class="question-date"><i class="icon-time"></i> 
+					 <c:set	var="postDate" value="${post.postedDate}" /> 
+							<%
 								LocalDate now1 = LocalDate.now();
 								Period time1 = Period.between((LocalDate) pageContext.getAttribute("postDate"), now1);
 								out.print(time1.getDays() + " Days ago");
-							%></span> <span class="question-comment"> <a href="#"><i
-							class="icon-comment"></i> <c:set var="i" value="0" /> <%
+							%>
+					</span>
+					<span class="question-comment"> 
+					<i class="icon-comment"></i>
+					 <c:set var="i" value="0" /> 
+					 <%
 								int i = 0;
-							%> <c:forEach items="${post.comments}" var="comment">
-								<%
-									//pageContext.setAttribute("i", (Integer.parseInt((String) pageContext.getAttribute("i")) + 1));
-										i++;
-								%>
-							</c:forEach> <%=i%> </a>
+					 %> 
+					 <c:forEach items="${post.comments}" var="comment">
+					<%
+						//pageContext.setAttribute("i", (Integer.parseInt((String) pageContext.getAttribute("i")) + 1));
+						i++;
+					%>
+					</c:forEach> <%=i%> 
 					</span>
 
 					<%
@@ -84,16 +90,19 @@
 					</span>
 					<%
 						}
-						}
+					}
 					%>
 					<script type="text/javascript">
 						function deleteButton() {
 
 							var result = confirm("Do you want to continue?");
 
-							if (result) {
+							if (result)
+							{
 								window.location.href = "/delete?id=${post.id}";
-							} else {
+							}
+							else 
+							{
 								window.location.href = "/view_post";
 							}
 						}

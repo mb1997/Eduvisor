@@ -17,7 +17,7 @@
 			</div>
 			<div class="col-md-12">
 				<div class="crumbs">
-					<a href="#">Home</a> <span class="crumbs-span">/</span> <a href="#">Questions</a>
+					<a href="index">Home</a> <span class="crumbs-span">/</span> <a href="view_post">Questions</a>
 					<span class="crumbs-span">/</span> <span class="current">
 						${post.title} </span><span class="current">
 						update </span>
