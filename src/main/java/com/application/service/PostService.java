@@ -13,13 +13,18 @@ import org.springframework.stereotype.Service;
 
 import com.application.model.Comment;
 import com.application.model.Post;
+import com.application.model.User;
 import com.application.repository.PostRepository;
+import com.application.repository.UserRepository;
 
 @Service
 public class PostService {
 
 	@Autowired
 	public PostRepository postrepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	public List<Post> allPost() {
 		List<Post> p = postrepository.findAll();
@@ -97,5 +102,23 @@ public class PostService {
 		List<Post> p = postrepository.findByCategoryIn(name);
 		Collections.sort(p,(p1,p2) -> p2.getPostedDate().compareTo(p1.getPostedDate()));
 		return p;
+	}
+	
+	public User questionIncrement(User user) {
+		user.setQuestionCount(user.getQuestionCount() + 1);
+		userRepository.save(user);
+		return user;
+	}
+	
+	public User answerIncrement(User user) {
+		user.setAnswerCount(user.getAnswerCount());
+		userRepository.save(user);
+		return user;
+	}
+	
+	public void upvoteIncrement(String id) {
+		User user = userRepository.findByEmail(id);
+		user.setUpvoteCount(user.getUpvoteCount());
+		userRepository.save(user);
 	}
 }

@@ -133,59 +133,18 @@
 										<div class="comment-author">
 											<a href="#"> ${comment.email} </a>
 										</div>
-										<script type="text/javascript">
-										function upvote(num) {
-											
-											var JSONObject= {
-													'id' : ${num}
-											};
-											
-											$.ajax({
-												type : "GET",
-												data : JSON.stringify(JSONObject),
-											    url : "${pageContext.request.contextPath}/upVote?id="${ comment.id },
-											    dataType: 'json',
-												success : function(data) {
-													$('#output').html(data);
-												},
-												error: function(jqXHR, textStatus, errorThrown) {
-										            alert(jqXHR.status + ' ' + jqXHR.responseText);
-										        }
-											});
-										}
-										
-										</script>
 										<div class="comment-vote">
 											<ul class="question-vote">
-												<%-- <%
-														Comment cm = (Comment) pageContext.getAttribute("comment");
-														List<String> upvoteList = cm.getUpvote_list();
-														List<String> downvoteList = cm.getDownvote_list();
-														if (request.getSession().getAttribute("user") != null) {
-															User loggedin = (User) request.getSession().getAttribute("user");
-															if (upvoteList != null) {
-												%>
-												 --%>
-												<%-- <li><a href="/upVote?id=${ comment.id }" class="question-vote-up" title="Like"
-													onclick="upvote()"></a></li>
-												
-												<br>
-												<li type="number" th:value = "${upcount}" disabled></li> --%>
-
 												<li><a
-													href="/upVote?id=${ comment.id }&post=${post.id}"
+													href="/upVote?id=${comment.id}&post=${post.id}"
 													class="question-vote-up" title="Like"></a></li>
-												<li>${comment.upvote_count}</li>
+												<li>
+													${comment.upvote_count}
+												</li>
 												<li><a
 													href="/downVote?id=${ comment.id }&post=${post.id}"
 													class="question-vote-down" title="Dislike"
 													onclick="downvote()"></a></li>
-
-												<%-- <li><a href="#" class="question-vote-up" title="Like"
-													onclick="upvote(${postItems.id})"></a></li>
-												<li><a href="#" class="question-vote-down"
-													title="Dislike"></a></li> --%>
-
 											</ul>
 										</div>
 										<div class="comment-meta">
@@ -206,9 +165,9 @@
 									</div>
 									<%
 									Comment com = (Comment) pageContext.getAttribute("comment");
-									Post post = (Post) pageContext.getAttribute("post");
-									User user = (User) session.getAttribute("user");
-									if(session.getAttribute("user") != null) {
+									Post post = (Post) request.getAttribute("post");
+									User user = (User) request.getSession().getAttribute("user");
+									if(user != null) {
 										if(com.getEmail().equals(user.getEmail()) || post.getEmail().equals(com.getEmail())) {
 									%>
 									<div>

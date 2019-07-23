@@ -87,6 +87,11 @@ public class PostController {
 			model.addAttribute("postError", new String("Unexpected Error! Please try again later."));
 			return "redirect:";
 		}
+		
+		//Increase the question count of user who posted the question
+		User user1 = postService.questionIncrement(user);
+		request.getSession().setAttribute("user", user1);
+		
 		// Tell user to refresh their feed to view their post.
 		model.addAttribute("postSuccess", new String("Refresh your feed!"));
 		return "index";
@@ -130,6 +135,10 @@ public class PostController {
 		User user = (User) request.getSession().getAttribute("user");
 		comment.setEmail(user.getEmail());
 		post = postService.comment(post, comment);
+		
+		User user1 = postService.answerIncrement(user);
+		request.getSession().setAttribute("user", user1);
+		
 		if (post == null) {
 			model.addAttribute("message", new String("Unexpected error! Please try again later"));
 			return "postDetail?s=" + id;
@@ -208,6 +217,10 @@ public class PostController {
 			}
 		}
 
+		if(comment.getEmail().equals(user.getEmail())) {
+			return "redirect:postDetail?s=" + post_id;
+		}
+		
 		List<String> a = comment.getUpvote_list() == null ? new ArrayList<>() : comment.getUpvote_list();
 		List<String> b = comment.getDownvote_list() == null ? new ArrayList<>() : comment.getDownvote_list();
 
@@ -225,7 +238,7 @@ public class PostController {
 		}
 		post.setComments(commentList);
 		postService.setposts(post);
-
+		postService.upvoteIncrement(user.getEmail());
 		// model.addAttribute("upcount", comment.getUpvote_count());
 
 		return "redirect:postDetail?s=" + post_id;
@@ -250,6 +263,10 @@ public class PostController {
 			}
 		}
 
+		if(comment.getEmail().equals(user.getEmail())) {
+			return "redirect:postDetail?s=" + post_id;
+		}
+		
 		List<String> a = comment.getDownvote_list() == null ? new ArrayList<>() : comment.getDownvote_list();
 		List<String> b = comment.getUpvote_list() == null ? new ArrayList<>() : comment.getUpvote_list();
 
