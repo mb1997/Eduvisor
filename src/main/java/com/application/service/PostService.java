@@ -104,21 +104,14 @@ public class PostService {
 		return p;
 	}
 	
-	public User questionIncrement(User user) {
-		user.setQuestionCount(user.getQuestionCount() + 1);
-		userRepository.save(user);
-		return user;
-	}
-	
-	public User answerIncrement(User user) {
-		user.setAnswerCount(user.getAnswerCount());
-		userRepository.save(user);
-		return user;
-	}
-	
 	public void upvoteIncrement(String id) {
 		User user = userRepository.findByEmail(id);
-		user.setUpvoteCount(user.getUpvoteCount());
+		user.setUpvoteCount(user.getUpvoteCount()+1);
+		userRepository.save(user);
+	}
+	public void upvoteDecrement(String id) {
+		User user = userRepository.findByEmail(id);
+		user.setUpvoteCount(user.getUpvoteCount()-1);
 		userRepository.save(user);
 	}
 }

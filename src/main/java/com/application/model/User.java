@@ -41,8 +41,6 @@ public class User {
 	private String gender;
 	private String dob;
 	
-	private int questionCount = 0;
-	private int answerCount = 0;
 	private int upvoteCount = 0;
 	
 	@Pattern(regexp = "([a-zA-Z] {50})",message="Number is not allowed")
@@ -167,22 +165,6 @@ public class User {
 
 	public void setTokenID(String tokenID) {
 		this.tokenID = tokenID;
-	}
-	
-	public int getQuestionCount() {
-		return questionCount;
-	}
-
-	public void setQuestionCount(int questionCount) {
-		this.questionCount = questionCount;
-	}
-
-	public int getAnswerCount() {
-		return answerCount;
-	}
-
-	public void setAnswerCount(int answerCount) {
-		this.answerCount = answerCount;
 	}
 
 	public int getUpvoteCount() {

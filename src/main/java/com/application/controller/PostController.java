@@ -54,14 +54,6 @@ public class PostController {
 		response.getWriter().println(id);
 	}
 
-//	@RequestMapping(value="/viewAllposts", method = RequestMethod.GET)
-//	public String viewPost(Model model, HttpServletRequest request) {
-//		if(request.getSession().getAttribute("user") == null) {
-//			return "redirect:";
-//		}
-//		return "viewAllposts";
-//	}
-
 	@RequestMapping(value = "/addQuestion", method = RequestMethod.POST)
 	public String post(@Valid @ModelAttribute("question") Post post, BindingResult bindingResult,
 			HttpServletRequest request, Model model) {
@@ -87,10 +79,6 @@ public class PostController {
 			model.addAttribute("postError", new String("Unexpected Error! Please try again later."));
 			return "redirect:";
 		}
-		
-		//Increase the question count of user who posted the question
-		User user1 = postService.questionIncrement(user);
-		request.getSession().setAttribute("user", user1);
 		
 		// Tell user to refresh their feed to view their post.
 		model.addAttribute("postSuccess", new String("Refresh your feed!"));
@@ -135,9 +123,6 @@ public class PostController {
 		User user = (User) request.getSession().getAttribute("user");
 		comment.setEmail(user.getEmail());
 		post = postService.comment(post, comment);
-		
-		User user1 = postService.answerIncrement(user);
-		request.getSession().setAttribute("user", user1);
 		
 		if (post == null) {
 			model.addAttribute("message", new String("Unexpected error! Please try again later"));
@@ -206,9 +191,7 @@ public class PostController {
 		}
 		Post post = postService.onePost(post_id);
 		User user = (User) request.getSession().getAttribute("user");
-//		Comment comment = postService.oneComment(cid);
 
-//		Post post = postService.onePost(post_id);
 		List<Comment> commentList = post.getComments();
 		Comment comment = new Comment();
 		for (Comment c : commentList) {
@@ -216,7 +199,6 @@ public class PostController {
 				comment = c;
 			}
 		}
-
 		if(comment.getEmail().equals(user.getEmail())) {
 			return "redirect:postDetail?s=" + post_id;
 		}
@@ -234,13 +216,12 @@ public class PostController {
 			comment.setUpvote_count(comment.getUpvote_count() + 1);
 			a.add(user.getEmail());
 			comment.setUpvote_list(a);
+			postService.upvoteIncrement(comment.getEmail());
 			commentList.add(comment);
 		}
 		post.setComments(commentList);
 		postService.setposts(post);
-		postService.upvoteIncrement(user.getEmail());
-		// model.addAttribute("upcount", comment.getUpvote_count());
-
+		
 		return "redirect:postDetail?s=" + post_id;
 	}
 	
@@ -252,9 +233,7 @@ public class PostController {
 		}
 		Post post = postService.onePost(post_id);
 		User user = (User) request.getSession().getAttribute("user");
-//		Comment comment = postService.oneComment(cid);
 
-//		Post post = postService.onePost(post_id);
 		List<Comment> commentList = post.getComments();
 		Comment comment = new Comment();
 		for (Comment c : commentList) {
@@ -273,6 +252,7 @@ public class PostController {
 		if (a == null || !(a.contains(user.getEmail()))) {
 			commentList.remove(comment);
 			if(b.contains(user.getEmail())) {
+				postService.upvoteDecrement(comment.getEmail());
 				b.remove(user.getEmail());
 				comment.setUpvote_list(b);
 				comment.setUpvote_count(comment.getUpvote_count() - 1);

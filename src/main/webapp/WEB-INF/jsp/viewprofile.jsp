@@ -29,20 +29,58 @@
 	<!-- End container -->
 </div>
 <!-- End breadcrumbs -->
+<style>
+.question-type-main{
+	background-color: #eaeae1;
+	color : black;
+}
 
+</style>
 	<section class="container main-content">
 		
 					<div class="user-profile">
 						<div class="col-md-12">
 							<div class="page-content">
 								<h2>Profile</h2>
+								
 								<p style="font-size : 22px; color: black; font-weight: bold;">${ user.name }</p>
-							
+								<c:set var="currentVotes" value="${user.upvoteCount }" />
+									
+									<% 
+										int votes = (int)pageContext.getAttribute("currentVotes");
+												
+										if(votes >= 500 )
+										{
+						 			%>
+						 				<div class="question-type-main">
+											<i class="icon-certificate" style="color:#FFCC01"></i>Gold
+										</div>
+						 		
+						 			<%	} else  if(votes >= 250){	%>
+						 			
+						 			<div class="question-type-main" >
+											<i class="icon-certificate" style="color:#B4B8BC; "></i>Silver
+									</div>
+										
+									<%	} else if(votes >= 100){	%>
+						 			
+						 			<div class="question-type-main">
+											<i class="icon-certificate" style="color:#D1A684"></i>Bronze
+									</div>
+										
+									<%	} else if(votes >= 15){	%>
+						 			
+						 			<div class="question-type-main">
+											<i class="icon-certificate" style="color:#00b3b3"></i>Beginner
+									</div>
+										
+									<%	} 	%>
+						 			
 								<div class="ul_list ul_list-icon-ok about-user">
 									<ul style="font-weight: bold;">
 										<li><i class="icon-user" ></i>Gender  :  <span>${ user.gender }</span></li>
 										<li><i class="icon-map-marker"></i>Country  :  <span>India</span></li>
-										<li><i class="icon-gift"></i>Date of Birth   :   <span>${ user.dob }</span></li>
+										<li><i class="icon-gift"></i>Date of Birth   :  <span>${ user.dob }</span></li>
 										<li><i class="icon-phone-sign"></i>Contact-Number  :  <span>${ user.contactNumber }</span></li>
 										<li><i class="icon-envelope" ></i>Email  :  <span>${ user.email }</span></li>
 										<br>
@@ -61,7 +99,7 @@
 						 				<li><i class="icon-check-empty" aria-hidden="true"></i>University   :   <span>${ user.currentUniversity }</span></li>
 										<li><i class="icon-check-empty"></i>Degree   :  <span>${ user.expertise }</span></li>
 						 				
-						 			<%	}	%>
+						 					<%	}	%>
 						 			
 								</div>
 								<ul>
