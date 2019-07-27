@@ -102,9 +102,13 @@ li {
 									<i class="icon-question-sign"></i><span> &nbsp; ${postItems.category}</span>
 								</div>
 								<div class="question-author">
-									<a href="" original-title="ahmed"
+									<!-- <a href="" original-title="ahmed"
 										class="question-author-img tooltip-n"><span></span><img
 										alt="" src="../ask-me/images/demo/avatar.png"></a>
+										<span><i class="icon-question-sign"></i></span> -->
+										
+										<img alt="" src="https://www.kisspng.com/png-question-mark-computer-icons-exclamation-mark-desk-5421437/"
+													height="100%" width="100%">
 								</div>
 								<div class="question-inner">
 									<div class="clearfix"></div>

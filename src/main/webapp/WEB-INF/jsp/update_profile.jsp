@@ -18,8 +18,6 @@
 					<div class="crumbs">
 						<a href="index">Home</a>
 						<span class="crumbs-span">/</span>
-						<a href="viewprofile">user</a>
-						<span class="crumbs-span">/</span>
 						<span class="current">Edit Profile</span>
 					</div>
 				</div>

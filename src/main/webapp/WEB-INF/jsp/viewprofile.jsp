@@ -17,8 +17,6 @@
 			<div class="col-md-12">
 				<div class="crumbs">
 					<a href="index">Home</a> 
-					<span class="crumbs-span">/</span>
-					<span>User</span>
 					<span class="crumbs-span">/</span> 
 					<span class="current">User Profile</span>
 				</div>
