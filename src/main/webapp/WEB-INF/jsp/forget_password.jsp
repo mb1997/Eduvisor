@@ -79,10 +79,15 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 					</c:if>
 							<div class="form-inputs clearfix">
 								<p>
-								<label class="required">Enter Your Registered Email Id<span>*</span></label>
-								<forms:input type="text" path="email" />
-								<forms:errors path="email"
-										cssStyle="color: black; font-size: 15px;" />
+									<label class="required">Enter Your Registered Email Id<span>*</span></label>
+									<forms:input type="email" path="email" />
+									<c:if test="${not empty errors }">
+										<blockquote>
+											<forms:errors path="email"
+												cssStyle="color: black; font-size: 15px;"
+												required="required" />
+										</blockquote>
+									</c:if>
 								</p>
 							</div>
 							<p class="form-submit">

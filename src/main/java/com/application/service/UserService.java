@@ -67,7 +67,6 @@ public class UserService {
 			email.setTo(recipient);
 			email.setSubject(subject);
 			email.setText(message + "http://localhost:8080" + url);
-			System.out.println(url);
 			mailSender.send(email);
 		} catch (MailException e) {
 			logger.info("Error Sending Email" + e.getMessage());

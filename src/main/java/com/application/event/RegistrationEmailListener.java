@@ -39,7 +39,6 @@ public class RegistrationEmailListener implements ApplicationListener<OnRegistra
             email.setTo(recipient);
             email.setSubject(subject);
             email.setText(message + "https://eduvisor.herokuapp.com" + url);
-            System.out.println(url);
             mailSender.send(email);
 		}catch(MailException e) {
 			logger.info("Error Sending Email" + e.getMessage());

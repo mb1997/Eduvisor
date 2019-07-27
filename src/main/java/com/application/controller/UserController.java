@@ -184,6 +184,39 @@ public class UserController implements WebMvcConfigurer {
 		return "change_password";
 	}
 	
+	@RequestMapping(value = "/changepassword", method = RequestMethod.GET)
+	public String changePasswordForLoggedinUser(Model model, HttpServletRequest request) {
+		
+		if(request.getSession().getAttribute("user") == null)
+			 return "redirect:login";
+		
+		model.addAttribute("Changepassword", new ChangePassword());
+		return "change_password";
+	}
+	
+	@RequestMapping(value = "/changepassword", method = RequestMethod.POST)
+	public String newPassword(@Valid @ModelAttribute("Changepassword")ChangePassword newPassword ,BindingResult bindingResult,Model model, HttpServletRequest request) {
+		if (bindingResult.hasErrors()) {
+			System.out.println(bindingResult.getErrorCount());
+			model.addAttribute("error", bindingResult);
+			return "change_password";
+		}
+		if(!(newPassword.getPassword().equals(newPassword.getConfirmPassword()))) {
+			model.addAttribute("PasswordMismatch", new String("Password should be same in both fields."));
+			return "change_password";
+		}
+		User user = (User)request.getSession().getAttribute("user");
+		if(user == null)
+			 return "redirect:login";
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16); // Strength set as 16
+		user.setPassword(encoder.encode(newPassword.getPassword()));
+		notificationservice.enableRegisteredUser(user);
+		
+		model.addAttribute("PasswordChanged", new String("Please login."));
+		return "change_password";
+	}
+	
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public String newPasswordPage(@RequestParam("token") String token,@Valid @ModelAttribute("Changepassword")ChangePassword newPassword ,BindingResult bindingResult,Model model) {
 		if (bindingResult.hasErrors()) {
