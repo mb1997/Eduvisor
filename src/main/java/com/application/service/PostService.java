@@ -3,6 +3,7 @@ package com.application.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -100,6 +101,12 @@ public class PostService {
 	
 	public List<Post> filterFunction(List<String> name) {
 		List<Post> p = postrepository.findByCategoryIn(name);
+		Collections.sort(p,(p1,p2) -> p2.getPostedDate().compareTo(p1.getPostedDate()));
+		return p;
+	}
+	
+	public List<Post> filterFunction(String[] name) {
+		List<Post> p = postrepository.findByCategoryIn(Arrays.asList(name));
 		Collections.sort(p,(p1,p2) -> p2.getPostedDate().compareTo(p1.getPostedDate()));
 		return p;
 	}

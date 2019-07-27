@@ -1,6 +1,7 @@
 package com.application.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,10 +56,15 @@ public class UserController implements WebMvcConfigurer {
 		List<String> interest = aoiService.listOfInterests();
 		model.addAttribute("interestList", interest);
 		if (request.getSession().getAttribute("user") != null) {
+			User user = (User) request.getSession().getAttribute("user");
 			interest = aoiService.listOfInterests();
 			model.addAttribute("interestList", interest);
+			model.addAttribute("list", postService.filterFunction(Arrays.asList(user.getAreaOfInterest())));
 		}
-		model.addAttribute("list", postService.allPost());
+		else
+		{
+			model.addAttribute("list", postService.allPost());
+		}
 		model.addAttribute("filter", new Filter());
 		return "index";
 	}
@@ -108,6 +114,9 @@ public class UserController implements WebMvcConfigurer {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model,
 			HttpServletRequest request) {
+		if (request.getSession().getAttribute("user") != null) {
+			return "redirect:";
+		}
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("error", bindingResult);
 			model.addAttribute("register", new User());
@@ -183,8 +192,8 @@ public class UserController implements WebMvcConfigurer {
 	
 	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
 	public String changePasswordPage(@RequestParam("token") String token,Model model, HttpServletRequest request) {
-		if(request.getSession().getAttribute("user") == null) {
-			return "redirect:login";
+		if(request.getSession().getAttribute("user") != null) {
+			return "redirect:";
 		}
 		model.addAttribute("Changepassword", new ChangePassword());
 		return "change_password";
@@ -202,6 +211,9 @@ public class UserController implements WebMvcConfigurer {
 	
 	@RequestMapping(value = "/changepassword", method = RequestMethod.POST)
 	public String newPassword(@Valid @ModelAttribute("Changepassword")ChangePassword newPassword ,BindingResult bindingResult,Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") == null) {
+			return "redirect:login";
+		}
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getErrorCount());
 			model.addAttribute("error", bindingResult);
@@ -214,17 +226,18 @@ public class UserController implements WebMvcConfigurer {
 		User user = (User)request.getSession().getAttribute("user");
 		if(user == null)
 			 return "redirect:login";
-		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16); // Strength set as 16
 		user.setPassword(encoder.encode(newPassword.getPassword()));
 		notificationservice.enableRegisteredUser(user);
-		
 		model.addAttribute("PasswordChanged", new String("Please login."));
-		return "change_password";
+		return "redirect:";
 	}
 	
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-	public String newPasswordPage(@RequestParam("token") String token,@Valid @ModelAttribute("Changepassword")ChangePassword newPassword ,BindingResult bindingResult,Model model) {
+	public String newPasswordPage(@RequestParam("token") String token,@Valid @ModelAttribute("Changepassword")ChangePassword newPassword ,BindingResult bindingResult,Model model,HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") != null) {
+			return "redirect:";
+		}
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getErrorCount());
 			model.addAttribute("error", bindingResult);
@@ -240,12 +253,15 @@ public class UserController implements WebMvcConfigurer {
 		notificationservice.enableRegisteredUser(user);
 		
 		model.addAttribute("PasswordChanged", new String("Please login."));
-		return "change_password";
+		return "redirect:login";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("register") User user, BindingResult bindingResult,
-			WebRequest request, Model model) {
+			WebRequest request, Model model, HttpServletRequest request1) {
+		if (request1.getSession().getAttribute("user") != null) {
+			return "redirect:";
+		}
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("errors", bindingResult);
 			model.addAttribute("login", new Login());
@@ -336,7 +352,7 @@ public class UserController implements WebMvcConfigurer {
 		userService.updateProfile(user, loggedinuser);
 		
 		model.addAttribute("UpdateSuccess", new String("Your Profile has been updated"));
-		return "redirect:updateProfile?data="+email;
+		return "redirect:profile";
 
 	}
 			

@@ -115,7 +115,7 @@ li {
 									if(descrip == null || descrip == "" || descrip.length() == 0)
 										out.print("");
 									else
-										out.print(descrip.substring(0, descrip.length() > 100 ? 99 : descrip.length()-1));
+										out.print(descrip.substring(0, descrip.length() > 50 ? 49 : descrip.length()-1) + ".....");
 									%>
 									</p>
 									<span class="question-date"><i class="icon-time"></i>

@@ -58,6 +58,7 @@
 							<!-- <li><a href="">User Answers</a></li> -->
 							<li><a href="updateProfile?data=<%=user.getEmail() %>">Edit Profile</a></li>
 							<li><a href="changepassword">Change Password</a></li>
+							<li><a href="interest">Area Of Interest</a></li>
 						</ul>
 					</li>
 					<li><a href="/logout">Logout</a></li>
