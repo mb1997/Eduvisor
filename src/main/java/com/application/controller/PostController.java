@@ -117,7 +117,8 @@ public class PostController {
 	public String comment(@RequestParam("s") String id, @Valid @ModelAttribute("commentform") Comment comment,
 			Model model, HttpServletRequest request) {
 		if (request.getSession().getAttribute("user") == null) {
-			return "redirect:";
+			/* return "redirect:"; */
+			return "redirect:login";
 		}
 		Post post = postService.onePost(id);
 		User user = (User) request.getSession().getAttribute("user");

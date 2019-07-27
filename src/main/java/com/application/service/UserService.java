@@ -84,6 +84,8 @@ public class UserService {
 	{	
 		  if(user.getEmail().equals(loggedinuser.getEmail())) 
 		  {
+			  loggedinuser.setName(user.getName());
+			  loggedinuser.setContactNumber(user.getContactNumber());
 			  loggedinuser.setDob(user.getDob());
 			  loggedinuser.setGender(user.getGender());
 			  loggedinuser.setUniversity(user.getUniversity());

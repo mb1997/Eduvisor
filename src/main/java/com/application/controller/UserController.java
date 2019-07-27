@@ -353,7 +353,6 @@ public class UserController implements WebMvcConfigurer {
 		
 		model.addAttribute("UpdateSuccess", new String("Your Profile has been updated"));
 		return "redirect:profile";
-
 	}
 			
 }
