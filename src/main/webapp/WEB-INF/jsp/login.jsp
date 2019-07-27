@@ -70,7 +70,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 									<forms:input type="text" path="email" required="required" />
 									<i class="icon-user"></i>
 								</p>
-								<c:if test="${not empty error}">
+								<c:if test="${not empty emailHasBindError}">
 									<p>
 									<blockquote>
 										<forms:errors path="email" />
@@ -82,7 +82,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 										required="required" />
 									<i class="icon-lock"></i>
 								</p>
-								<c:if test="${not empty error}">
+								<c:if test="${not empty passwordHasBindError}">
 									<p>
 									<blockquote>
 										<forms:errors path="password" />
@@ -137,7 +137,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 								<p>
 									<label class="required">Name<span>*</span></label>
 									<forms:input type="text" path="name" required="required" />
-									<c:if test="${not empty errors }">
+									<c:if test="${not empty nameHasBindError}">
 										<blockquote>
 											<forms:errors path="name"
 												cssStyle="color: black; font-size: 15px;" />
@@ -147,7 +147,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 								<p>
 									<label class="required">E-Mail<span>*</span></label>
 									<forms:input type="email" path="email" />
-									<c:if test="${not empty errors }">
+									<c:if test="${not empty emailHasBindError}">
 										<blockquote>
 											<forms:errors path="email"
 												cssStyle="color: black; font-size: 15px;"
@@ -159,7 +159,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 									<label class="required">Contact Number<span>*</span></label>
 									<forms:input type="text" path="contactNumber"
 										required="required" />
-									<c:if test="${not empty errors }">
+									<c:if test="${not empty contactNumberHasBindError}">
 										<blockquote>
 											<forms:errors path="contactNumber"
 												cssStyle="color: black; font-size: 15px;" />
@@ -173,7 +173,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 										<forms:option value="Student" />
 										<forms:option value="Professor" />
 									</forms:select>
-									<c:if test="${not empty errors }">
+									<c:if test="${not empty professionHasBindError}">
 										<blockquote>
 											<forms:errors path="profession"
 												cssStyle="color: black; font-size: 15px;" />
@@ -184,7 +184,7 @@ YOU NEED TO ADD ALL THE 3 INCLUDE FILES THEN ONLY YOU CAN USE PAGE PROPERLY WITH
 									<label class="required">Password<span>*</span></label>
 									<forms:input type="password" path="password"
 										required="required" />
-									<c:if test="${not empty errors }">
+									<c:if test="${not empty passwordHasBindError}">
 										<blockquote>
 											<forms:errors path="password"
 												cssStyle="color: black; font-size: 15px;" />

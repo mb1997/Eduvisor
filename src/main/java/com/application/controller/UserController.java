@@ -156,7 +156,10 @@ public class UserController implements WebMvcConfigurer {
 	}
 	
 	@RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
-	public String forgetPage( Model model){
+	public String forgetPage(Model model, HttpServletRequest request){
+		if(request.getSession().getAttribute("user") != null) {
+			return "redirect:";
+		}
 		model.addAttribute("mailObject", new Mail());
 		return "forget_password";
 	}
@@ -179,7 +182,10 @@ public class UserController implements WebMvcConfigurer {
 	}
 	
 	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
-	public String changePasswordPage(@RequestParam("token") String token,Model model) {
+	public String changePasswordPage(@RequestParam("token") String token,Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("user") == null) {
+			return "redirect:login";
+		}
 		model.addAttribute("Changepassword", new ChangePassword());
 		return "change_password";
 	}
@@ -258,6 +264,7 @@ public class UserController implements WebMvcConfigurer {
 //					throw new Exception("Error while sending confirmation email");
 				}
 				model.addAttribute("login", new Login());
+				model.addAttribute("register", new User());
 				model.addAttribute("registerSuccess", new String(
 						"Registered Successfully, Kindly check your mail to verify your account and Login again"));
 				return "login";
@@ -291,7 +298,6 @@ public class UserController implements WebMvcConfigurer {
 	public String userProfilePage(Model model, HttpServletRequest request) {
 		if(request.getSession().getAttribute("user") == null) 
 			return "redirect:login";
-		
 		User u = userService.getUser((User)request.getSession().getAttribute("user"));
 		List<Post> p = postService.display(u.getEmail());
 		model.addAttribute("posts", p);
