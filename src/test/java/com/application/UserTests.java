@@ -847,4 +847,5 @@ public class UserTests {
 			.andExpect(redirectedUrl("login"))
 			.andReturn();
 	}
+	
 }
