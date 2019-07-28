@@ -48,17 +48,17 @@ public class profileTest {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 
-	/*
-	 * @Test public void profileSession() throws Exception {
-	 * mockMvc.perform(get("/profile")) .andExpect(redirectedUrl("login"))
-	 * .andDo(MockMvcResultHandlers.print()) .andReturn(); }
-	 * 
-	 * @Test public void profile() throws Exception { User
-	 * user=userService.getUserByMail("vmandowara11@gmail.com");
-	 * mockMvc.perform(get("/profile") .sessionAttr("user", user))
-	 * .andExpect(view().name("viewprofile")) .andDo(MockMvcResultHandlers.print())
-	 * .andReturn(); }
-	 */
+/*//	/*
+//	 * @Test public void profileSession() throws Exception {
+//	 * mockMvc.perform(get("/profile")) .andExpect(redirectedUrl("login"))
+//	 * .andDo(MockMvcResultHandlers.print()) .andReturn(); }
+//	 * 
+//	 * @Test public void profile() throws Exception { User
+//	 * user=userService.getUserByMail("vmandowara11@gmail.com");
+//	 * mockMvc.perform(get("/profile") .sessionAttr("user", user))
+//	 * .andExpect(view().name("viewprofile")) .andDo(MockMvcResultHandlers.print())
+//	 * .andReturn(); }
+//	 */
 
 	/*
 	 * @Test public void addQuestionTest() throws Exception {
@@ -67,7 +67,7 @@ public class profileTest {
 	 * String("Please login first"))) .andDo(MockMvcResultHandlers.print())
 	 * .andReturn(); }
 	 */
-	
+
 	/*
 	 * @Test public void sessionAddQuestionTest() throws Exception { User
 	 * user=userService.getUserByMail("vmandowara11@gmail.com");
@@ -87,19 +87,6 @@ public class profileTest {
 	 * .andDo(MockMvcResultHandlers.print()) .andReturn(); }
 	 * 
 	 * 
-	 * @Test public void deletecomment() throws Exception { mockMvc.perform(get(
-	 * "/deleteComment?com_id=b70afe5d-bf67-4b18-ac22-e831ded11af2&post_id=5d299505abe88c1258bd7eed"
-	 * )) .andExpect(redirectedUrl("login")) .andDo(MockMvcResultHandlers.print())
-	 * .andReturn(); }
-	 * 
-	 * 
-	 * @Test public void sessiondeletecomment() throws Exception { User
-	 * user=userService.getUserByMail("vmandowara11@gmail.com");
-	 * mockMvc.perform(get(
-	 * "/deleteComment?com_id=b70afe5d-bf67-4b18-ac22-e831ded11af2&post_id=5d299505abe88c1258bd7eed")
-	 * .sessionAttr("user",user))
-	 * .andExpect(redirectedUrl("postDetail?s=5d299505abe88c1258bd7eed"))
-	 * .andDo(MockMvcResultHandlers.print()) .andReturn(); }
 	 * 
 	 * @Test public void downvote() throws Exception { mockMvc.perform(get(
 	 * "/downVote?id=b70afe5d-bf67-4b18-ac22-e831ded11af2&post=5d299505abe88c1258bd7eed"
@@ -151,57 +138,73 @@ public class profileTest {
 		mockMvc.perform(post("/addQuestion")
 				.sessionAttr("user", user)
 				.contentType(MediaType.MULTIPART_FORM_DATA)
-				.param("description", (String) null)
+				.param("description", "")
 				)
 			.andExpect(status().isOk())
 			.andExpect(view().name("ask_question"))
 			//.andExpect(model().attributeHasFieldErrors("login", "email"))
 			.andReturn();
 	}
-	
+
 	@Test
 	public void titleupdateQuestion() throws Exception
 	{
-		User user=userService.getUserByMail("vmandowara11@gmail.com");
+		User user=userService.getUserByMail("mahima.teena@gmail.com");
 		mockMvc.perform(post("/updatepost?s=5d299505abe88c1258bd7eed")
 				.sessionAttr("user", user)
 				.contentType(MediaType.MULTIPART_FORM_DATA)
-				.param("title", (String) null)
+				.param("title","")
 				)
-			.andExpect(status().isOk())
-			.andExpect(redirectedUrl("update_post?s=5d299505abe88c1258bd7eed"))
-			//.andExpect(model().attributeHasFieldErrors("login", "email"))
-			.andReturn();
-	}
-	
-	@Test
-	public void categoryupdateQuestion() throws Exception
-	{
-		User user=userService.getUserByMail("vmandowara11@gmail.com");
-		mockMvc.perform(post("/updatepost?s=5d35eda5a4f7ad1db0c3058b")
-				.sessionAttr("user", user)
-				.contentType(MediaType.MULTIPART_FORM_DATA)
-				.param("category", (String) null)
-				)
-			.andExpect(status().isOk())
-			.andExpect(redirectedUrl("update_post?s=5d35eda5a4f7ad1db0c3058b"))
-			//.andExpect(model().attributeHasFieldErrors("login", "email"))
-			.andReturn();
-	}
-	
-	@Test
-	public void descriptionupdateQuestion() throws Exception
-	{
-		User user=userService.getUserByMail("vmandowara11@gmail.com");
-		mockMvc.perform(post("/updatepost?s=5d35eda5a4f7ad1db0c3058b")
-				.sessionAttr("user", user)
-				.contentType(MediaType.MULTIPART_FORM_DATA)
-				.param("description", (String) null)
-				)
-			//.andExpect(status().isOk())
-			.andExpect(redirectedUrl("update_post?s=5d35eda5a4f7ad1db0c3058b"))
+			.andExpect(redirectedUrl("updatepost?s=5d299505abe88c1258bd7eed"))
 			//.andExpect(model().attributeHasFieldErrors("login", "email"))
 			.andReturn();
 	}
 
+	@Test
+	public void categoryupdateQuestion() throws Exception
+	{
+		User user=userService.getUserByMail("mahima.teena@gmail.com");
+		mockMvc.perform(post("/updatepost?s=5d35eda5a4f7ad1db0c3058b")
+				.sessionAttr("user", user)
+				.contentType(MediaType.MULTIPART_FORM_DATA)
+				.param("category", "")
+				)
+			.andExpect(redirectedUrl("updatepost?s=5d35eda5a4f7ad1db0c3058b"))
+			.andReturn();
+	}
+
+	@Test
+	public void descriptionupdateQuestion() throws Exception
+	{
+		User user=userService.getUserByMail("mahima.teena@gmail.com");
+		mockMvc.perform(post("/updatepost?s=5d35eda5a4f7ad1db0c3058b")
+				.sessionAttr("user", user)
+				.contentType(MediaType.MULTIPART_FORM_DATA)
+				.param("description", "")
+				)
+			.andExpect(redirectedUrl("updatepost?s=5d35eda5a4f7ad1db0c3058b"))
+			.andReturn();
+	}
+	
+	/* DELETE COMMENT */
+	
+		// Session unset
+			@Test 
+			public void deletecomment() throws Exception { 
+				mockMvc.perform(get("/deleteComment?com_id=b70afe5d-bf67-4b18-ac22-e831ded11af2&post_id=5d299505abe88c1258bd7eed"))
+					.andExpect(redirectedUrl("login")) 
+					.andReturn();
+				}
+			  
+			  
+			  @Test public void sessiondeletecomment() throws Exception { 
+				  User user=userService.getUserByMail("vmandowara11@gmail.com");
+				  mockMvc.perform(get("/deleteComment?com_id=b70afe5d-bf67-4b18-ac22-e831ded11af2&post_id=5d299505abe88c1258bd7eed")
+						  .sessionAttr("user",user)
+						  )
+				  		.andExpect(redirectedUrl("postDetail?s=5d299505abe88c1258bd7eed"))
+				  		.andDo(MockMvcResultHandlers.print()) 
+				  		.andReturn();
+				  }
+	 
 }

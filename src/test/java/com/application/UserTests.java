@@ -82,10 +82,8 @@ public class UserTests {
 	
 	@Autowired
 	private UserService userService;
-	
-//	@Autowired
-//	private PostService postService;
-	
+
+
 	@Before
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
@@ -125,12 +123,12 @@ public class UserTests {
 //			.andDo(MockMvcResultHandlers.print())
 //			.andReturn();
 //	}
-
-/**
- * LOGIN GET AND POST REQUEST TESTING
- * 
- */
-	//LOGIN PAGE LOAD TESTING
+//
+///**
+// * LOGIN GET AND POST REQUEST TESTING
+// * 
+// */
+//	//LOGIN PAGE LOAD TESTING
 	@Test
 	public void LoginPageLoading() throws Exception {
 		mockMvc.perform(get("/login"))
@@ -139,8 +137,8 @@ public class UserTests {
 			.andDo(MockMvcResultHandlers.print())
 			.andReturn();
 	}
-
-	//SESSION TEST WHETHER LOGIN PAGE IS OPENED WHEN USER IS LOGGED IN OR NOT
+//
+//	//SESSION TEST WHETHER LOGIN PAGE IS OPENED WHEN USER IS LOGGED IN OR NOT
 	@Test
 	public void SessionTestingForLoginPage() throws Exception {
 		User user = userService.getUserByMail("ojhaharshvardhan44@gmail.com");
@@ -150,22 +148,22 @@ public class UserTests {
 			.andDo(MockMvcResultHandlers.print())
 			.andReturn();
 	}
-	
-	//TESTCASE WHEN BOTH EMAIL ID AND PASSWORD ARE TRUE AND EXPECT HOMEPAGE AFTER SUCCESSFUL LOGIN
-//	@Test
-//	public void LoginPageTestWithCorrectCredentials() throws Exception {
-//		mockMvc.perform(post("/login")
-//				.contentType(MediaType.MULTIPART_FORM_DATA)
-//				.param("email", "ojhaharsh7@gmail.com")
-//				.param("password", "Ojhaharsh7@")
-//				)
-//			.andExpect(redirectedUrl(""))
-//			.andDo(MockMvcResultHandlers.print())
-//			.andReturn();
-//	}
-	
-	//TESTCASE TO FOR NOT EXISTING EMAIL ACCOUNT
+//	
+//	//TESTCASE WHEN BOTH EMAIL ID AND PASSWORD ARE TRUE AND EXPECT HOMEPAGE AFTER SUCCESSFUL LOGIN
 	@Test
+	public void LoginPageTestWithCorrectCredentials() throws Exception {
+		mockMvc.perform(post("/login")
+				.contentType(MediaType.MULTIPART_FORM_DATA)
+				.param("email", "ojhaharsh7@gmail.com")
+				.param("password", "Ojhaharsh7@")
+				)
+			.andExpect(redirectedUrl(""))
+			.andDo(MockMvcResultHandlers.print())
+			.andReturn();
+	}
+//	
+//	//TESTCASE TO FOR NOT EXISTING EMAIL ACCOUNT
+//	@Test
 	public void LoginPageTestWithWrongEmailAndPassword() throws Exception {
 		mockMvc.perform(post("/login")
 				.contentType(MediaType.MULTIPART_FORM_DATA)
@@ -178,9 +176,9 @@ public class UserTests {
 			.andDo(MockMvcResultHandlers.print())
 			.andReturn();
 	}
-	
-	//TESTCASE TO FOR INVALID PASSWORD
-	@Test
+//	
+//	//TESTCASE TO FOR INVALID PASSWORD
+//	@Test
 	public void LoginPageTestWithPassword() throws Exception {
 		mockMvc.perform(post("/login")
 				.contentType(MediaType.MULTIPART_FORM_DATA)
@@ -193,9 +191,9 @@ public class UserTests {
 			.andDo(MockMvcResultHandlers.print())
 			.andReturn();
 	}
-	
-	//TESTCASE TO CHECK NULL EMAIIL ID AND PASSWORD
-	@Test
+//	
+//	//TESTCASE TO CHECK NULL EMAIIL ID AND PASSWORD
+//	@Test
 	public void LoginPageWithNullEmailAndNullPassword() throws Exception {
 		mockMvc.perform(post("/login")
 				.contentType(MediaType.MULTIPART_FORM_DATA)
@@ -209,9 +207,9 @@ public class UserTests {
 			.andDo(MockMvcResultHandlers.print())
 			.andReturn();
 	}
-
-	//TESTCASE TO CHECK FOR NULL EMAIL AND NOT NULL PASSWORD
-	@Test
+//
+//	//TESTCASE TO CHECK FOR NULL EMAIL AND NOT NULL PASSWORD
+//	@Test
 	public void LoginPageWithNullEmailAndNotNullPassword() throws Exception {
 		mockMvc.perform(post("/login")
 				.contentType(MediaType.MULTIPART_FORM_DATA)
@@ -225,8 +223,8 @@ public class UserTests {
 			.andReturn();
 	}
 
-	//TESTCASE TO CHECK FOR NOT NULL EMAIL AND NULL PASSWORD
-	@Test
+//	//TESTCASE TO CHECK FOR NOT NULL EMAIL AND NULL PASSWORD
+//	@Test
 	public void LoginPageWithNotNullEmailAndNullPassword() throws Exception {
 		mockMvc.perform(post("/login")
 				.contentType(MediaType.MULTIPART_FORM_DATA)
@@ -239,9 +237,9 @@ public class UserTests {
 			.andDo(MockMvcResultHandlers.print())
 			.andReturn();
 	}
-	
-	//TESTCASE TO CHECK NON VERIFIED USER
-	@Test
+//	
+//	//TESTCASE TO CHECK NON VERIFIED USER
+//	@Test
 	public void LoginPageWithNotVerifiedUser() throws Exception {
 		mockMvc.perform(post("/login")
 				.contentType(MediaType.MULTIPART_FORM_DATA)
@@ -254,9 +252,9 @@ public class UserTests {
 			.andDo(MockMvcResultHandlers.print())
 			.andReturn();
 	}
-	
-	//TESTCASES TO CHECK VALID EMAIL ADDRESS
-	@Test
+//	
+//	//TESTCASES TO CHECK VALID EMAIL ADDRESS
+//	@Test
 	public void LoginWithValidEmail() throws Exception {
 		List<String> list = new ArrayList<String>();
 		list.add(new String("plainaddress"));
@@ -284,8 +282,8 @@ public class UserTests {
 				.andReturn();
 		}
 	}
-	
-	//TESTCASE FOR VALID PASSWORD
+//	
+//	//TESTCASE FOR VALID PASSWORD
 	@Test
 	public void LoginWithValidPassword() throws Exception {
 		List<String> list = new ArrayList<String>();
@@ -320,11 +318,11 @@ public class UserTests {
 				.andReturn();
 		}
 	}
-	
-/**
- * REGISTRATION PAGE GET AND POST TESTING
- */
-	//REGISTER MAPPING TESTING
+//	
+///**
+// * REGISTRATION PAGE GET AND POST TESTING
+// */
+//	//REGISTER MAPPING TESTING
 	@Test
 	public void RegisterationPageLoading() throws Exception {
 		mockMvc.perform(get("/register"))
@@ -334,7 +332,7 @@ public class UserTests {
 			.andReturn();
 	}
 	
-	//SESSION TEST WHETHER REGISTER PAGE IS OPENED WHEN USER IS LOGGED IN OR NOT
+//	//SESSION TEST WHETHER REGISTER PAGE IS OPENED WHEN USER IS LOGGED IN OR NOT
 	@Test
 	public void SessionTestingForRegisterPage() throws Exception {
 		User user = userService.getUserByMail("ojhaharshvardhan44@gmail.com");
@@ -345,7 +343,7 @@ public class UserTests {
 			.andReturn();
 	}
 
-	//TESTCASE TO CHECK VALID NAME IN REGISTERATION FORM
+//	//TESTCASE TO CHECK VALID NAME IN REGISTERATION FORM
 	@Test
 	public void RegistrationFormNameFieldTesting() throws Exception {
 		List<String> list = new ArrayList<String>();
@@ -369,7 +367,7 @@ public class UserTests {
 		}
 	}
 	
-	//TESTCASE TO CHECK VALID EMAIL IN REGISTERATION FORM
+//	//TESTCASE TO CHECK VALID EMAIL IN REGISTERATION FORM
 	@Test
 	public void RegistrationFormEmailFieldTesting() throws Exception {
 		List<String> list = new ArrayList<String>();
@@ -398,8 +396,8 @@ public class UserTests {
 				.andReturn();
 		}
 	}
-	
-	//TESTCASE TO CHECK FOR VALID MOBILE NUMBER IN REGISTRATION FORM
+//	
+//	//TESTCASE TO CHECK FOR VALID MOBILE NUMBER IN REGISTRATION FORM
 	@Test
 	public void RegistraionFormContactNumberValidation() throws Exception {
 		List<String> list = new ArrayList<String>();
@@ -424,8 +422,8 @@ public class UserTests {
 				.andReturn();
 		}
 	}
-	
-	//TESTCASE TO CHECK NOT NULL PROFESSION IN REGISTRATION FORM
+//	
+//	//TESTCASE TO CHECK NOT NULL PROFESSION IN REGISTRATION FORM
 	@Test
 	public void RegistrationFormProfessionValidation() throws Exception {
 		mockMvc.perform(post("/register")
@@ -437,8 +435,8 @@ public class UserTests {
 			.andExpect(model().attributeHasFieldErrors("register", "profession"))
 			.andReturn();
 	}
-	
-	//TESTCASE TO CHECK FOR NOT VALID PASSWORD FOR REGISTRATION FORM
+//	
+//	//TESTCASE TO CHECK FOR NOT VALID PASSWORD FOR REGISTRATION FORM
 	@Test
 	public void RegistrationFormPasswordValidation() throws Exception {
 		List<String> list = new ArrayList<String>();
@@ -473,8 +471,8 @@ public class UserTests {
 				.andReturn();
 		}
 	}
-	
-	//TESTCASE TO CHECK WHETHER EMAIL ENTERED IS EXISTING MAIL OR NOT
+//	
+//	//TESTCASE TO CHECK WHETHER EMAIL ENTERED IS EXISTING MAIL OR NOT
 	@Test
 	public void RegistrationUsingExistingMailId() throws Exception {
 		mockMvc.perform(post("/register")
@@ -491,11 +489,11 @@ public class UserTests {
 			.andReturn();
 	}
 	
-/**
- * FORGOT PASSWORD TESTING
- * @throws Exception 
- */
-	//TESTING FORGOT PASSWORD GET REQUEST WHEN USER IS LOGGED IN
+///**
+// * FORGOT PASSWORD TESTING
+// * @throws Exception 
+// */
+//	//TESTING FORGOT PASSWORD GET REQUEST WHEN USER IS LOGGED IN
 	@Test
 	public void ForgotPasswordWhenUserIsLoggedIn() throws Exception {
 		User user = userService.getUserByMail("ojhaharshvardhan44@gmail.com");
@@ -505,8 +503,8 @@ public class UserTests {
 			.andExpect(redirectedUrl(""))
 			.andReturn();
 	}
-	
-	//TESTING FORGOT PASSWORD GET REQUEST WHEN USER IS NOT LOGGED IN
+//	
+//	//TESTING FORGOT PASSWORD GET REQUEST WHEN USER IS NOT LOGGED IN
 	@Test
 	public void ForgotPasswordWithoutLogIn() throws Exception {
 		mockMvc.perform(get("/forgetPassword"))
@@ -514,8 +512,8 @@ public class UserTests {
 			.andExpect(view().name("forget_password"))
 			.andReturn();
 	}
-	
-	//TESTING EMAIL FIELD FOR FORGOT PASSWORD
+//	
+//	//TESTING EMAIL FIELD FOR FORGOT PASSWORD
 	@Test
 	public void ForgotPasswordEmailFieldValidation() throws Exception{
 		List<String> list = new ArrayList<String>();
@@ -544,8 +542,8 @@ public class UserTests {
 				.andReturn();
 		}
 	}
-	
-	//TESTING EMAIL WITH NON EXISTING MAIL ACCOUNT
+//	
+//	//TESTING EMAIL WITH NON EXISTING MAIL ACCOUNT
 	@Test
 	public void ForgotPasswordWithNonExistingMail() throws Exception {
 		mockMvc.perform(post("/forgetPassword")
@@ -720,10 +718,10 @@ public class UserTests {
 	}
 	
 	
-/**
- * CHANGE PASSWORD LINK TESTING
- */
-	
+///**
+// * CHANGE PASSWORD LINK TESTING
+// */
+//	
 	//TESTING CHANGE PASSWORD WHEN USER IS NOT LOGGED IN
 	@Test
 	public void ChangePasswordWhenUserIsNotLoggedIn() throws Exception {
@@ -847,5 +845,5 @@ public class UserTests {
 			.andExpect(redirectedUrl("login"))
 			.andReturn();
 	}
-	
+
 }

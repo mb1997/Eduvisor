@@ -79,17 +79,16 @@ public class PostService {
 		comment.setPostedDate(localDate);
 		String id = UUID.randomUUID().toString();
 		comment.setId(id);
-		System.out.println(comment.toString());
+//		System.out.println(comment.toString());
+		List<Comment> clist;
 		if(post.getComments() == null) {
-			List<Comment> clist = new ArrayList<>();
-			clist.add(comment);
-			post.setComments(clist);
+			clist = new ArrayList<>();
 		}
 		else {
-			List<Comment> clist = post.getComments();
-			clist.add(comment);
-			post.setComments(clist);
+			clist = post.getComments();
 		}
+		clist.add(comment);
+		post.setComments(clist);
 		return postrepository.save(post);
 	}
 	
