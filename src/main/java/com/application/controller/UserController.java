@@ -58,6 +58,8 @@ public class UserController implements WebMvcConfigurer {
 		if (request.getSession().getAttribute("user") != null) {
 			User user = (User) request.getSession().getAttribute("user");
 			interest = aoiService.listOfInterests();
+			if(interest == null || interest.isEmpty())
+				return "redirect:interest";
 			model.addAttribute("interestList", interest);
 			model.addAttribute("list", postService.filterFunction(Arrays.asList(user.getAreaOfInterest())));
 		}
