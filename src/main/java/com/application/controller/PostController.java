@@ -114,7 +114,7 @@ public class PostController {
 		
 		model.addAttribute("post", post);
 		model.addAttribute("commentform", new Comment());
-		model.addAttribute("userUploaded", userServices.getUserByMail(post.getEmail());
+		model.addAttribute("userUploaded", userServices.getUserByMail(post.getEmail()));
 		return "postDetail";
 	}
 
