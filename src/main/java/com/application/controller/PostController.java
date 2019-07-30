@@ -25,12 +25,16 @@ import com.application.model.Post;
 import com.application.model.User;
 import com.application.service.AreaOfInterestService;
 import com.application.service.PostService;
+import com.application.service.UserService;
 
 @Controller
 public class PostController {
 
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private UserServices userServices;
 
 	@Autowired
 	private AreaOfInterestService areaservice;
@@ -82,7 +86,7 @@ public class PostController {
 		
 		// Tell user to refresh their feed to view their post.
 		model.addAttribute("postSuccess", new String("Refresh your feed!"));
-		return "index";
+		return "redirect:view_post";
 	}
 
 	// View post
@@ -110,6 +114,7 @@ public class PostController {
 		
 		model.addAttribute("post", post);
 		model.addAttribute("commentform", new Comment());
+		model.addAttribute("userUploaded", userServices.getUserByMail(post.getEmail());
 		return "postDetail";
 	}
 
