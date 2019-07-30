@@ -34,7 +34,7 @@ public class PostController {
 	private PostService postService;
 	
 	@Autowired
-	private UserServices userServices;
+	private UserService userServices;
 
 	@Autowired
 	private AreaOfInterestService areaservice;
