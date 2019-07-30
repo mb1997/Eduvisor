@@ -57,6 +57,14 @@
 								out.print(time1.getDays() + " Days ago");
 							%>
 					</span>
+					<div class="about-author clearfix">
+					    <div class="author-image">
+						<a href="#" original-title="admin" class="tooltip-n"><img alt="" src="../ask-me/images/demo/admin.jpg"></a>
+					    </div>
+					    <div class="author-bio">
+						<h4>${userUploaded.name}</h4>
+					    </div>
+					</div><!-- End about-author -->
 					<span class="question-comment"> 
 					<i class="icon-comment"></i>
 					 <c:set var="i" value="0" /> 
