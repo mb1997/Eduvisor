@@ -323,6 +323,15 @@ public class UserController implements WebMvcConfigurer {
 		return "viewprofile";
 	}
 	
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	public String userProfilePageOfOtherUser(@RequestParam("id") String email ,Model model, HttpServletRequest request) {
+		User u = userService.getUserByMail(email);
+		List<Post> p = postService.display(u.getEmail());
+		model.addAttribute("posts", p);
+		model.addAttribute("userProfile", u);
+		return "viewprofile";
+	}
+	
 	
 	@RequestMapping(value = "/updateProfile", method = RequestMethod.GET)
 	public String updateProfilePage(@RequestParam("data") String email, Model model, HttpServletRequest request) {

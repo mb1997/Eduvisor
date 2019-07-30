@@ -57,14 +57,6 @@
 								out.print(time1.getDays() + " Days ago");
 							%>
 					</span>
-					<div class="about-author clearfix">
-					    <div class="author-image">
-						<a href="#" original-title="admin" class="tooltip-n"><img alt="" src="../ask-me/images/demo/admin.jpg"></a>
-					    </div>
-					    <div class="author-bio">
-						<h4>${userUploaded.name}</h4>
-					    </div>
-					</div><!-- End about-author -->
 					<span class="question-comment"> 
 					<i class="icon-comment"></i>
 					 <c:set var="i" value="0" /> 
@@ -121,6 +113,14 @@
 				</div>
 			</article>
 			<!-- End share-tags -->
+			<div class="about-author clearfix">
+			    <div class="author-image">
+				<a href="/user?id=${userUploaded.email}" original-title="admin" class="tooltip-n"><img alt="" src="../ask-me/images/demo/admin.jpg"></a>
+			    </div>
+			    <div class="author-bio">
+				<a href="/user?id=${userUploaded.email}"><h4>${userUploaded.name}</h4></a>
+			    </div>
+			</div><!-- End about-author -->
 			<div id="commentlist" class="page-content">
 				<div class="boxedtitle page-title">
 					<h2>
@@ -138,7 +138,7 @@
 								<div class="comment-text">
 									<div class="author clearfix">
 										<div class="comment-author">
-											<a href="#"> ${comment.email} </a>
+											<a href="/user?id=${comment.email}"> ${comment.email} </a>
 										</div>
 										<div class="comment-vote">
 											<ul class="question-vote">

@@ -41,8 +41,8 @@
 							<div class="page-content">
 								<h2>Profile</h2>
 								
-								<p style="font-size : 22px; color: black; font-weight: bold;">${ user.name }</p>
-								<c:set var="currentVotes" value="${user.upvoteCount }" />
+								<p style="font-size : 22px; color: black; font-weight: bold;">${ userProfile.name }</p>
+								<c:set var="currentVotes" value="${userProfile.upvoteCount }" />
 									
 									<% 
 										int votes = (int)pageContext.getAttribute("currentVotes");
@@ -76,17 +76,17 @@
 						 			
 								<div class="ul_list ul_list-icon-ok about-user">
 									<ul style="font-weight: bold;">
-										<li><i class="icon-user" ></i>Gender  :  <span>${ user.gender }</span></li>
+										<li><i class="icon-user" ></i>Gender  :  <span>${ userProfile.gender }</span></li>
 										<li><i class="icon-map-marker"></i>Country  :  <span>India</span></li>
-										<li><i class="icon-gift"></i>Date of Birth   :  <span>${ user.dob }</span></li>
-										<li><i class="icon-phone-sign"></i>Contact-Number  :  <span>${ user.contactNumber }</span></li>
-										<li><i class="icon-envelope" ></i>Email  :  <span>${ user.email }</span></li>
+										<li><i class="icon-gift"></i>Date of Birth   :  <span>${ userProfile.dob }</span></li>
+										<li><i class="icon-phone-sign"></i>Contact-Number  :  <span>${ userProfile.contactNumber }</span></li>
+										<li><i class="icon-envelope" ></i>Email  :  <span>${ userProfile.email }</span></li>
 										<br>
-										<li><i class="icon-check-empty" aria-hidden="true"></i>University   :   <span>${ user.university }</span></li>
-										<li><i class="icon-check-empty"></i>Degree   :  <span>${ user.degree }</span></li>
+										<li><i class="icon-check-empty" aria-hidden="true"></i>University   :   <span>${ userProfile.university }</span></li>
+										<li><i class="icon-check-empty"></i>Degree   :  <span>${ userProfile.degree }</span></li>
 									</ul>
 									
-									<c:set var="profession" value="${user.profession }" />
+									<c:set var="profession" value="${userProfile.profession }" />
 									
 									<% 
 												String current_user = (String)pageContext.getAttribute("profession");
@@ -94,15 +94,15 @@
 												if(current_user.equals("Professor"))
 												{
 						 			%>
-						 				<li><i class="icon-check-empty" aria-hidden="true"></i>University   :   <span>${ user.currentUniversity }</span></li>
-										<li><i class="icon-check-empty"></i>Degree   :  <span>${ user.expertise }</span></li>
+						 				<li><i class="icon-check-empty" aria-hidden="true"></i>University   :   <span>${ userProfile.currentUniversity }</span></li>
+										<li><i class="icon-check-empty"></i>Degree   :  <span>${ userProfile.expertise }</span></li>
 						 				
 						 					<%	}	%>
 						 			
 								</div>
 								<ul>
 								<li style="float:right; font-size:27px;">
-									<a href="updateProfile?data=${ user.email }" ><i class="icon-edit"></i></a>
+									<a href="updateProfile?data=${ userProfile.email }" ><i class="icon-edit"></i></a>
 								</li>
 								</ul>
 								<div class="clearfix"></div>
