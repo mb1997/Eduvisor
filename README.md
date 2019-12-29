@@ -1,5 +1,5 @@
 # Eduvisor
 
-## This is Sub heading
+## The website for student queries.
 
-- This is Description
+[Website](http://eduvisor.herokuapp.com)
